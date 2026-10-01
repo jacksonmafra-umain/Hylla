@@ -10,13 +10,19 @@ struct PostureReadout: View {
             Text("Width \(posture.widthClass.label) · height \(posture.heightClass.label)")
             Text("Size classes \(posture.horizontalSizeClass.label) · \(posture.verticalSizeClass.label)")
             Text("Posture: \(posture.posture.label)")
-            Text("Segments: \(posture.segments.map { String(Int($0.width.rounded())) }.joined(separator: " | ")) pt")
+            Text("Segments: \(posture.segments.map(\.label).joined(separator: " | ")) pt")
         }
         .font(.subheadline)
         .multilineTextAlignment(.center)
         .onChange(of: posture.posture) { _, new in
             AccessibilityNotification.Announcement("Posture: \(new.label)").post()
         }
+    }
+}
+
+private extension CGRect {
+    var label: String {
+        "\(Int(width.rounded())) × \(Int(height.rounded()))"
     }
 }
 
