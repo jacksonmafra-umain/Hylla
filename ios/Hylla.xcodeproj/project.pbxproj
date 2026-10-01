@@ -18,6 +18,7 @@
 		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
 		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
 		F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 625154AED9AE337CFF40CFBD /* Assets.xcassets */; };
+		FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C582CE67806106883217387 /* FleetLabels.swift */; };
 		FFD11C178D517BEED105096D /* WindowPostureReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D8CF2C4341039DDB7E69AB /* WindowPostureReader.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		5C549761A2DF93824ACB90AF /* WindowPosture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPosture.swift; sourceTree = "<group>"; };
 		625154AED9AE337CFF40CFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		725DF1C7FE5873B5483A7EBA /* Hylla.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hylla.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C582CE67806106883217387 /* FleetLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetLabels.swift; sourceTree = "<group>"; };
 		9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReadout.swift; sourceTree = "<group>"; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */,
 				BF7DB665ACA20D441C5C3988 /* Fleet.swift */,
 				F6ADED52C1405844211F8A61 /* FleetFixture.swift */,
+				8C582CE67806106883217387 /* FleetLabels.swift */,
 			);
 			path = Fleet;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */,
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
+				FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
 				77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */,
 				47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */,
