@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "ignoreUnstable": true,
+  "respectLatest": true,
+  "semanticCommits": "enabled",
+  "semanticCommitType": "build",
+  "semanticCommitScope": "deps",
+  "enabledManagers": ["gradle", "gradle-wrapper", "swift"],
+  "packageRules": [
+    {
+      "description": "Compose and Kotlin compiler move together.",
+      "matchPackageNames": ["org.jetbrains.kotlin**"],
+      "groupName": "kotlin"
+    }
+  ]
+}
