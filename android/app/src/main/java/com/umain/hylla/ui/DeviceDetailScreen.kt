@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
 import com.umain.hylla.R
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
@@ -56,9 +55,8 @@ fun DeviceDetailScreen(
             val fields = deviceFields(device, fleet)
             LazyColumn(Modifier.fillMaxSize(), contentPadding = padding) {
                 items(fields, key = { it.label }) { field ->
+                    // ListItem merges its slots, so a screen reader reads "Model, Galaxy Z Fold7".
                     ListItem(
-                        // One element per field, so a screen reader reads "Model, Galaxy Z Fold7".
-                        modifier = Modifier.semantics(mergeDescendants = true) {},
                         overlineContent = { Text(stringResource(field.label)) },
                         headlineContent = { Text(field.value) },
                     )
