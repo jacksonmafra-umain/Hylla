@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <!-- Full-bleed master. Each platform applies its own mask. -->
   <rect width="1024" height="1024" fill="#12343B"/>
-  <g transform="translate(512 512) scale(10.9) translate(-54 -56)">
+  <g transform="translate(512 512) scale(12.6) translate(-54 -56)">
     <!-- Phone -->
     <rect x="31.5" y="45" width="13.5" height="25" rx="3" fill="#F3EBDC"/>
     <rect x="33.2" y="46.7" width="10.1" height="21.6" rx="1.6" fill="#12343B"/>
