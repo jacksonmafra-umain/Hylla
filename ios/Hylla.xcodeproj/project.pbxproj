@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
+		1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */; };
 		210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */; };
+		47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C549761A2DF93824ACB90AF /* WindowPosture.swift */; };
 		49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */; };
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureTests.swift; sourceTree = "<group>"; };
+		5C549761A2DF93824ACB90AF /* WindowPosture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPosture.swift; sourceTree = "<group>"; };
 		625154AED9AE337CFF40CFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		725DF1C7FE5873B5483A7EBA /* Hylla.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hylla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */,
+				207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */,
 			);
 			path = HyllaTests;
 			sourceTree = "<group>";
@@ -94,6 +99,7 @@
 				BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */,
 				BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */,
 				2F6FCF56E12E702037768CCD /* Fleet */,
+				B3449A7CCCEE7D350E621F50 /* Posture */,
 			);
 			path = Hylla;
 			sourceTree = "<group>";
@@ -104,6 +110,14 @@
 				C766B65C2303EB4270D96C14 /* devices.json */,
 			);
 			path = fixtures;
+			sourceTree = "<group>";
+		};
+		B3449A7CCCEE7D350E621F50 /* Posture */ = {
+			isa = PBXGroup;
+			children = (
+				5C549761A2DF93824ACB90AF /* WindowPosture.swift */,
+			);
+			path = Posture;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */,
+				1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +228,7 @@
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
+				47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
