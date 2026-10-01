@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Hylla</string>
+    <plurals name="fleet_summary_devices">
+        <item quantity="one">%d device</item>
+        <item quantity="other">%d devices</item>
+    </plurals>
+    <plurals name="fleet_summary_available">
+        <item quantity="one">%d available</item>
+        <item quantity="other">%d available</item>
+    </plurals>
 </resources>

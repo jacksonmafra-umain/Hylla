@@ -19,6 +19,15 @@ android {
     buildFeatures {
         compose = true
     }
+
+    androidResources {
+        ignoreAssetsPatterns += "!README.md"
+    }
+
+    sourceSets {
+        // The shared fixture ships as an asset; it is never copied into the module.
+        getByName("main").assets.directories.add(rootProject.file("../fixtures").path)
+    }
 }
 
 dependencies {
