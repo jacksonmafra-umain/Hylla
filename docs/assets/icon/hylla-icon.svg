@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Full-bleed master. Each platform applies its own mask. -->
+  <rect width="1024" height="1024" fill="#12343B"/>
+  <g transform="translate(512 512) scale(10.9) translate(-54 -56)">
+    <!-- Phone -->
+    <rect x="31.5" y="45" width="13.5" height="25" rx="3" fill="#F3EBDC"/>
+    <rect x="33.2" y="46.7" width="10.1" height="21.6" rx="1.6" fill="#12343B"/>
+    <!-- Foldable, half-open in book posture: two panels meeting at the hinge -->
+    <polygon points="48,41.5 60.4,37.5 60.4,70 48,67" fill="#F3EBDC" stroke="#F3EBDC" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="61.6,37.5 74,41.5 74,67 61.6,70" fill="#DCCFB8" stroke="#DCCFB8" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="49.6,43.3 58.8,40.3 58.8,67.4 49.6,65.4" fill="#12343B" stroke="#12343B" stroke-width="0.8" stroke-linejoin="round"/>
+    <polygon points="63.2,40.3 72.4,43.3 72.4,65.4 63.2,67.4" fill="#0E2A30" stroke="#0E2A30" stroke-width="0.8" stroke-linejoin="round"/>
+    <!-- Shelf -->
+    <rect x="27" y="70.5" width="54" height="4.5" rx="2" fill="#F2A541"/>
+  </g>
+</svg>

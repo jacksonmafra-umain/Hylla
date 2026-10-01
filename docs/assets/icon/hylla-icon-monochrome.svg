@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108">
+  <!-- Monochrome layer for themed icons: white is ink, screens are cut out. -->
+  <mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="108" height="108">
+    <!-- Phone -->
+    <rect x="31.5" y="45" width="13.5" height="25" rx="3" fill="#FFFFFF"/>
+    <rect x="33.2" y="46.7" width="10.1" height="21.6" rx="1.6" fill="#000000"/>
+    <!-- Foldable, half-open in book posture: two panels meeting at the hinge -->
+    <polygon points="48,41.5 60.4,37.5 60.4,70 48,67" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="61.6,37.5 74,41.5 74,67 61.6,70" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="49.6,43.3 58.8,40.3 58.8,67.4 49.6,65.4" fill="#000000" stroke="#000000" stroke-width="0.8" stroke-linejoin="round"/>
+    <polygon points="63.2,40.3 72.4,43.3 72.4,65.4 63.2,67.4" fill="#000000" stroke="#000000" stroke-width="0.8" stroke-linejoin="round"/>
+    <!-- Shelf -->
+    <rect x="27" y="70.5" width="54" height="4.5" rx="2" fill="#FFFFFF"/>
+  </mask>
+  <rect width="108" height="108" fill="#FFFFFF" mask="url(#m)"/>
+</svg>
