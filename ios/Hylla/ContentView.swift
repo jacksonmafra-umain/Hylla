@@ -9,7 +9,14 @@ struct ContentView: View {
 
     var body: some View {
         WindowPostureReader { posture in
-            summary(posture)
+            // Centred when it fits; scrolls at large Dynamic Type sizes instead of truncating.
+            ViewThatFits(in: .vertical) {
+                summary(posture)
+                ScrollView {
+                    summary(posture)
+                        .frame(maxWidth: .infinity)
+                }
+            }
         }
     }
 
