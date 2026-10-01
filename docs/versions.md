@@ -44,3 +44,14 @@ version in `project.yml`.
 | Swift | 6.3.3 | 2026-10-01 |
 | XcodeGen | 2.46.0 | 2026-10-01 |
 | iOS deployment target | 18.0 | 2026-10-01 |
+
+### Test runtimes
+
+Simulator runtimes are test environments, not dependencies; the no-pre-release rule applies to
+what ships in the app, not to what it is tested on.
+
+| Runtime | Build | Status | Chosen |
+| --- | --- | --- | --- |
+| iOS 27.2 simulator | 24B5089g | Beta | 2026-10-01, primary simulator target |
+| iOS 27.0 simulator | 24A434 | Stable | 2026-10-01, release baseline |
+| iOS 18.6 simulator | 22G86 | Stable | 2026-10-01, deployment-target floor |
