@@ -8,12 +8,20 @@ struct ContentView: View {
     }
 
     var body: some View {
+        WindowPostureReader { posture in
+            summary(posture)
+        }
+    }
+
+    private func summary(_ posture: WindowPosture) -> some View {
         VStack(spacing: 8) {
             Text("Hylla")
                 .font(.largeTitle)
                 .accessibilityAddTraits(.isHeader)
             Text("^[\(fleet.devices.count) device](inflect: true)")
             Text("\(available) available")
+            PostureReadout(posture: posture)
+                .padding(.top, 16)
         }
         .font(.body)
         .multilineTextAlignment(.center)
