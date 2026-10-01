@@ -5,10 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,25 +59,28 @@ private fun FleetSummary(fleet: Fleet, posture: WindowPosture, modifier: Modifie
         it.assignmentStatus == AssignmentStatus.Available && it.lifecycle == Lifecycle.InUse
     }
     Surface(modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier.safeDrawingPadding().padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = stringResource(R.string.app_name),
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.semantics { heading() },
-            )
-            Text(
-                text = pluralStringResource(R.plurals.fleet_summary_devices, fleet.devices.size, fleet.devices.size),
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Text(
-                text = pluralStringResource(R.plurals.fleet_summary_available, available, available),
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            PostureReadout(posture, Modifier.padding(top = 16.dp))
+        // Centred when it fits; scrolls at large font scales instead of clipping.
+        Box(Modifier.safeDrawingPadding(), contentAlignment = Alignment.Center) {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()).padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.semantics { heading() },
+                )
+                Text(
+                    text = pluralStringResource(R.plurals.fleet_summary_devices, fleet.devices.size, fleet.devices.size),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Text(
+                    text = pluralStringResource(R.plurals.fleet_summary_available, available, available),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                PostureReadout(posture, Modifier.padding(top = 16.dp))
+            }
         }
     }
 }
