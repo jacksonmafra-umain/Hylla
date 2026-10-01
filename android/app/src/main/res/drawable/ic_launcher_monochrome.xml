@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Derived from docs/assets/icon. Edit the SVG masters and keep this in sync. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M34.5,45H42A3,3 0,0 1 45,48V67A3,3 0,0 1 42,70H34.5A3,3 0,0 1 31.5,67V48A3,3 0,0 1 34.5,45ZM34.8,46.7H41.7A1.6,1.6 0,0 1 43.3,48.3V66.7A1.6,1.6 0,0 1 41.7,68.3H34.8A1.6,1.6 0,0 1 33.2,66.7V48.3A1.6,1.6 0,0 1 34.8,46.7Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M47.693,40.548L60.093,36.548A1,1 0,0 1 61.400,37.500L61.400,70.000A1,1 0,0 1 60.165,70.972L47.765,67.972A1,1 0,0 1 47.000,67.000L47.000,41.500A1,1 0,0 1 47.693,40.548ZM49.476,42.920L58.676,39.920A0.4,0.4 0,0 1 59.200,40.300L59.200,67.400A0.4,0.4 0,0 1 58.715,67.791L49.515,65.791A0.4,0.4 0,0 1 49.200,65.400L49.200,43.300A0.4,0.4 0,0 1 49.476,42.920Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M61.907,36.548L74.307,40.548A1,1 0,0 1 75.000,41.500L75.000,67.000A1,1 0,0 1 74.235,67.972L61.835,70.972A1,1 0,0 1 60.600,70.000L60.600,37.500A1,1 0,0 1 61.907,36.548ZM63.324,39.920L72.524,42.920A0.4,0.4 0,0 1 72.800,43.300L72.800,65.400A0.4,0.4 0,0 1 72.485,65.791L63.285,67.791A0.4,0.4 0,0 1 62.800,67.400L62.800,40.300A0.4,0.4 0,0 1 63.324,39.920Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M29,70.5H79A2,2 0,0 1 81,72.5V73A2,2 0,0 1 79,75H29A2,2 0,0 1 27,73V72.5A2,2 0,0 1 29,70.5Z" />
+</vector>

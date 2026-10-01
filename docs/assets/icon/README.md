@@ -16,5 +16,5 @@ A phone and a half-open foldable standing on a shelf. *Hylla* is Swedish for she
 | Screen, far panel | `#0E2A30` |
 | Shelf | `#F2A541` |
 
-Platform resources (vector drawables, asset catalog) are generated from these masters when each
-app is scaffolded. Edit the SVGs, never the generated output.
+Platform resources (Android vector drawables, the iOS asset catalog) are derived from these masters.
+Change the SVGs first, then bring each platform copy back in sync.
