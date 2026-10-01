@@ -26,6 +26,9 @@ import com.umain.hylla.fleet.AssignmentStatus
 import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.fleet.Lifecycle
 import com.umain.hylla.fleet.loadFleet
+import com.umain.hylla.posture.PostureReadout
+import com.umain.hylla.posture.WindowPosture
+import com.umain.hylla.posture.rememberWindowPosture
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +46,12 @@ class MainActivity : ComponentActivity() {
 fun HyllaApp() {
     val assets = LocalContext.current.assets
     val fleet = remember(assets) { assets.loadFleet() }
-    FleetSummary(fleet)
+    val posture = rememberWindowPosture()
+    FleetSummary(fleet, posture)
 }
 
 @Composable
-private fun FleetSummary(fleet: Fleet, modifier: Modifier = Modifier) {
+private fun FleetSummary(fleet: Fleet, posture: WindowPosture, modifier: Modifier = Modifier) {
     val available = fleet.devices.count {
         it.assignmentStatus == AssignmentStatus.Available && it.lifecycle == Lifecycle.InUse
     }
@@ -70,6 +74,7 @@ private fun FleetSummary(fleet: Fleet, modifier: Modifier = Modifier) {
                 text = pluralStringResource(R.plurals.fleet_summary_available, available, available),
                 style = MaterialTheme.typography.bodyLarge,
             )
+            PostureReadout(posture, Modifier.padding(top = 16.dp))
         }
     }
 }

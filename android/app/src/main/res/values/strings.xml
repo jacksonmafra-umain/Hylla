@@ -8,4 +8,18 @@
         <item quantity="one">%d available</item>
         <item quantity="other">%d available</item>
     </plurals>
+
+    <string name="posture_window">Window %1$d × %2$d dp</string>
+    <string name="posture_size_classes">Width %1$s · height %2$s</string>
+    <string name="posture_kind">Posture: %1$s</string>
+    <string name="posture_segments">Segments: %1$s dp</string>
+    <string name="size_class_compact">compact</string>
+    <string name="size_class_medium">medium</string>
+    <string name="size_class_expanded">expanded</string>
+    <string name="size_class_large">large</string>
+    <string name="posture_flat">flat</string>
+    <string name="posture_cover">cover</string>
+    <string name="posture_book">book</string>
+    <string name="posture_tabletop">tabletop</string>
+    <string name="posture_trifold">tri-fold</string>
 </resources>
