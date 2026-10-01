@@ -7,23 +7,53 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
 		210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */; };
+		49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */; };
+		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
+		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
 		F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 625154AED9AE337CFF40CFBD /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		35251C9984758A54E080D84E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91482D6E0FC5DAFE393BF12D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE2B0DFA78D177A625716377;
+			remoteInfo = Hylla;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		625154AED9AE337CFF40CFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		725DF1C7FE5873B5483A7EBA /* Hylla.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hylla.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
 		BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
+		D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixtureTests.swift; sourceTree = "<group>"; };
+		F6ADED52C1405844211F8A61 /* FleetFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixture.swift; sourceTree = "<group>"; };
+		FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		2F6FCF56E12E702037768CCD /* Fleet */ = {
+			isa = PBXGroup;
+			children = (
+				FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */,
+				BF7DB665ACA20D441C5C3988 /* Fleet.swift */,
+				F6ADED52C1405844211F8A61 /* FleetFixture.swift */,
+			);
+			path = Fleet;
+			sourceTree = "<group>";
+		};
 		54BEFBE2C8943EF36132D4AE = {
 			isa = PBXGroup;
 			children = (
 				93CDA30024B7496C9921014F /* Hylla */,
+				7298A18CE3BA5A61BD5D71C4 /* HyllaTests */,
 				6759A97866CB578BC8BC479D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -32,8 +62,17 @@
 			isa = PBXGroup;
 			children = (
 				725DF1C7FE5873B5483A7EBA /* Hylla.app */,
+				A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7298A18CE3BA5A61BD5D71C4 /* HyllaTests */ = {
+			isa = PBXGroup;
+			children = (
+				D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */,
+			);
+			path = HyllaTests;
 			sourceTree = "<group>";
 		};
 		93CDA30024B7496C9921014F /* Hylla */ = {
@@ -42,6 +81,7 @@
 				625154AED9AE337CFF40CFBD /* Assets.xcassets */,
 				BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */,
 				BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */,
+				2F6FCF56E12E702037768CCD /* Fleet */,
 			);
 			path = Hylla;
 			sourceTree = "<group>";
@@ -49,6 +89,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7FB0CC7F0297044A480ECC48 /* HyllaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4AEED0CD027C5F1FB027F96F /* Build configuration list for PBXNativeTarget "HyllaTests" */;
+			buildPhases = (
+				99BFFE27997E400BFE3055BF /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5040D59D9A5852CD7C521A38 /* PBXTargetDependency */,
+			);
+			name = HyllaTests;
+			packageProductDependencies = (
+			);
+			productName = HyllaTests;
+			productReference = A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		EE2B0DFA78D177A625716377 /* Hylla */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38B900BBEF834E6FCB9A31A5 /* Build configuration list for PBXNativeTarget "Hylla" */;
@@ -76,6 +134,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					7FB0CC7F0297044A480ECC48 = {
+						DevelopmentTeam = "";
+					};
 					EE2B0DFA78D177A625716377 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
@@ -97,6 +158,7 @@
 			projectRoot = "";
 			targets = (
 				EE2B0DFA78D177A625716377 /* Hylla */,
+				7FB0CC7F0297044A480ECC48 /* HyllaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -113,16 +175,35 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		99BFFE27997E400BFE3055BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B52382A82A63FC910B504299 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */,
 				210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */,
+				766F215A90909855D1933492 /* Fleet.swift in Sources */,
+				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5040D59D9A5852CD7C521A38 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE2B0DFA78D177A625716377 /* Hylla */;
+			targetProxy = 35251C9984758A54E080D84E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		895D9A46EEBEB8E255C43C81 /* Release */ = {
@@ -214,6 +295,23 @@
 			};
 			name = Debug;
 		};
+		976BF24590F815E6763023BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.umain.hylla.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hylla.app/Hylla";
+			};
+			name = Release;
+		};
 		C8EB08207583197495EBCF67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -272,6 +370,23 @@
 			};
 			name = Release;
 		};
+		EA4BC4BD4722D314B29EF5BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.umain.hylla.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hylla.app/Hylla";
+			};
+			name = Debug;
+		};
 		F4D6A144F462D1B592BEA1AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -313,6 +428,15 @@
 			buildConfigurations = (
 				F4D6A144F462D1B592BEA1AE /* Debug */,
 				895D9A46EEBEB8E255C43C81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4AEED0CD027C5F1FB027F96F /* Build configuration list for PBXNativeTarget "HyllaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA4BC4BD4722D314B29EF5BB /* Debug */,
+				976BF24590F815E6763023BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

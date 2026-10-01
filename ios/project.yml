@@ -30,3 +30,23 @@ targets:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown"
         CODE_SIGN_STYLE: Automatic
+  HyllaTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - HyllaTests
+    dependencies:
+      - target: Hylla
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.umain.hylla.tests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  Hylla:
+    build:
+      targets:
+        Hylla: all
+        HyllaTests: [test]
+    test:
+      targets:
+        - HyllaTests
