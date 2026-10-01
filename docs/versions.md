@@ -19,6 +19,7 @@ Source of truth: `android/gradle/libs.versions.toml` and `android/gradle/wrapper
 | androidx.lifecycle:lifecycle-runtime-compose | 2.11.0 | 2026-10-01 | Google Maven |
 | org.jetbrains.kotlinx:kotlinx-serialization-json | 1.11.0 | 2026-10-01 | Maven Central |
 | Kotlin serialization plugin | 2.4.20 | 2026-10-01 | Maven Central |
+| androidx.window:window | 1.5.1 | 2026-10-01 | Google Maven |
 | junit:junit | 4.13.2 | 2026-10-01 | Maven Central |
 | compileSdk / targetSdk | 37 | 2026-10-01 | Android SDK platforms |
 | minSdk | 34 | 2026-10-01 | `docs/decisions.md` |
@@ -27,7 +28,6 @@ Resolved at kickoff and added to the catalog by the chapter that first needs the
 
 | Dependency | Version | Verified |
 | --- | --- | --- |
-| androidx.window:window | 1.5.1 | 2026-10-01 |
 | androidx.compose.material3.adaptive:adaptive | 1.3.0 | 2026-10-01 |
 | androidx.core:core-splashscreen | 1.2.0 | 2026-10-01 |
 | androidx.navigation:navigation-compose | 2.10.2 | 2026-10-01 |
