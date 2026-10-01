@@ -1,0 +1,31 @@
+# Source of truth for Hylla.xcodeproj. Regenerate with `xcodegen` from this directory.
+name: Hylla
+options:
+  bundleIdPrefix: com.umain
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    DEVELOPMENT_TEAM: ""
+targets:
+  Hylla:
+    type: application
+    platform: iOS
+    sources:
+      - Hylla
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.umain.hylla
+        PRODUCT_NAME: Hylla
+        INFOPLIST_KEY_CFBundleDisplayName: Hylla
+        GENERATE_INFOPLIST_FILE: YES
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown"
+        CODE_SIGN_STYLE: Automatic
