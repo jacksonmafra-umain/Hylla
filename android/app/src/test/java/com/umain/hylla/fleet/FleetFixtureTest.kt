@@ -2,6 +2,7 @@ package com.umain.hylla.fleet
 
 import java.io.File
 import java.time.LocalDate
+import java.time.format.DateTimeParseException
 import kotlinx.serialization.SerializationException
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -76,6 +77,13 @@ class FleetFixtureTest {
     }
 
     @Test
+    fun `missing nullable key fails the parse`() {
+        val withoutNotes = sharedFixture.replaceFirst(",\n      \"notes\": \"Primary book-posture test device.\"", "")
+
+        assertThrows(SerializationException::class.java) { FleetFixture.parse(withoutNotes) }
+    }
+
+    @Test
     fun `in use without a user is rejected`() {
         val broken = sharedFixture.replaceFirst("\"currentUser\": \"p-01\"", "\"currentUser\": null")
 
@@ -89,5 +97,12 @@ class FleetFixtureTest {
 
         val error = assertThrows(InvalidFleetException::class.java) { FleetFixture.parse(broken) }
         assertEquals(listOf("HYL-001 references unknown person p-99"), error.problems)
+    }
+
+    @Test
+    fun `invalid calendar day fails the parse`() {
+        val broken = sharedFixture.replaceFirst("\"since\": \"2026-09-22\"", "\"since\": \"2026-02-30\"")
+
+        assertThrows(DateTimeParseException::class.java) { FleetFixture.parse(broken) }
     }
 }
