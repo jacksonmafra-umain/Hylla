@@ -17,6 +17,9 @@ final class FleetNavigationUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["SM-F966B"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.navigationBars["Fold7 Blue"].exists)
         attach(app, "detail")
+        // Each field is one VoiceOver element: label, then value.
+        XCTAssertTrue(app.staticTexts["Model, Galaxy Z Fold7"].exists)
+        XCTAssertTrue(app.staticTexts["Model number, SM-F966B"].exists)
 
         app.navigationBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(app.navigationBars["Fleet"].waitForExistence(timeout: 5))
