@@ -1,13 +1,45 @@
 <resources>
     <string name="app_name">Hylla</string>
-    <plurals name="fleet_summary_devices">
-        <item quantity="one">%d device</item>
-        <item quantity="other">%d devices</item>
-    </plurals>
-    <plurals name="fleet_summary_available">
-        <item quantity="one">%d available</item>
-        <item quantity="other">%d available</item>
-    </plurals>
+    <string name="back">Back</string>
+
+    <string name="fleet_title">Fleet</string>
+    <string name="fleet_this_window">This window</string>
+    <string name="device_row_supporting">%1$s · %2$s %3$s</string>
+    <string name="status_with_holder">%1$s · %2$s</string>
+
+    <string name="device_not_found_title">Not found</string>
+    <string name="device_not_found">No device with shelf tag %1$s.</string>
+    <string name="os_version">%1$s %2$s</string>
+    <string name="field_status">Status</string>
+    <string name="field_since">Since</string>
+    <string name="field_model">Model</string>
+    <string name="field_model_number">Model number</string>
+    <string name="field_type">Type</string>
+    <string name="field_os">Operating system</string>
+    <string name="field_home_use">Home use</string>
+    <string name="field_lifecycle">Lifecycle</string>
+    <string name="field_shelf_tag">Shelf tag</string>
+    <string name="field_notes">Notes</string>
+
+    <string name="platform_ios">iOS</string>
+    <string name="platform_ipados">iPadOS</string>
+    <string name="platform_android">Android</string>
+    <string name="platform_visionos">visionOS</string>
+    <string name="platform_macos">macOS</string>
+    <string name="platform_carplay">CarPlay</string>
+    <string name="device_type_phone">Phone</string>
+    <string name="device_type_tablet">Tablet</string>
+    <string name="device_type_headset">Headset</string>
+    <string name="device_type_desktop">Desktop</string>
+    <string name="status_in_use">In use</string>
+    <string name="status_available">Available</string>
+    <string name="status_missing">Missing</string>
+    <string name="status_needs_sorting">Needs sorting</string>
+    <string name="home_use_approved">Approved</string>
+    <string name="home_use_office_only">Office only</string>
+    <string name="home_use_not_approved">Not approved</string>
+    <string name="lifecycle_in_use">In service</string>
+    <string name="lifecycle_decommission">Decommission</string>
 
     <string name="posture_window">Window %1$d × %2$d dp</string>
     <string name="posture_size_classes">Width %1$s · height %2$s</string>
