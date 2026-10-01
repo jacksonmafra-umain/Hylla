@@ -101,12 +101,23 @@ content keeps its normal safe-area layout.
 are the full width, so it read `883 | 883` and looked like nothing had happened. It now prints both
 dimensions: `883 × 426 | 883 × 426`.
 
+**The largest text size truncated on iOS.** At the largest accessibility size the stack did not fit
+the window height. SwiftUI shrinks lines to fit, so it cut them short: `Window 402 ×…` and
+`compact · regul…`. Android would have clipped the bottom in the same situation. Both now scroll
+when the content is taller than the window:
+
+- iOS uses `ViewThatFits(in: .vertical)`, which picks the plain stack when it fits and a
+  `ScrollView` when it does not.
+- Android centres a scrollable `Column` inside a `Box`.
+
 ## Accessibility
 
 - The posture line is a polite live region on Android and posts an announcement on iOS, so
   folding the device is heard as well as seen.
 - The window size is deliberately not announced; it changes continuously during a resize.
-- At 200% font scale and at the largest accessibility text size the readout wraps without clipping.
+- At 200% font scale (Android, `fold_api36` closed) and at the largest accessibility text size
+  (iPhone 18 Pro, iOS 27.2), every line wraps in full and the screen scrolls; nothing is clipped
+  or truncated.
 
 ## Verify
 
