@@ -8,6 +8,7 @@ coreKtx = "1.19.1"
 lifecycle = "2.11.0"
 kotlinxSerialization = "1.11.0"
 window = "1.5.1"
+navigation3 = "1.2.0"
 junit = "4.13.2"
 
 [libraries]
@@ -21,6 +22,9 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-window = { module = "androidx.window:window", version.ref = "window" }
 androidx-window-core = { module = "androidx.window:window-core", version.ref = "window" }
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
+androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 junit = { module = "junit:junit", version.ref = "junit" }
 
