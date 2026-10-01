@@ -17,11 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.umain.hylla.R
 import kotlin.math.roundToInt
 
-/** What the posture model sees. Announced politely when it changes, e.g. on unfold. */
+/**
+ * What the posture model sees. Only the posture line is a live region: the window size changes
+ * continuously while resizing and announcing it would drown everything else.
+ */
 @Composable
 fun PostureReadout(posture: WindowPosture, modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.semantics { liveRegion = LiveRegionMode.Polite },
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -44,11 +47,12 @@ fun PostureReadout(posture: WindowPosture, modifier: Modifier = Modifier) {
             stringResource(R.string.posture_kind, stringResource(posture.posture.label)),
             style = style,
             textAlign = TextAlign.Center,
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
         )
         Text(
             stringResource(
                 R.string.posture_segments,
-                posture.segments.joinToString(" | ") { it.width.roundToInt().toString() },
+                posture.segments.joinToString(" | ") { "${it.width.roundToInt()} × ${it.height.roundToInt()}" },
             ),
             style = style,
             textAlign = TextAlign.Center,
