@@ -17,6 +17,7 @@
 		77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
 		9F68B4331B1370822031CABD /* FleetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3268A8D0E68715ACA57AA9 /* FleetView.swift */; };
+		A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */; };
 		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
 		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
 		F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 625154AED9AE337CFF40CFBD /* Assets.xcassets */; };
@@ -26,6 +27,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		35251C9984758A54E080D84E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91482D6E0FC5DAFE393BF12D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE2B0DFA78D177A625716377;
+			remoteInfo = Hylla;
+		};
+		44E7F1AE2B60F05760F774CB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91482D6E0FC5DAFE393BF12D /* Project object */;
 			proxyType = 1;
@@ -46,8 +54,10 @@
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
 		BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
+		C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetNavigationUITests.swift; sourceTree = "<group>"; };
 		C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		C766B65C2303EB4270D96C14 /* devices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = devices.json; sourceTree = "<group>"; };
+		CBC39601BE77E6CCBA48D616 /* HyllaUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixtureTests.swift; sourceTree = "<group>"; };
 		DC3268A8D0E68715ACA57AA9 /* FleetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetView.swift; sourceTree = "<group>"; };
 		F6ADED52C1405844211F8A61 /* FleetFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixture.swift; sourceTree = "<group>"; };
@@ -90,6 +100,7 @@
 				93CDA30024B7496C9921014F /* Hylla */,
 				128DD795245684A38F7E5AF2 /* Hylla */,
 				7298A18CE3BA5A61BD5D71C4 /* HyllaTests */,
+				F150055588D12D9881CFB9A2 /* HyllaUITests */,
 				6759A97866CB578BC8BC479D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +110,7 @@
 			children = (
 				725DF1C7FE5873B5483A7EBA /* Hylla.app */,
 				A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */,
+				CBC39601BE77E6CCBA48D616 /* HyllaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,9 +155,35 @@
 			path = Posture;
 			sourceTree = "<group>";
 		};
+		F150055588D12D9881CFB9A2 /* HyllaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */,
+			);
+			path = HyllaUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7E766E686C58C20D46CB177B /* HyllaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 292661125E3CEBDACE8376FA /* Build configuration list for PBXNativeTarget "HyllaUITests" */;
+			buildPhases = (
+				9B04F577F792E82846F3A82E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A568D37465706A891BADCB8 /* PBXTargetDependency */,
+			);
+			name = HyllaUITests;
+			packageProductDependencies = (
+			);
+			productName = HyllaUITests;
+			productReference = CBC39601BE77E6CCBA48D616 /* HyllaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		7FB0CC7F0297044A480ECC48 /* HyllaTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AEED0CD027C5F1FB027F96F /* Build configuration list for PBXNativeTarget "HyllaTests" */;
@@ -191,6 +229,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					7E766E686C58C20D46CB177B = {
+						DevelopmentTeam = "";
+						TestTargetID = EE2B0DFA78D177A625716377;
+					};
 					7FB0CC7F0297044A480ECC48 = {
 						DevelopmentTeam = "";
 					};
@@ -216,6 +258,7 @@
 			targets = (
 				EE2B0DFA78D177A625716377 /* Hylla */,
 				7FB0CC7F0297044A480ECC48 /* HyllaTests */,
+				7E766E686C58C20D46CB177B /* HyllaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -242,6 +285,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9B04F577F792E82846F3A82E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B52382A82A63FC910B504299 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,6 +314,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0A568D37465706A891BADCB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE2B0DFA78D177A625716377 /* Hylla */;
+			targetProxy = 44E7F1AE2B60F05760F774CB /* PBXContainerItemProxy */;
+		};
 		5040D59D9A5852CD7C521A38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EE2B0DFA78D177A625716377 /* Hylla */;
@@ -271,6 +327,40 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		27EFA66C0862D32D5503F93C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.umain.hylla.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hylla;
+			};
+			name = Release;
+		};
+		663B4C272DE1AF38D2F6EA16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.umain.hylla.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hylla;
+			};
+			name = Debug;
+		};
 		895D9A46EEBEB8E255C43C81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -484,6 +574,15 @@
 			buildConfigurations = (
 				8D5CC857FD19FE9A684A03F2 /* Debug */,
 				C8EB08207583197495EBCF67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		292661125E3CEBDACE8376FA /* Build configuration list for PBXNativeTarget "HyllaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				663B4C272DE1AF38D2F6EA16 /* Debug */,
+				27EFA66C0862D32D5503F93C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

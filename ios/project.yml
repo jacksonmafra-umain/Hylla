@@ -44,12 +44,26 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.umain.hylla.tests
         GENERATE_INFOPLIST_FILE: YES
+  HyllaUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - HyllaUITests
+    dependencies:
+      - target: Hylla
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.umain.hylla.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Hylla
 schemes:
   Hylla:
     build:
       targets:
         Hylla: all
         HyllaTests: [test]
+        HyllaUITests: [test]
     test:
       targets:
         - HyllaTests
+        - HyllaUITests

@@ -35,6 +35,20 @@
                ReferencedContainer = "container:Hylla.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7E766E686C58C20D46CB177B"
+               BuildableName = "HyllaUITests.xctest"
+               BlueprintName = "HyllaUITests"
+               ReferencedContainer = "container:Hylla.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -61,6 +75,17 @@
                BlueprintIdentifier = "7FB0CC7F0297044A480ECC48"
                BuildableName = "HyllaTests.xctest"
                BlueprintName = "HyllaTests"
+               ReferencedContainer = "container:Hylla.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7E766E686C58C20D46CB177B"
+               BuildableName = "HyllaUITests.xctest"
+               BlueprintName = "HyllaUITests"
                ReferencedContainer = "container:Hylla.xcodeproj">
             </BuildableReference>
          </TestableReference>
