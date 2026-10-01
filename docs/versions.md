@@ -1,0 +1,45 @@
+# Versions
+
+Every pinned version and the date it was last verified as the current stable release on its
+official source. Pre-releases (alpha, beta, release candidate) are never adopted. Renovate
+(`renovate.json`) opens the bumps; update this table in the same commit as each bump.
+
+## Android
+
+Source of truth: `android/gradle/libs.versions.toml` and `android/gradle/wrapper/gradle-wrapper.properties`.
+
+| Dependency | Version | Verified | Source |
+| --- | --- | --- | --- |
+| Gradle | 9.8.0 | 2026-10-01 | services.gradle.org/versions/current |
+| Android Gradle Plugin | 9.4.1 | 2026-10-01 | Google Maven |
+| Kotlin (built-in via AGP, Compose compiler plugin) | 2.4.20 | 2026-10-01 | Maven Central |
+| Compose BOM | 2026.09.00 | 2026-10-01 | Google Maven |
+| androidx.activity:activity-compose | 1.13.0 | 2026-10-01 | Google Maven |
+| androidx.core:core-ktx | 1.19.1 | 2026-10-01 | Google Maven |
+| androidx.lifecycle:lifecycle-runtime-compose | 2.11.0 | 2026-10-01 | Google Maven |
+| junit:junit | 4.13.2 | 2026-10-01 | Maven Central |
+| compileSdk / targetSdk | 37 | 2026-10-01 | Android SDK platforms |
+| minSdk | 34 | 2026-10-01 | `docs/decisions.md` |
+
+Resolved at kickoff and added to the catalog by the chapter that first needs them:
+
+| Dependency | Version | Verified |
+| --- | --- | --- |
+| androidx.window:window | 1.5.1 | 2026-10-01 |
+| androidx.compose.material3.adaptive:adaptive | 1.3.0 | 2026-10-01 |
+| androidx.core:core-splashscreen | 1.2.0 | 2026-10-01 |
+| androidx.navigation:navigation-compose | 2.10.2 | 2026-10-01 |
+| org.jetbrains.kotlinx:kotlinx-serialization-json | 1.11.0 | 2026-10-01 |
+| org.jetbrains.kotlinx:kotlinx-coroutines-core | 1.11.0 | 2026-10-01 |
+
+## iOS
+
+Source of truth: `ios/project.yml`. No Swift packages yet; any added are pinned to an exact
+version in `project.yml`.
+
+| Tool | Version | Verified |
+| --- | --- | --- |
+| Xcode | 27.0 (27A266a) | 2026-10-01 |
+| Swift | 6.3.3 | 2026-10-01 |
+| XcodeGen | 2.46.0 | 2026-10-01 |
+| iOS deployment target | 18.0 | 2026-10-01 |
