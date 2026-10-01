@@ -13,6 +13,7 @@
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
 		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
+		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
 		F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 625154AED9AE337CFF40CFBD /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -33,12 +34,22 @@
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
 		BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
+		C766B65C2303EB4270D96C14 /* devices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = devices.json; sourceTree = "<group>"; };
 		D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixtureTests.swift; sourceTree = "<group>"; };
 		F6ADED52C1405844211F8A61 /* FleetFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixture.swift; sourceTree = "<group>"; };
 		FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		128DD795245684A38F7E5AF2 /* Hylla */ = {
+			isa = PBXGroup;
+			children = (
+				B22A1FAACBA80C04DF154533 /* fixtures */,
+			);
+			name = Hylla;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		2F6FCF56E12E702037768CCD /* Fleet */ = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				93CDA30024B7496C9921014F /* Hylla */,
+				128DD795245684A38F7E5AF2 /* Hylla */,
 				7298A18CE3BA5A61BD5D71C4 /* HyllaTests */,
 				6759A97866CB578BC8BC479D /* Products */,
 			);
@@ -84,6 +96,14 @@
 				2F6FCF56E12E702037768CCD /* Fleet */,
 			);
 			path = Hylla;
+			sourceTree = "<group>";
+		};
+		B22A1FAACBA80C04DF154533 /* fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C766B65C2303EB4270D96C14 /* devices.json */,
+			);
+			path = fixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */,
+				DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

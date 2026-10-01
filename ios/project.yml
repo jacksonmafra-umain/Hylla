@@ -16,6 +16,9 @@ targets:
     platform: iOS
     sources:
       - Hylla
+      # The shared fixture ships as a bundle resource; it is never copied into ios/.
+      - path: ../fixtures/devices.json
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.umain.hylla
