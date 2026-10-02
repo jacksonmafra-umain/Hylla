@@ -1,7 +1,15 @@
 package com.umain.hylla
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.waterfall
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -15,6 +23,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItem
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
@@ -113,14 +122,25 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meS
 
     CompositionLocalProvider(LocalFeedback provides feedback) {
     NavigationSuiteScaffold(
-        layoutType = chrome.kind.suiteType,
-        navigationSuiteItems = {
+        // The rail and the panes handle the system bars, but not a camera cutout on a side edge:
+        // a Fold's inner camera sits on the left edge in portrait, right where the rail's items
+        // are. Keep the whole shell clear of side cutouts and waterfall edges.
+        modifier = Modifier.windowInsetsPadding(
+            WindowInsets.displayCutout.union(WindowInsets.waterfall).only(WindowInsetsSides.Horizontal),
+        ),
+        navigationSuiteType = chrome.kind.suiteType,
+        // Centred in a rail or drawer rather than packed at the top. It reads well on tall
+        // windows, and it keeps the items clear of a camera the device does not report: the
+        // SM-F971B's inner display declares no cutout, so no inset can move anything off it.
+        navigationItemVerticalArrangement = Arrangement.Center,
+        navigationItems = {
             TopLevel.entries.forEach { destination ->
-                item(
+                NavigationSuiteItem(
                     selected = tab == destination,
                     onClick = { tab = destination },
                     icon = { Icon(destination.icon, contentDescription = null) },
                     label = { Text(stringResource(destination.label)) },
+                    navigationSuiteType = chrome.kind.suiteType,
                 )
             }
         },
