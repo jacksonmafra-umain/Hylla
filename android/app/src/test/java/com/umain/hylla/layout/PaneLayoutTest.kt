@@ -7,6 +7,7 @@ import com.umain.hylla.posture.FoldOrientation
 import com.umain.hylla.posture.FoldState
 import com.umain.hylla.posture.WindowPosture
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PaneLayoutTest {
@@ -45,8 +46,43 @@ class PaneLayoutTest {
     }
 
     @Test
-    fun `list pane stops growing at its maximum`() {
-        assertEquals(480f, panes(1376f, 1032f).panes.first().width)
+    fun `list pane never grows past its maximum`() {
+        for (width in 720..2400 step 13) {
+            val list = panes(width.toFloat(), 1000f).panes.first().width
+            assertTrue("width $width gives a $list list", list <= PaneLayout.LIST_MAX_WIDTH_DP)
+        }
+    }
+
+    @Test
+    fun `large flat window shows list, detail and history`() {
+        val layout = panes(1376f, 1032f)
+
+        assertEquals(3, layout.paneCount)
+        assertEquals(listOf(385.28f, 630.72f, 360f), layout.panes.map { it.width })
+    }
+
+    @Test
+    fun `at the large breakpoint the detail still gets its minimum`() {
+        assertEquals(listOf(360f, 480f, 360f), panes(1200f, 900f).panes.map { it.width })
+    }
+
+    @Test
+    fun `tri-fold gives one pane per segment`() {
+        val layout = panes(1110f, 900f, hinge(x = 370f, height = 900f), hinge(x = 740f, height = 900f))
+
+        assertEquals(listOf(370f, 370f, 370f), layout.panes.map { it.width })
+    }
+
+    @Test
+    fun `tri-fold hinges reported in reverse still give panes left to right`() {
+        val layout = panes(1110f, 900f, hinge(x = 740f, height = 900f), hinge(x = 370f, height = 900f))
+
+        assertEquals(listOf(0f, 370f, 740f), layout.panes.map { it.left })
+    }
+
+    @Test
+    fun `tri-fold with segments below the minimum collapses`() {
+        assertEquals(1, panes(1020f, 900f, hinge(x = 340f, height = 900f), hinge(x = 680f, height = 900f)).paneCount)
     }
 
     @Test
