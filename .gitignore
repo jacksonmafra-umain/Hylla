@@ -19,3 +19,4 @@ xcuserdata/
 
 # Secrets — see docs/decisions.md
 ios/Config/Secrets.xcconfig
+ios/build-device/
