@@ -39,6 +39,16 @@ class NotificationsTest {
 
     private fun titles() = manager.activeNotifications.map { it.notification.extras.getString("android.title") }
 
+    /**
+     * notify() hands the notification to the system asynchronously, so activeNotifications read
+     * straight after can miss it. Wait up to three seconds for [expected].
+     */
+    private fun awaitTitles(expected: List<String>): List<String?> {
+        val deadline = System.currentTimeMillis() + 3_000
+        while (System.currentTimeMillis() < deadline && !titles().containsAll(expected)) Thread.sleep(100)
+        return titles()
+    }
+
     @Test
     fun theOverdueCheckNotifiesForEachDeviceKeptTooLong() = runBlocking {
         // Noah has held the Mac mini since March and the Pixel 9 Pro Fold since August.
@@ -47,7 +57,9 @@ class NotificationsTest {
         val result = TestListenableWorkerBuilder<OverdueWorker>(context).build().doWork()
 
         assertEquals(ListenableWorker.Result.success(), result)
-        assertTrue(titles().containsAll(listOf("Mac mini is overdue", "Pixel 9 Pro Fold is overdue")))
+        val expected = listOf("Mac mini is overdue", "Pixel 9 Pro Fold is overdue")
+        val titles = awaitTitles(expected)
+        assertTrue("posted: $titles", titles.containsAll(expected))
     }
 
     @Test
@@ -57,9 +69,8 @@ class NotificationsTest {
 
         app.store.returnDevice(trifold)
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Thread.sleep(500)
 
-        assertTrue(titles().contains("TriFold is back on the shelf"))
+        assertTrue(awaitTitles(listOf("TriFold is back on the shelf")).contains("TriFold is back on the shelf"))
         assertTrue(trifold !in app.watchList.watched.value)
     }
 
