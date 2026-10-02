@@ -56,8 +56,11 @@ struct FleetRootView: View {
     private func threeColumns(_ posture: WindowPosture, _ layout: PaneLayout) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
             FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, filter: filter, onFilters: { filtering = true }, onScan: onScan)
-                .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: layout.panes[0].width, max: layout.panes[0].width)
+                // Width last: applied before `.toolbar(removing:)`, it is lost and the column
+                // falls back to the system's 320 pt. Fixed, not min/ideal/max: with three columns
+                // the system settles on the minimum instead of the ideal (chapter 20).
                 .toolbar(removing: .sidebarToggle)
+                .navigationSplitViewColumnWidth(layout.panes[0].width)
         } content: {
             Group {
                 if let selection {
@@ -66,7 +69,7 @@ struct FleetRootView: View {
                     ContentUnavailableView("Select a device to see its details.", systemImage: "iphone.gen3")
                 }
             }
-            .navigationSplitViewColumnWidth(ideal: layout.panes[1].width)
+            .navigationSplitViewColumnWidth(layout.panes[1].width)
         } detail: {
             HistoryView(fleet: fleet, device: selection)
         }
@@ -76,8 +79,9 @@ struct FleetRootView: View {
     private func twoColumns(_ posture: WindowPosture, listWidth: CGFloat) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
             FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, filter: filter, onFilters: { filtering = true }, onScan: onScan)
-                .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: listWidth, max: listWidth)
+                // Width last, as in `threeColumns`.
                 .toolbar(removing: .sidebarToggle)
+                .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: listWidth, max: listWidth)
         } detail: {
             if let selection {
                 DeviceDetailView(store: store, id: selection, me: me, widthClass: posture.widthClass)
