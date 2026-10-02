@@ -3,16 +3,23 @@ import SwiftUI
 struct FleetView: View {
     let fleet: Fleet
     let posture: WindowPosture
+    @Binding var selection: Device.ID?
+    /// Beside the detail, the selected tile is marked; alone, it is about to be covered anyway.
+    let highlightsSelection: Bool
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 AdaptiveGrid(widthClass: posture.widthClass, minColumnWidth: AdaptiveLayout.fleetTileMinWidth) {
                     ForEach(fleet.devices) { device in
-                        NavigationLink(value: device.id) {
-                            DeviceTile(device: device, fleet: fleet)
+                        let selected = highlightsSelection && selection == device.id
+                        Button {
+                            selection = device.id
+                        } label: {
+                            DeviceTile(device: device, fleet: fleet, selected: selected)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityAddTraits(selected ? .isSelected : [])
                     }
                 }
                 VStack(alignment: .leading, spacing: 8) {
@@ -35,6 +42,7 @@ struct FleetView: View {
 private struct DeviceTile: View {
     let device: Device
     let fleet: Fleet
+    let selected: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -48,13 +56,26 @@ private struct DeviceTile: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
-        .background(Color(.secondarySystemGroupedBackground), in: .rect(cornerRadius: 12))
+        .background(
+            selected ? AnyShapeStyle(.tint.opacity(0.15)) : AnyShapeStyle(Color(.secondarySystemGroupedBackground)),
+            in: .rect(cornerRadius: 12)
+        )
+        .overlay {
+            if selected {
+                RoundedRectangle(cornerRadius: 12).strokeBorder(.tint, lineWidth: 2)
+            }
+        }
         .contentShape(.rect(cornerRadius: 12))
     }
 }
 
 #Preview {
     NavigationStack {
-        FleetView(fleet: try! FleetFixture.load(), posture: WindowPosture(size: CGSize(width: 402, height: 874)))
+        FleetView(
+            fleet: try! FleetFixture.load(),
+            posture: WindowPosture(size: CGSize(width: 402, height: 874)),
+            selection: .constant(nil),
+            highlightsSelection: false
+        )
     }
 }
