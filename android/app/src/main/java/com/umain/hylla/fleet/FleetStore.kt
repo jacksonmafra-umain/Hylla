@@ -18,6 +18,9 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
     private val state = MutableStateFlow(initial)
     val fleet: StateFlow<Fleet> = state.asStateFlow()
 
+    /** The fleet before the last successful change, for one level of undo. */
+    private var beforeLastChange: Fleet? = null
+
     private val today: LocalDate get() = LocalDate.now(clock)
 
     /** [person] takes [device] from the shelf. Fails if someone already holds it. */
@@ -72,14 +75,31 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
         if (problems.isNotEmpty()) failure(problems.joinToString()) else Result.success(next)
     }
 
+    /**
+     * Puts the fleet back as it was before the last change. One level only: undo is for the
+     * "that was the wrong device" moment right after a claim, not a history.
+     */
+    fun undo(): Result<Unit> {
+        val previous = beforeLastChange ?: return Result.failure(IllegalStateException("Nothing to undo"))
+        state.value = previous
+        beforeLastChange = null
+        return Result.success(Unit)
+    }
+
     /** Applies [transform] atomically; a failure leaves the fleet as it was. */
     private fun change(transform: (Fleet) -> Result<Fleet>): Result<Unit> {
         var outcome = Result.success(Unit)
         state.update { fleet ->
-            transform(fleet).getOrElse { error ->
-                outcome = Result.failure(error)
-                fleet
-            }
+            transform(fleet).fold(
+                onSuccess = { next ->
+                    beforeLastChange = fleet
+                    next
+                },
+                onFailure = { error ->
+                    outcome = Result.failure(error)
+                    fleet
+                },
+            )
         }
         return outcome
     }

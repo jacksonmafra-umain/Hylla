@@ -106,4 +106,25 @@ class FleetStoreTest {
         assertTrue(store.update(device.copy(since = LocalDate.of(2026, 8, 1))).isFailure)
         assertEquals(before, store.fleet.value)
     }
+
+    @Test
+    fun `undo puts the fleet back as it was before the last change`() {
+        val before = store.fleet.value
+        store.claim(flip, noah)
+
+        assertTrue(store.undo().isSuccess)
+        assertEquals(before, store.fleet.value)
+    }
+
+    @Test
+    fun `undo is one level and a failed change does not replace it`() {
+        store.claim(flip, noah)
+        val afterClaim = store.fleet.value
+        store.claim(flip, noah) // fails: Flip7 is now in use
+
+        store.undo()
+        assertEquals(AssignmentStatus.Available, store.fleet.value.device(flip)!!.assignmentStatus)
+        assertTrue(store.undo().isFailure)
+        assertTrue(afterClaim != store.fleet.value)
+    }
 }
