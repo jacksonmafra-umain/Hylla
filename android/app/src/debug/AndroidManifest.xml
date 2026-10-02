@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug builds only: the chapter 19 demonstration screen. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity
+            android:name=".antipatterns.AntiPatternsActivity"
+            android:exported="true"
+            android:label="Hylla anti-patterns" />
+    </application>
+</manifest>
