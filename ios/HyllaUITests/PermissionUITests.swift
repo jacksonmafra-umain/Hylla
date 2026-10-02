@@ -10,6 +10,7 @@ final class PermissionUITests: XCTestCase {
     func testCameraIsAskedForOnlyWhenScanning() {
         let app = XCUIApplication()
         app.resetAuthorizationStatus(for: .camera)
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
 

@@ -8,6 +8,7 @@ final class ScanUITests: XCTestCase {
     @MainActor
     func testClaimByTypedTagShowsInTheFleet() {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
 
@@ -30,6 +31,7 @@ final class ScanUITests: XCTestCase {
     @MainActor
     func testReturningPutsTheDeviceBackOnTheShelf() {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCTAssertTrue(app.buttons["Scan"].waitForExistence(timeout: 5))
 

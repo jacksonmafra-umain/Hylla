@@ -8,6 +8,7 @@ final class FleetNavigationUITests: XCTestCase {
     @MainActor
     func testFleetToDetailAndBack() throws {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
 
         XCTAssertTrue(app.navigationBars["Fleet"].waitForExistence(timeout: 5))
@@ -32,6 +33,7 @@ final class FleetNavigationUITests: XCTestCase {
     @MainActor
     func testDeviceLinkOpensThatDevice() {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
 
@@ -46,6 +48,7 @@ final class FleetNavigationUITests: XCTestCase {
     @MainActor
     func testEdgeSwipeGoesBack() throws {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
         try XCTSkipIf(app.staticTexts[Self.placeholder].exists, "Two panes: there is no back.")
@@ -63,6 +66,7 @@ final class FleetNavigationUITests: XCTestCase {
     @MainActor
     func testTwoPanesShowListBesideDetail() throws {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
         try XCTSkipUnless(app.staticTexts[Self.placeholder].exists, "One pane on this device.")
@@ -80,6 +84,7 @@ final class FleetNavigationUITests: XCTestCase {
     @MainActor
     func testThreePanesShowHistoryBesideDetail() throws {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCUIDevice.shared.orientation = .landscapeLeft
         defer { XCUIDevice.shared.orientation = .portrait }
@@ -104,6 +109,7 @@ final class FleetNavigationUITests: XCTestCase {
     @MainActor
     func testFleetInLandscape() {
         let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         XCUIDevice.shared.orientation = .landscapeLeft
         defer { XCUIDevice.shared.orientation = .portrait }
@@ -137,6 +143,7 @@ final class FleetNavigationUITests: XCTestCase {
     func testFleetAndDetailAtLargestDynamicType() {
         let app = XCUIApplication()
         app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
 
         XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))

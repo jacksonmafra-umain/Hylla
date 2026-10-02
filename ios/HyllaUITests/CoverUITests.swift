@@ -9,6 +9,7 @@ final class CoverUITests: XCTestCase {
     private func launchCover(me: String?) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-HyllaWindowOverride", "330x350", "-me", me ?? ""]
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
         app.launch()
         return app
     }
