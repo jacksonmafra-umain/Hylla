@@ -28,6 +28,7 @@ import com.umain.hylla.posture.WindowPosture
 import com.umain.hylla.ui.DeviceDetailScreen
 import com.umain.hylla.ui.FleetScreen
 import com.umain.hylla.ui.HistoryPane
+import com.umain.hylla.ui.ScanScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -35,6 +36,9 @@ data object FleetRoute : NavKey
 
 @Serializable
 data class DeviceRoute(val id: DeviceId) : NavKey
+
+@Serializable
+data object ScanRoute : NavKey
 
 /**
  * Fleet, detail and history: one at a time, two side by side, or all three.
@@ -67,7 +71,12 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore) {
                     posture = posture,
                     selected = selected.takeIf { layout.paneCount > 1 },
                     onDeviceClick = { backStack.select(it) },
+                    onScan = { backStack.add(ScanRoute) },
                 )
+            }
+            // No pane role: the scanner always takes the whole window.
+            entry<ScanRoute> {
+                ScanScreen(fleet, posture, store, onBack = { backStack.removeLastOrNull() })
             }
             entry<DeviceRoute>(metadata = { route: DeviceRoute -> PaneRole.Detail.metadata(subject = route.id) }) { route ->
                 DeviceDetailScreen(

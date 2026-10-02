@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -39,6 +40,7 @@ fun FleetScreen(
     posture: WindowPosture,
     selected: DeviceId?,
     onDeviceClick: (DeviceId) -> Unit,
+    onScan: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -47,6 +49,7 @@ fun FleetScreen(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.fleet_title)) },
+                actions = { TextButton(onClick = onScan) { Text(stringResource(R.string.scan_action)) } },
                 scrollBehavior = scrollBehavior,
             )
         },
