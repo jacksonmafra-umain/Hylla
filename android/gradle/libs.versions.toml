@@ -45,6 +45,7 @@ androidx-test-runner = { module = "androidx.test:runner", version.ref = "android
 androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-compose-ui-test-accessibility = { module = "androidx.compose.ui:ui-test-junit4-accessibility" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

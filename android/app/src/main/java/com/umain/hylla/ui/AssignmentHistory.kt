@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,8 +33,9 @@ import java.time.format.FormatStyle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryPane(fleet: Fleet, device: DeviceId?, modifier: Modifier = Modifier) {
+    val title = stringResource(R.string.history_title)
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.semantics { paneTitle = title },
         topBar = { TopAppBar(title = { Text(stringResource(R.string.history_title)) }) },
     ) { padding ->
         val history = device?.let(fleet::history).orEmpty()

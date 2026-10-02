@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.umain.hylla.R
@@ -97,11 +98,13 @@ fun DeviceDetailScreen(
             }, onDismiss = { sheet = DetailSheet.None })
         }
     }
+    val title = device?.deviceName ?: stringResource(R.string.device_not_found_title)
     Scaffold(
-        modifier = modifier,
+        // The pane title changes with the device, so selecting another tile is announced.
+        modifier = modifier.semantics { paneTitle = title },
         topBar = {
             TopAppBar(
-                title = { Text(device?.deviceName ?: stringResource(R.string.device_not_found_title)) },
+                title = { Text(title) },
                 navigationIcon = {
                     // Beside the list there is nothing to go up to; system back still clears the detail.
                     if (LocalPaneCount.current == 1) {

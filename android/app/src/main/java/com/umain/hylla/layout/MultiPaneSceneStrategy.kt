@@ -1,5 +1,6 @@
 package com.umain.hylla.layout
 
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -104,7 +105,8 @@ private data class MultiPaneScene<T : Any>(
                         if (gap > 0f) Spacer(Modifier.width(gap.dp)) else VerticalDivider()
                     }
                     val width = if (index == panes.lastIndex) Modifier.weight(1f) else Modifier.width(pane.width.dp)
-                    Box(width.fillMaxHeight()) { contents[index]() }
+                    // Each pane is a focus group: Tab moves between panes, arrows move inside one.
+                    Box(width.fillMaxHeight().focusGroup()) { contents[index]() }
                 }
             }
         }

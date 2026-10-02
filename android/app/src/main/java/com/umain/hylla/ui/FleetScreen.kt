@@ -30,6 +30,13 @@ import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isCtrlPressed
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -59,8 +66,21 @@ fun FleetScreen(
     if (filtering) FilterSheet(filter, onFilterChange, onDismiss = { filtering = false })
     val devices = fleet.devices.filter(filter::matches)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val fleetTitle = stringResource(R.string.fleet_title)
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            // Named panes: TalkBack says which pane it is in, and when a pane changes.
+            .semantics { paneTitle = fleetTitle }
+            // Ctrl+F opens the filters from a keyboard, as Command-F does on iPad.
+            .onPreviewKeyEvent { event ->
+                if (event.type == KeyEventType.KeyDown && event.isCtrlPressed && event.key == Key.F) {
+                    filtering = true
+                    true
+                } else {
+                    false
+                }
+            },
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.fleet_title)) },
