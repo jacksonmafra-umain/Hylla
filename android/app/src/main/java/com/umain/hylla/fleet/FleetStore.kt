@@ -82,6 +82,13 @@ class FleetStore(
         if (problems.isNotEmpty()) failure(problems.joinToString()) else Result.success(next)
     }
 
+    /** Adds a new device to the fleet. Fails if its shelf tag is taken or it breaks the rules. */
+    fun register(device: Device): Result<Unit> = change(Operation.Register(device.id)) { fleet ->
+        val next = fleet.copy(devices = fleet.devices + device)
+        val problems = FleetFixture.validate(next)
+        if (problems.isNotEmpty()) failure(problems.joinToString()) else Result.success(next)
+    }
+
     /**
      * Puts the fleet back as it was before the last change. One level only: undo is for the
      * "that was the wrong device" moment right after a claim, not a history.

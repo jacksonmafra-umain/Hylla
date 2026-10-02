@@ -33,6 +33,10 @@ sealed interface Operation {
     data class Edit(val device: DeviceId) : Operation
 
     @Serializable
+    @SerialName("register")
+    data class Register(val device: DeviceId) : Operation
+
+    @Serializable
     @SerialName("undo")
     data object Undo : Operation
 }
