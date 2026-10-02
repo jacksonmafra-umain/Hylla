@@ -22,6 +22,7 @@ class FleetFixtureTest {
 
         assertEquals(19, fleet.devices.size)
         assertEquals(6, fleet.people.size)
+        assertEquals(41, fleet.assignments.size)
     }
 
     @Test
@@ -88,7 +89,7 @@ class FleetFixtureTest {
         val broken = sharedFixture.replaceFirst("\"currentUser\": \"p-01\"", "\"currentUser\": null")
 
         val error = assertThrows(InvalidFleetException::class.java) { FleetFixture.parse(broken) }
-        assertTrue(error.problems.single().startsWith("HYL-001 is in use"))
+        assertTrue(error.problems.contains("HYL-001 is in use without a current user"))
     }
 
     @Test
@@ -96,7 +97,7 @@ class FleetFixtureTest {
         val broken = sharedFixture.replaceFirst("\"currentUser\": \"p-01\"", "\"currentUser\": \"p-99\"")
 
         val error = assertThrows(InvalidFleetException::class.java) { FleetFixture.parse(broken) }
-        assertEquals(listOf("HYL-001 references unknown person p-99"), error.problems)
+        assertTrue(error.problems.contains("HYL-001 references unknown person p-99"))
     }
 
     @Test
@@ -104,5 +105,32 @@ class FleetFixtureTest {
         val broken = sharedFixture.replaceFirst("\"since\": \"2026-09-22\"", "\"since\": \"2026-02-30\"")
 
         assertThrows(DateTimeParseException::class.java) { FleetFixture.parse(broken) }
+    }
+
+    @Test
+    fun `history is newest first and the open assignment matches the current holder`() {
+        val fleet = FleetFixture.parse(sharedFixture)
+        val history = fleet.history(DeviceId("HYL-001"))
+
+        assertEquals(5, history.size)
+        assertEquals(history.sortedByDescending { it.from }, history)
+        assertNull(history.first().to)
+        assertEquals(PersonId("p-01"), history.first().person)
+    }
+
+    @Test
+    fun `a returned device with an open assignment is rejected`() {
+        val broken = sharedFixture.replaceFirst("\"assignmentStatus\": \"inUse\",\n      \"currentUser\": \"p-01\"",
+            "\"assignmentStatus\": \"available\",\n      \"currentUser\": null")
+
+        val error = assertThrows(InvalidFleetException::class.java) { FleetFixture.parse(broken) }
+        assertEquals(listOf("HYL-001 is available but has an open assignment"), error.problems)
+    }
+
+    @Test
+    fun `unknown assignment keys fail the parse`() {
+        val broken = sharedFixture.replaceFirst("\"deviceId\": \"HYL-001\",", "\"deviceId\": \"HYL-001\", \"udid\": \"X\",")
+
+        assertThrows(SerializationException::class.java) { FleetFixture.parse(broken) }
     }
 }

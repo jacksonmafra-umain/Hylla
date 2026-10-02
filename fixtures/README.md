@@ -9,7 +9,8 @@ model; nothing is generated or shared at the code level. All data is invented.
 {
   "schemaVersion": 1,
   "people": [{ "id": "p-01", "name": "Alva Berg" }],
-  "devices": [{ "id": "HYL-001", "deviceName": "Fold7 Blue", "...": "..." }]
+  "devices": [{ "id": "HYL-001", "deviceName": "Fold7 Blue", "...": "..." }],
+  "assignments": [{ "deviceId": "HYL-001", "person": "p-01", "from": "2026-09-22", "to": null }]
 }
 ```
 
@@ -28,6 +29,20 @@ model; nothing is generated or shared at the code level. All data is invented.
 | `homeUse` | enum | `approved` · `officeOnly` · `notApproved` |
 | `lifecycle` | enum | `inUse` · `decommission` |
 | `notes` | string or null | |
+
+### Assignments
+
+Who held which device, and when. `to` is `null` while the device is still held.
+
+| Field | Type | Values |
+| --- | --- | --- |
+| `deviceId` | device id | Must exist in `devices`. |
+| `person` | person id | Must exist in `people`. |
+| `from` | date | `YYYY-MM-DD` |
+| `to` | date or null | On or after `from`. `null` means still held. |
+
+A device that is `inUse` has exactly one open assignment, held by its `currentUser`, starting on
+its `since`. Every other device has none.
 
 Enum values are stable codes, not the Notion display labels. Mapping to and from Notion labels
 belongs to the Notion adapter, and display text belongs to each app's string resources.

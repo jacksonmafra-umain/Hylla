@@ -5,9 +5,27 @@ struct Fleet: Codable, Hashable, Sendable {
     var schemaVersion: Int
     var people: [Person]
     var devices: [Device]
+    var assignments: [Assignment]
 
     func person(_ id: Person.ID) -> Person? {
         people.first { $0.id == id }
+    }
+
+    /// Who held `device`, newest first.
+    func history(of device: Device.ID) -> [Assignment] {
+        assignments.filter { $0.deviceId == device }.sorted { $0.from > $1.from }
+    }
+}
+
+/// One period a person held a device. `to` is `nil` while it is still held.
+struct Assignment: Codable, Hashable, Sendable {
+    var deviceId: Device.ID
+    var person: Person.ID
+    var from: CalendarDate
+    var to: CalendarDate?
+
+    enum CodingKeys: String, CodingKey, CaseIterable {
+        case deviceId, person, from, to
     }
 }
 

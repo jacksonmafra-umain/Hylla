@@ -7,6 +7,8 @@ enum FleetFixture {
     enum Failure: Error, Equatable {
         /// A device has keys the model does not know, or lacks keys it requires.
         case keys(device: Int, unknown: [String], missing: [String])
+        /// An assignment has keys the model does not know, or lacks keys it requires.
+        case assignmentKeys(assignment: Int, unknown: [String], missing: [String])
         case invalid([String])
     }
 
@@ -51,20 +53,58 @@ enum FleetFixture {
                 break
             }
         }
+        problems += validateAssignments(fleet, people: people)
+        return problems
+    }
+
+    private static func validateAssignments(_ fleet: Fleet, people: Set<Person.ID>) -> [String] {
+        var problems: [String] = []
+        let devices = Set(fleet.devices.map(\.id))
+        for assignment in fleet.assignments {
+            let id = assignment.deviceId.rawValue
+            if !devices.contains(assignment.deviceId) { problems.append("assignment for unknown device \(id)") }
+            if !people.contains(assignment.person) {
+                problems.append("assignment on \(id) references unknown person \(assignment.person.rawValue)")
+            }
+            if let to = assignment.to, to < assignment.from { problems.append("assignment on \(id) ends before it starts") }
+        }
+        for device in fleet.devices {
+            let open = fleet.assignments.filter { $0.deviceId == device.id && $0.to == nil }
+            let id = device.id.rawValue
+            if device.assignmentStatus == .inUse {
+                if open.count != 1 {
+                    problems.append("\(id) is in use with \(open.count) open assignments, expected 1")
+                } else if open[0].person != device.currentUser {
+                    problems.append("\(id) open assignment is not held by its current user")
+                } else if open[0].from != device.since {
+                    problems.append("\(id) open assignment does not start on since")
+                }
+            } else if !open.isEmpty {
+                problems.append("\(id) is \(device.assignmentStatus.rawValue) but has an open assignment")
+            }
+        }
         return problems
     }
 
     private static func checkKeys(_ data: Data) throws {
         let root = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-        let devices = root?["devices"] as? [[String: Any]] ?? []
-        let expected = Set(Device.CodingKeys.allCases.map(\.rawValue))
-        for (index, device) in devices.enumerated() {
-            let keys = Set(device.keys)
-            let unknown = keys.subtracting(expected).sorted()
-            let missing = expected.subtracting(keys).sorted()
+        let deviceKeys = Set(Device.CodingKeys.allCases.map(\.rawValue))
+        for (index, device) in (root?["devices"] as? [[String: Any]] ?? []).enumerated() {
+            let (unknown, missing) = compare(Set(device.keys), deviceKeys)
             if !unknown.isEmpty || !missing.isEmpty {
                 throw Failure.keys(device: index, unknown: unknown, missing: missing)
             }
         }
+        let assignmentKeys = Set(Assignment.CodingKeys.allCases.map(\.rawValue))
+        for (index, assignment) in (root?["assignments"] as? [[String: Any]] ?? []).enumerated() {
+            let (unknown, missing) = compare(Set(assignment.keys), assignmentKeys)
+            if !unknown.isEmpty || !missing.isEmpty {
+                throw Failure.assignmentKeys(assignment: index, unknown: unknown, missing: missing)
+            }
+        }
+    }
+
+    private static func compare(_ keys: Set<String>, _ expected: Set<String>) -> (unknown: [String], missing: [String]) {
+        (keys.subtracting(expected).sorted(), expected.subtracting(keys).sorted())
     }
 }

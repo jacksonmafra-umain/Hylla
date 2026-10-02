@@ -37,9 +37,35 @@ object FleetFixture {
                 device.assignmentStatus == AssignmentStatus.InUse && user == null ->
                     add("$id is in use without a current user")
                 device.assignmentStatus != AssignmentStatus.InUse && user != null ->
-                    add("$id has a current user but is ${device.assignmentStatus}")
+                    add("$id has a current user but is ${device.assignmentStatus.code}")
                 user != null && user !in people ->
                     add("$id references unknown person ${user.value}")
+            }
+        }
+        validateAssignments(fleet, people)
+    }
+
+    private fun MutableList<String>.validateAssignments(fleet: Fleet, people: Set<PersonId>) {
+        val devices = fleet.devices.associateBy { it.id }
+        for (assignment in fleet.assignments) {
+            val id = assignment.deviceId.value
+            if (assignment.deviceId !in devices) add("assignment for unknown device $id")
+            if (assignment.person !in people) add("assignment on $id references unknown person ${assignment.person.value}")
+            val to = assignment.to
+            if (to != null && to < assignment.from) add("assignment on $id ends before it starts")
+        }
+        for (device in fleet.devices) {
+            val open = fleet.assignments.filter { it.deviceId == device.id && it.to == null }
+            val id = device.id.value
+            if (device.assignmentStatus == AssignmentStatus.InUse) {
+                val current = open.singleOrNull()
+                when {
+                    current == null -> add("$id is in use with ${open.size} open assignments, expected 1")
+                    current.person != device.currentUser -> add("$id open assignment is not held by its current user")
+                    current.from != device.since -> add("$id open assignment does not start on since")
+                }
+            } else if (open.isNotEmpty()) {
+                add("$id is ${device.assignmentStatus.code} but has an open assignment")
             }
         }
     }
@@ -47,3 +73,6 @@ object FleetFixture {
 
 class InvalidFleetException(val problems: List<String>) :
     IllegalArgumentException(problems.joinToString(prefix = "Invalid fleet fixture: ", separator = "; "))
+
+/** The fixture code, as written in devices.json, for messages that quote it. */
+private val AssignmentStatus.code: String get() = name.replaceFirstChar { it.lowercase() }

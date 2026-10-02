@@ -331,5 +331,253 @@
       "lifecycle": "decommission",
       "notes": "Below the Android 14 floor after next update. Hand to IT."
     }
+  ],
+  "assignments": [
+    {
+      "deviceId": "HYL-001",
+      "person": "p-02",
+      "from": "2026-06-04",
+      "to": "2026-07-11"
+    },
+    {
+      "deviceId": "HYL-001",
+      "person": "p-05",
+      "from": "2026-07-12",
+      "to": "2026-08-09"
+    },
+    {
+      "deviceId": "HYL-001",
+      "person": "p-05",
+      "from": "2026-08-11",
+      "to": "2026-08-20"
+    },
+    {
+      "deviceId": "HYL-001",
+      "person": "p-06",
+      "from": "2026-08-21",
+      "to": "2026-09-20"
+    },
+    {
+      "deviceId": "HYL-001",
+      "person": "p-01",
+      "from": "2026-09-22",
+      "to": null
+    },
+    {
+      "deviceId": "HYL-003",
+      "person": "p-02",
+      "from": "2026-07-07",
+      "to": "2026-07-19"
+    },
+    {
+      "deviceId": "HYL-003",
+      "person": "p-01",
+      "from": "2026-07-29",
+      "to": "2026-08-30"
+    },
+    {
+      "deviceId": "HYL-003",
+      "person": "p-01",
+      "from": "2026-09-08",
+      "to": "2026-09-28"
+    },
+    {
+      "deviceId": "HYL-003",
+      "person": "p-03",
+      "from": "2026-09-29",
+      "to": null
+    },
+    {
+      "deviceId": "HYL-005",
+      "person": "p-05",
+      "from": "2026-06-16",
+      "to": "2026-06-30"
+    },
+    {
+      "deviceId": "HYL-005",
+      "person": "p-03",
+      "from": "2026-07-07",
+      "to": "2026-07-20"
+    },
+    {
+      "deviceId": "HYL-005",
+      "person": "p-01",
+      "from": "2026-07-29",
+      "to": "2026-08-17"
+    },
+    {
+      "deviceId": "HYL-005",
+      "person": "p-02",
+      "from": "2026-08-18",
+      "to": null
+    },
+    {
+      "deviceId": "HYL-006",
+      "person": "p-03",
+      "from": "2026-06-12",
+      "to": "2026-06-29"
+    },
+    {
+      "deviceId": "HYL-006",
+      "person": "p-01",
+      "from": "2026-07-09",
+      "to": "2026-07-25"
+    },
+    {
+      "deviceId": "HYL-009",
+      "person": "p-04",
+      "from": "2026-04-29",
+      "to": "2026-06-07"
+    },
+    {
+      "deviceId": "HYL-010",
+      "person": "p-05",
+      "from": "2026-06-15",
+      "to": "2026-06-25"
+    },
+    {
+      "deviceId": "HYL-010",
+      "person": "p-02",
+      "from": "2026-06-29",
+      "to": "2026-07-19"
+    },
+    {
+      "deviceId": "HYL-010",
+      "person": "p-03",
+      "from": "2026-07-24",
+      "to": "2026-08-27"
+    },
+    {
+      "deviceId": "HYL-010",
+      "person": "p-04",
+      "from": "2026-09-01",
+      "to": null
+    },
+    {
+      "deviceId": "HYL-011",
+      "person": "p-01",
+      "from": "2026-07-31",
+      "to": "2026-08-09"
+    },
+    {
+      "deviceId": "HYL-011",
+      "person": "p-03",
+      "from": "2026-08-19",
+      "to": "2026-09-21"
+    },
+    {
+      "deviceId": "HYL-011",
+      "person": "p-05",
+      "from": "2026-09-24",
+      "to": null
+    },
+    {
+      "deviceId": "HYL-012",
+      "person": "p-05",
+      "from": "2026-04-18",
+      "to": "2026-05-28"
+    },
+    {
+      "deviceId": "HYL-012",
+      "person": "p-01",
+      "from": "2026-05-30",
+      "to": "2026-06-30"
+    },
+    {
+      "deviceId": "HYL-012",
+      "person": "p-02",
+      "from": "2026-07-08",
+      "to": "2026-08-03"
+    },
+    {
+      "deviceId": "HYL-013",
+      "person": "p-01",
+      "from": "2026-03-06",
+      "to": "2026-04-09"
+    },
+    {
+      "deviceId": "HYL-013",
+      "person": "p-05",
+      "from": "2026-04-17",
+      "to": "2026-05-14"
+    },
+    {
+      "deviceId": "HYL-014",
+      "person": "p-03",
+      "from": "2026-07-29",
+      "to": "2026-08-31"
+    },
+    {
+      "deviceId": "HYL-014",
+      "person": "p-01",
+      "from": "2026-09-05",
+      "to": "2026-09-14"
+    },
+    {
+      "deviceId": "HYL-014",
+      "person": "p-06",
+      "from": "2026-09-18",
+      "to": null
+    },
+    {
+      "deviceId": "HYL-015",
+      "person": "p-04",
+      "from": "2026-05-25",
+      "to": "2026-06-06"
+    },
+    {
+      "deviceId": "HYL-015",
+      "person": "p-03",
+      "from": "2026-06-09",
+      "to": "2026-07-13"
+    },
+    {
+      "deviceId": "HYL-016",
+      "person": "p-06",
+      "from": "2026-03-18",
+      "to": "2026-03-31"
+    },
+    {
+      "deviceId": "HYL-017",
+      "person": "p-02",
+      "from": "2025-11-22",
+      "to": "2025-12-14"
+    },
+    {
+      "deviceId": "HYL-017",
+      "person": "p-04",
+      "from": "2025-12-23",
+      "to": "2026-01-25"
+    },
+    {
+      "deviceId": "HYL-017",
+      "person": "p-01",
+      "from": "2026-01-28",
+      "to": "2026-03-05"
+    },
+    {
+      "deviceId": "HYL-017",
+      "person": "p-02",
+      "from": "2026-03-09",
+      "to": null
+    },
+    {
+      "deviceId": "HYL-018",
+      "person": "p-02",
+      "from": "2025-12-26",
+      "to": "2026-01-14"
+    },
+    {
+      "deviceId": "HYL-018",
+      "person": "p-03",
+      "from": "2026-01-21",
+      "to": "2026-02-21"
+    },
+    {
+      "deviceId": "HYL-019",
+      "person": "p-06",
+      "from": "2025-10-14",
+      "to": "2025-11-02"
+    }
   ]
 }

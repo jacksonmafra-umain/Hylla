@@ -10,9 +10,25 @@ data class Fleet(
     val schemaVersion: Int,
     val people: List<Person>,
     val devices: List<Device>,
+    val assignments: List<Assignment>,
 ) {
     fun person(id: PersonId): Person? = people.firstOrNull { it.id == id }
+
+    /** Who held [device], newest first. */
+    fun history(device: DeviceId): List<Assignment> =
+        assignments.filter { it.deviceId == device }.sortedByDescending { it.from }
 }
+
+/** One period a person held a device. [to] is null while it is still held. */
+@Serializable
+data class Assignment(
+    val deviceId: DeviceId,
+    val person: PersonId,
+    @Serializable(with = LocalDateSerializer::class)
+    val from: LocalDate,
+    @Serializable(with = LocalDateSerializer::class)
+    val to: LocalDate?,
+)
 
 @JvmInline
 @Serializable

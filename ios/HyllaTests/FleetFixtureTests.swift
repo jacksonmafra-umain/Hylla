@@ -21,6 +21,7 @@ struct FleetFixtureTests {
 
         #expect(fleet.devices.count == 19)
         #expect(fleet.people.count == 6)
+        #expect(fleet.assignments.count == 41)
     }
 
     @Test func sharedFixtureCoversEveryEnumValue() throws {
@@ -89,17 +90,50 @@ struct FleetFixtureTests {
     @Test func inUseWithoutUserIsRejected() {
         let broken = text.replacing(#""currentUser": "p-01""#, with: #""currentUser": null"#, maxReplacements: 1)
 
-        #expect(throws: FleetFixture.Failure.invalid(["HYL-001 is in use without a current user"])) {
-            try decode(broken)
-        }
+        #expect(problems(broken).contains("HYL-001 is in use without a current user"))
     }
 
     @Test func unknownPersonIsRejected() {
         let broken = text.replacing(#""currentUser": "p-01""#, with: #""currentUser": "p-99""#, maxReplacements: 1)
 
-        #expect(throws: FleetFixture.Failure.invalid(["HYL-001 references unknown person p-99"])) {
-            try decode(broken)
+        #expect(problems(broken).contains("HYL-001 references unknown person p-99"))
+    }
+
+    func problems(_ text: String) -> [String] {
+        do {
+            _ = try decode(text)
+            return []
+        } catch FleetFixture.Failure.invalid(let problems) {
+            return problems
+        } catch {
+            return ["unexpected \(error)"]
         }
+    }
+
+    @Test func historyIsNewestFirstAndTheOpenAssignmentMatchesTheHolder() throws {
+        let fleet = try FleetFixture.decode(sharedFixture)
+        let history = fleet.history(of: Device.ID(rawValue: "HYL-001"))
+
+        #expect(history.count == 5)
+        #expect(history == history.sorted { $0.from > $1.from })
+        #expect(history.first?.to == nil)
+        #expect(history.first?.person == Person.ID(rawValue: "p-01"))
+    }
+
+    @Test func returnedDeviceWithAnOpenAssignmentIsRejected() {
+        let broken = text.replacing(
+            "\"assignmentStatus\": \"inUse\",\n      \"currentUser\": \"p-01\"",
+            with: "\"assignmentStatus\": \"available\",\n      \"currentUser\": null",
+            maxReplacements: 1
+        )
+
+        #expect(problems(broken) == ["HYL-001 is available but has an open assignment"])
+    }
+
+    @Test func unknownAssignmentKeysFailTheDecode() {
+        let broken = text.replacing(#""deviceId": "HYL-001","#, with: #""deviceId": "HYL-001", "udid": "X","#, maxReplacements: 1)
+
+        #expect(throws: FleetFixture.Failure.self) { try decode(broken) }
     }
 
     @Test func calendarDateRejectsInvalidDays() {
