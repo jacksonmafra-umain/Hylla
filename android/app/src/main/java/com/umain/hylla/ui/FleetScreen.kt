@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,6 +17,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -26,6 +31,7 @@ import com.umain.hylla.R
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
+import com.umain.hylla.fleet.FleetFilter
 import com.umain.hylla.layout.AdaptiveGrid
 import com.umain.hylla.layout.AdaptiveLayout
 import com.umain.hylla.posture.WidthClass
@@ -38,15 +44,28 @@ fun FleetScreen(
     selected: DeviceId?,
     onDeviceClick: (DeviceId) -> Unit,
     onScan: () -> Unit,
+    filter: FleetFilter,
+    onFilterChange: (FleetFilter) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var filtering by rememberSaveable { mutableStateOf(false) }
+    if (filtering) FilterSheet(filter, onFilterChange, onDismiss = { filtering = false })
+    val devices = fleet.devices.filter(filter::matches)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.fleet_title)) },
-                actions = { TextButton(onClick = onScan) { Text(stringResource(R.string.scan_action)) } },
+                actions = {
+                    TextButton(onClick = { filtering = true }) {
+                        Text(
+                            if (filter.activeCount == 0) stringResource(R.string.filter_action)
+                            else stringResource(R.string.filter_action_count, filter.activeCount),
+                        )
+                    }
+                    TextButton(onClick = onScan) { Text(stringResource(R.string.scan_action)) }
+                },
                 scrollBehavior = scrollBehavior,
             )
         },
@@ -57,7 +76,12 @@ fun FleetScreen(
             contentPadding = padding,
             modifier = Modifier.fillMaxSize(),
         ) {
-            items(fleet.devices, key = { it.id.value }) { device ->
+            if (devices.isEmpty()) {
+                item(key = "empty", span = { GridItemSpan(maxLineSpan) }) {
+                    Text(stringResource(R.string.filter_no_match), Modifier.padding(vertical = 24.dp))
+                }
+            }
+            items(devices, key = { it.id.value }) { device ->
                 DeviceTile(device, fleet, selected = device.id == selected, onClick = { onDeviceClick(device.id) })
             }
         }

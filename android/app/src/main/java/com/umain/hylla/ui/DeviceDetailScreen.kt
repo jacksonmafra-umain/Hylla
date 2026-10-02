@@ -11,11 +11,19 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,7 +31,11 @@ import androidx.compose.ui.semantics.semantics
 import com.umain.hylla.R
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
+import com.umain.hylla.fleet.AssignmentStatus
 import com.umain.hylla.fleet.Fleet
+import com.umain.hylla.fleet.FleetStore
+import com.umain.hylla.fleet.Lifecycle
+import com.umain.hylla.fleet.PersonId
 import com.umain.hylla.layout.AdaptiveGrid
 import com.umain.hylla.layout.AdaptiveLayout
 import com.umain.hylla.layout.LocalPaneCount
@@ -37,10 +49,34 @@ fun DeviceDetailScreen(
     fleet: Fleet,
     id: DeviceId,
     widthClass: WidthClass,
+    store: FleetStore,
+    me: PersonId?,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val device = fleet.devices.firstOrNull { it.id == id }
+    var sheet by rememberSaveable { mutableStateOf(DetailSheet.None) }
+    if (device != null) {
+        when (sheet) {
+            DetailSheet.None -> Unit
+            DetailSheet.Claim -> ClaimSheet(device, fleet, me, onClaim = { person ->
+                store.claim(device.id, person)
+                sheet = DetailSheet.None
+            }, onDismiss = { sheet = DetailSheet.None })
+            DetailSheet.Return -> AlertDialog(
+                onDismissRequest = { sheet = DetailSheet.None },
+                title = { Text(stringResource(R.string.return_title, device.deviceName)) },
+                text = { Text(stringResource(R.string.return_message, device.currentUser?.let(fleet::person)?.name.orEmpty())) },
+                confirmButton = {
+                    TextButton(onClick = { store.returnDevice(device.id); sheet = DetailSheet.None }) {
+                        Text(stringResource(R.string.scan_return))
+                    }
+                },
+                dismissButton = { TextButton(onClick = { sheet = DetailSheet.None }) { Text(stringResource(R.string.cancel)) } },
+            )
+            DetailSheet.Edit -> EditSheet(device, onSave = store::update, onDismiss = { sheet = DetailSheet.None })
+        }
+    }
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -52,6 +88,11 @@ fun DeviceDetailScreen(
                         IconButton(onClick = onBack) {
                             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                         }
+                    }
+                },
+                actions = {
+                    if (device != null) {
+                        TextButton(onClick = { sheet = DetailSheet.Edit }) { Text(stringResource(R.string.edit_action)) }
                     }
                 },
             )
@@ -71,6 +112,13 @@ fun DeviceDetailScreen(
                 contentPadding = padding,
                 modifier = Modifier.fillMaxSize(),
             ) {
+                item(key = "action", span = { GridItemSpan(maxLineSpan) }) {
+                    if (device.assignmentStatus == AssignmentStatus.InUse) {
+                        OutlinedButton(onClick = { sheet = DetailSheet.Return }) { Text(stringResource(R.string.scan_return)) }
+                    } else if (device.lifecycle == Lifecycle.InUse) {
+                        Button(onClick = { sheet = DetailSheet.Claim }) { Text(stringResource(R.string.scan_claim)) }
+                    }
+                }
                 items(fields, key = { it.label }) { field ->
                     // One node per field, so a screen reader reads "Model, Galaxy Z Fold7".
                     Column(Modifier.semantics(mergeDescendants = true) {}) {
@@ -91,6 +139,9 @@ fun DeviceDetailScreen(
         }
     }
 }
+
+/** Which modal the detail shows. One at a time, saved so it survives a fold. */
+private enum class DetailSheet { None, Claim, Return, Edit }
 
 private data class DeviceField(val label: Int, val value: String)
 

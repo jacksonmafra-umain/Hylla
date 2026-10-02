@@ -26,6 +26,7 @@ Source of truth: `android/gradle/libs.versions.toml` and `android/gradle/wrapper
 | junit:junit | 4.13.2 | 2026-10-01 | Maven Central |
 | androidx.test.ext:junit | 1.3.0 | 2026-10-02 | Google Maven |
 | androidx.test:runner | 1.7.0 | 2026-10-02 | Google Maven |
+| androidx.test.espresso:espresso-core | 3.7.0 | 2026-10-02 | Google Maven |
 | androidx.compose.ui:ui-test-junit4, ui-test-manifest (via BOM) | BOM 2026.09.00 | 2026-10-02 | Compose BOM |
 | compileSdk / targetSdk | 37 | 2026-10-01 | Android SDK platforms |
 | minSdk | 34 | 2026-10-01 | `docs/decisions.md` |

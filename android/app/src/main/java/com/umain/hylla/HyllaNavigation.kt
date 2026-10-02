@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,6 +35,8 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
+import com.umain.hylla.fleet.FleetFilter
+import com.umain.hylla.fleet.PersonId
 import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.MeStore
 import com.umain.hylla.layout.ChromeKind
@@ -52,6 +55,7 @@ import com.umain.hylla.ui.ScanScreen
 import com.umain.hylla.ui.ThisDeviceScreen
 import com.umain.hylla.ui.YouScreen
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Serializable
 data object FleetRoute : NavKey
@@ -111,7 +115,7 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meS
         },
     ) {
         when (tab) {
-            TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack)
+            TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack, store, me)
             TopLevel.ThisDevice -> ThisDeviceScreen(posture)
             TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set)
         }
@@ -128,7 +132,8 @@ private val ChromeKind.suiteType: NavigationSuiteType
 
 /** Fleet, detail and history: one at a time, two side by side, or all three. */
 @Composable
-private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackStack<NavKey>) {
+private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackStack<NavKey>, store: FleetStore, me: PersonId?) {
+    var filter by rememberSaveable(stateSaver = FleetFilterSaver) { mutableStateOf(FleetFilter()) }
     val layout = remember(content) { PaneLayout.compute(content) }
     val strategy = remember(layout, fleet) {
         MultiPaneSceneStrategy<NavKey>(
@@ -151,6 +156,8 @@ private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackS
                     selected = selected.takeIf { layout.paneCount > 1 },
                     onDeviceClick = { backStack.select(it) },
                     onScan = { backStack.add(ScanRoute) },
+                    filter = filter,
+                    onFilterChange = { filter = it },
                 )
             }
             entry<DeviceRoute>(metadata = { route: DeviceRoute -> PaneRole.Detail.metadata(subject = route.id) }) { route ->
@@ -158,12 +165,20 @@ private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackS
                     fleet = fleet,
                     id = route.id,
                     widthClass = content.widthClass,
+                    store = store,
+                    me = me,
                     onBack = { backStack.removeLastOrNull() },
                 )
             }
         },
     )
 }
+
+/** The filter survives process death as JSON in the saved state. */
+private val FleetFilterSaver = Saver<FleetFilter, String>(
+    save = { Json.encodeToString(it) },
+    restore = { Json.decodeFromString(it) },
+)
 
 /** Shows [id] as the detail, replacing the current one rather than stacking details. */
 private fun NavBackStack<NavKey>.select(id: DeviceId) {
