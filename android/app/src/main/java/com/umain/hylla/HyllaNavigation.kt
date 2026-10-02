@@ -33,6 +33,7 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffo
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -102,10 +103,28 @@ enum class TopLevel(val label: Int, val icon: ImageVector) {
  * they are drawn instead of the shell rather than inside it.
  */
 @Composable
-fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meStore: MeStore) {
+fun HyllaNavigation(
+    fleet: Fleet,
+    posture: WindowPosture,
+    store: FleetStore,
+    meStore: MeStore,
+    link: DeviceId? = null,
+    onLinkOpened: () -> Unit = {},
+) {
     val backStack = rememberNavBackStack(FleetRoute)
     var tab by rememberSaveable { mutableStateOf(TopLevel.Fleet) }
     val me by meStore.me.collectAsStateWithLifecycle()
+
+    // A device link replaces whatever was open with [Fleet, Device]: back from it goes to the
+    // fleet, never to the screen that happened to be open before the link arrived.
+    LaunchedEffect(link) {
+        if (link == null) return@LaunchedEffect
+        tab = TopLevel.Fleet
+        backStack.clear()
+        backStack.add(FleetRoute)
+        backStack.add(DeviceRoute(link))
+        onLinkOpened()
+    }
 
     // The cover surface replaces the whole UI without touching the back stack, so opening the
     // phone again lands exactly where you were.
