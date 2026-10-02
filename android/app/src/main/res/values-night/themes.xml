@@ -1,9 +1,5 @@
 <resources>
-    <!--
-        minSdk 34 has the platform splash screen, so no compatibility library: the system shows
-        the icon on the brand background until the first frame, then hands over to this theme.
-    -->
-    <style name="Theme.Hylla" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Hylla" parent="android:Theme.Material.NoActionBar">
         <item name="android:windowSplashScreenBackground">@color/splash_background</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="android:windowSplashScreenIconBackgroundColor">@color/splash_background</item>
