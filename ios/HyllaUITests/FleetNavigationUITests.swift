@@ -1,5 +1,8 @@
 import XCTest
 
+/// The minimum legible pane width from chapter 4 (`AdaptiveLayout.minPaneWidth`).
+private let minimumPaneWidth: CGFloat = 360
+
 final class FleetNavigationUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
@@ -77,6 +80,14 @@ final class FleetNavigationUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Flip7 Black"].isHittable, "the list stays beside the detail")
         XCTAssertTrue(app.buttons.containing(.staticText, identifier: "Fold7 Blue").firstMatch.isSelected)
         XCTAssertLessThan(app.staticTexts["Flip7 Black"].frame.maxX, 480, "the list pane is at most 480 pt")
+        // iPadOS 27.2 beta keeps the list column at 320 pt whatever navigationSplitViewColumnWidth
+        // asks for (PaneLayout asks for 413 on an iPad Pro 13" in portrait). Strict: when the
+        // system honours the width, this stops failing and the test says so.
+        // See docs/hardware-findings.md, 2026-10-02.
+        XCTExpectFailure("NavigationSplitView ignores the list column width on iPadOS 27.2") {
+            XCTAssertGreaterThanOrEqual(app.navigationBars["Fleet"].frame.width, minimumPaneWidth,
+                                        "the list pane is at least 360 pt")
+        }
         attach(app, "two-panes")
     }
 
