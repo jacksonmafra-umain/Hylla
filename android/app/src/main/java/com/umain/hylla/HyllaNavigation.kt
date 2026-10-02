@@ -20,6 +20,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
+import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.layout.PaneLayout
 import com.umain.hylla.layout.PaneRole
 import com.umain.hylla.layout.MultiPaneSceneStrategy
@@ -43,7 +44,7 @@ data class DeviceRoute(val id: DeviceId) : NavKey
  * resizing changes the layout, never the stack, so nothing is lost either way.
  */
 @Composable
-fun HyllaNavigation(fleet: Fleet, posture: WindowPosture) {
+fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore) {
     val backStack = rememberNavBackStack(FleetRoute)
     val layout = remember(posture) { PaneLayout.compute(posture) }
     val strategy = remember(layout, fleet) {

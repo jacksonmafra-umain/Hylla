@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import com.umain.hylla.fleet.loadFleet
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.umain.hylla.posture.rememberWindowPosture
 
 class MainActivity : ComponentActivity() {
@@ -25,8 +25,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HyllaApp() {
-    val assets = LocalContext.current.assets
-    val fleet = remember(assets) { assets.loadFleet() }
+    val store = (LocalContext.current.applicationContext as HyllaApplication).store
+    val fleet by store.fleet.collectAsStateWithLifecycle()
     val posture = rememberWindowPosture()
-    HyllaNavigation(fleet, posture)
+    HyllaNavigation(fleet, posture, store)
 }
