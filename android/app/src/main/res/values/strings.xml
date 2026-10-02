@@ -50,6 +50,9 @@
     <string name="discard_message">Your edits to this record have not been saved.</string>
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep editing</string>
+    <string name="undo">Undo</string>
+    <string name="feedback_saved">%1$s is saved.</string>
+    <string name="copy_shelf_tag">Copy shelf tag</string>
     <string name="nav_fleet">Fleet</string>
     <string name="nav_this_device">This device</string>
     <string name="nav_you">You</string>

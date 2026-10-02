@@ -56,11 +56,18 @@ fun DeviceDetailScreen(
 ) {
     val device = fleet.devices.firstOrNull { it.id == id }
     var sheet by rememberSaveable { mutableStateOf(DetailSheet.None) }
+    val feedback = LocalFeedback.current
+    val undo = stringResource(R.string.undo)
+    val claimedBy = stringResource(R.string.scan_claimed_by)
+    val returned = stringResource(R.string.scan_returned)
+    val saved = stringResource(R.string.feedback_saved)
     if (device != null) {
         when (sheet) {
             DetailSheet.None -> Unit
             DetailSheet.Claim -> ClaimSheet(device, fleet, me, onClaim = { person ->
-                store.claim(device.id, person)
+                store.claim(device.id, person).onSuccess {
+                    feedback.show(claimedBy.format(device.deviceName, fleet.person(person)?.name.orEmpty()), undo) { store.undo() }
+                }
                 sheet = DetailSheet.None
             }, onDismiss = { sheet = DetailSheet.None })
             DetailSheet.Return -> AlertDialog(
@@ -68,13 +75,20 @@ fun DeviceDetailScreen(
                 title = { Text(stringResource(R.string.return_title, device.deviceName)) },
                 text = { Text(stringResource(R.string.return_message, device.currentUser?.let(fleet::person)?.name.orEmpty())) },
                 confirmButton = {
-                    TextButton(onClick = { store.returnDevice(device.id); sheet = DetailSheet.None }) {
+                    TextButton(onClick = {
+                        store.returnDevice(device.id).onSuccess {
+                            feedback.show(returned.format(device.deviceName), undo) { store.undo() }
+                        }
+                        sheet = DetailSheet.None
+                    }) {
                         Text(stringResource(R.string.scan_return))
                     }
                 },
                 dismissButton = { TextButton(onClick = { sheet = DetailSheet.None }) { Text(stringResource(R.string.cancel)) } },
             )
-            DetailSheet.Edit -> EditSheet(device, onSave = store::update, onDismiss = { sheet = DetailSheet.None })
+            DetailSheet.Edit -> EditSheet(device, onSave = { edited ->
+                store.update(edited).onSuccess { feedback.show(saved.format(edited.deviceName), undo) { store.undo() } }
+            }, onDismiss = { sheet = DetailSheet.None })
         }
     }
     Scaffold(

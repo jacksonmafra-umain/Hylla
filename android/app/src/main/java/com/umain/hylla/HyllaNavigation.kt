@@ -3,6 +3,7 @@ package com.umain.hylla
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
@@ -10,11 +11,15 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,7 +54,9 @@ import com.umain.hylla.posture.Posture
 import com.umain.hylla.posture.WindowPosture
 import com.umain.hylla.ui.CoverSurface
 import com.umain.hylla.ui.DeviceDetailScreen
+import com.umain.hylla.ui.Feedback
 import com.umain.hylla.ui.FleetScreen
+import com.umain.hylla.ui.LocalFeedback
 import com.umain.hylla.ui.HistoryPane
 import com.umain.hylla.ui.ScanScreen
 import com.umain.hylla.ui.ThisDeviceScreen
@@ -100,7 +107,11 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meS
     val chrome = ChromeLayout.compute(posture)
     // Back from another top-level destination returns to the fleet before it leaves the app.
     BackHandler(enabled = tab != TopLevel.Fleet) { tab = TopLevel.Fleet }
+    val snackbar = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val feedback = remember(snackbar, scope) { Feedback(snackbar, scope) }
 
+    CompositionLocalProvider(LocalFeedback provides feedback) {
     NavigationSuiteScaffold(
         layoutType = chrome.kind.suiteType,
         navigationSuiteItems = {
@@ -114,11 +125,17 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meS
             }
         },
     ) {
-        when (tab) {
-            TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack, store, me)
-            TopLevel.ThisDevice -> ThisDeviceScreen(posture)
-            TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set)
+        // One snackbar host for the whole shell, inside the chrome, so a snackbar never covers
+        // the navigation bar and stays put when a pane changes underneath it.
+        Box(Modifier.fillMaxSize()) {
+            when (tab) {
+                TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack, store, me)
+                TopLevel.ThisDevice -> ThisDeviceScreen(posture)
+                TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set)
+            }
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
         }
+    }
     }
 }
 

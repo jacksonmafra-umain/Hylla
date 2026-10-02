@@ -1,6 +1,8 @@
 package com.umain.hylla.ui
 
+import android.content.ClipData
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,17 +19,22 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.umain.hylla.R
+import kotlinx.coroutines.launch
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
@@ -94,9 +101,22 @@ fun FleetScreen(
  */
 @Composable
 private fun DeviceTile(device: Device, fleet: Fleet, selected: Boolean, onClick: () -> Unit) {
+    val clipboard = LocalClipboard.current
+    val scope = rememberCoroutineScope()
+    val copyLabel = stringResource(R.string.copy_shelf_tag)
     OutlinedCard(
-        onClick = onClick,
-        modifier = Modifier.semantics { this.selected = selected },
+        modifier = Modifier
+            .semantics { this.selected = selected }
+            // Long press copies the shelf tag. No toast or snackbar: since Android 13 the system
+            // confirms clipboard writes itself, and a second confirmation would be noise.
+            .combinedClickable(
+                role = Role.Button,
+                onClick = onClick,
+                onLongClickLabel = copyLabel,
+                onLongClick = {
+                    scope.launch { clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(copyLabel, device.id.value))) }
+                },
+            ),
         border = if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else CardDefaults.outlinedCardBorder(),
         colors = if (selected) {
             CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
