@@ -53,6 +53,7 @@
 		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
 		AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */; };
 		B7229D5EC6B0BE15DB0604CB /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD54446E6EF3300509CB2F84 /* Registration.swift */; };
+		B83EF4211B5B0EBDD5F794AE /* AntiPatternsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3987C0593FA7FBBA480804 /* AntiPatternsTests.swift */; };
 		BA398E310634E08A546AA23A /* ScannedCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF454D1C954DBA7890F53958 /* ScannedCode.swift */; };
 		BA89FC30DBC9DCE6C1089D3F /* PermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */; };
 		C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */; };
@@ -66,6 +67,7 @@
 		F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048761974723000145069DC /* ScanUITests.swift */; };
 		F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 625154AED9AE337CFF40CFBD /* Assets.xcassets */; };
 		FD974CBABE4F3D16A76E9AE1 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C9D6F489CB86FEC73613DC /* DeepLink.swift */; };
+		FF2C1AB6E04CBD96E9DADDBD /* AntiPatterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B90548F13C748796CE8BA /* AntiPatterns.swift */; };
 		FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C582CE67806106883217387 /* FleetLabels.swift */; };
 		FFD11C178D517BEED105096D /* WindowPostureReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D8CF2C4341039DDB7E69AB /* WindowPostureReader.swift */; };
 /* End PBXBuildFile section */
@@ -139,9 +141,11 @@
 		C738846931936956614C5A04 /* PersonPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonPicker.swift; sourceTree = "<group>"; };
 		C766B65C2303EB4270D96C14 /* devices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = devices.json; sourceTree = "<group>"; };
 		C8C9D6F489CB86FEC73613DC /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
+		CA1B90548F13C748796CE8BA /* AntiPatterns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiPatterns.swift; sourceTree = "<group>"; };
 		CAE5FD91228ABDC1401614A3 /* FleetPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetPersistence.swift; sourceTree = "<group>"; };
 		CBC39601BE77E6CCBA48D616 /* HyllaUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD54446E6EF3300509CB2F84 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
+		CF3987C0593FA7FBBA480804 /* AntiPatternsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiPatternsTests.swift; sourceTree = "<group>"; };
 		D06195FD5764459EB6989523 /* ShellUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellUITests.swift; sourceTree = "<group>"; };
 		D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixtureTests.swift; sourceTree = "<group>"; };
 		D45B659F3F60C7D8E56D1D1B /* RegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTests.swift; sourceTree = "<group>"; };
@@ -254,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */,
+				CF3987C0593FA7FBBA480804 /* AntiPatternsTests.swift */,
 				2D06037EFF6DE87B660EE8BF /* DeepLinkTests.swift */,
 				BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */,
 				D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */,
@@ -268,12 +273,21 @@
 			path = HyllaTests;
 			sourceTree = "<group>";
 		};
+		7A3E96B4E29B24385D7BDD3A /* AntiPatterns */ = {
+			isa = PBXGroup;
+			children = (
+				CA1B90548F13C748796CE8BA /* AntiPatterns.swift */,
+			);
+			path = AntiPatterns;
+			sourceTree = "<group>";
+		};
 		93CDA30024B7496C9921014F /* Hylla */ = {
 			isa = PBXGroup;
 			children = (
 				625154AED9AE337CFF40CFBD /* Assets.xcassets */,
 				BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */,
 				6402A98D80B09E2A8A62869E /* RootView.swift */,
+				7A3E96B4E29B24385D7BDD3A /* AntiPatterns */,
 				2F6FCF56E12E702037768CCD /* Fleet */,
 				DE9FAB16EF512A61A5F6E215 /* Layout */,
 				4D42EC09DC3216392259C591 /* Notify */,
@@ -456,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F2E36933467B01C6C10E8C7 /* AdaptiveLayoutTests.swift in Sources */,
+				B83EF4211B5B0EBDD5F794AE /* AntiPatternsTests.swift in Sources */,
 				9E75BD81EB89C70205739298 /* DeepLinkTests.swift in Sources */,
 				50A4D928B5476747DCD0A95A /* FleetFilterTests.swift in Sources */,
 				AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */,
@@ -490,6 +505,7 @@
 			files = (
 				21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */,
 				C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */,
+				FF2C1AB6E04CBD96E9DADDBD /* AntiPatterns.swift in Sources */,
 				49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */,
 				E50818008F342C32CC8F1BEC /* CameraScanner.swift in Sources */,
 				59733FD4C5F80B6DFB07A370 /* ClaimSheet.swift in Sources */,
