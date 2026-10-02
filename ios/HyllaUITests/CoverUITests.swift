@@ -32,7 +32,7 @@ final class CoverUITests: XCTestCase {
     func testCoverWithoutMeAsksWhoYouAre() {
         let app = launchCover(me: nil)
 
-        XCTAssertTrue(app.staticTexts["Open the full app and tap You to choose who you are."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Open the full app and go to You to choose who you are."].waitForExistence(timeout: 5))
     }
 
     @MainActor
