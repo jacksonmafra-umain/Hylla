@@ -60,6 +60,7 @@ import com.umain.hylla.fleet.PersonId
 import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.MeStore
 import com.umain.hylla.fleet.NotificationSettings
+import com.umain.hylla.notify.WatchList
 import com.umain.hylla.layout.ChromeKind
 import com.umain.hylla.layout.ChromeLayout
 import com.umain.hylla.layout.MultiPaneSceneStrategy
@@ -110,6 +111,7 @@ fun HyllaNavigation(
     store: FleetStore,
     meStore: MeStore,
     notifications: NotificationSettings,
+    watchList: WatchList,
     link: DeviceId? = null,
     onLinkOpened: () -> Unit = {},
 ) {
@@ -175,7 +177,7 @@ fun HyllaNavigation(
         // the navigation bar and stays put when a pane changes underneath it.
         Box(Modifier.fillMaxSize()) {
             when (tab) {
-                TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack, store, me)
+                TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack, store, me, watchList)
                 TopLevel.ThisDevice -> ThisDeviceScreen(posture)
                 TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set, settings = notifications)
             }
@@ -195,7 +197,8 @@ private val ChromeKind.suiteType: NavigationSuiteType
 
 /** Fleet, detail and history: one at a time, two side by side, or all three. */
 @Composable
-private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackStack<NavKey>, store: FleetStore, me: PersonId?) {
+private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackStack<NavKey>, store: FleetStore, me: PersonId?, watchList: WatchList) {
+    val watched by watchList.watched.collectAsStateWithLifecycle()
     var filter by rememberSaveable(stateSaver = FleetFilterSaver) { mutableStateOf(FleetFilter()) }
     val layout = remember(content) { PaneLayout.compute(content) }
     val strategy = remember(layout, fleet) {
@@ -239,6 +242,8 @@ private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackS
                     widthClass = content.widthClass,
                     store = store,
                     me = me,
+                    watched = route.id in watched,
+                    onToggleWatch = { watchList.toggle(route.id) },
                     onBack = { backStack.removeLastOrNull() },
                 )
             }

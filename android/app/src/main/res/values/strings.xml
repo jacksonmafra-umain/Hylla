@@ -61,6 +61,14 @@
     <string name="notifications_switch">Notify me about devices</string>
     <string name="notifications_explain">When a device you hold is overdue, and when one you are waiting for is back on the shelf.</string>
     <string name="notifications_blocked">Notifications are off for Hylla in Settings.</string>
+    <string name="channel_overdue">Overdue devices</string>
+    <string name="channel_back">Back on the shelf</string>
+    <string name="notify_overdue_title">%1$s is overdue</string>
+    <string name="notify_overdue_text">You have had it for two weeks. Return it to the shelf, or keep it and ignore this.</string>
+    <string name="notify_back_title">%1$s is back on the shelf</string>
+    <string name="notify_back_text">The device you were waiting for can be claimed.</string>
+    <string name="watch">Notify me when it is back</string>
+    <string name="unwatch">Stop waiting for it</string>
     <string name="nav_fleet">Fleet</string>
     <string name="nav_this_device">This device</string>
     <string name="nav_you">You</string>

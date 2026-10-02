@@ -44,5 +44,5 @@ fun HyllaApp(link: DeviceId? = null, onLinkOpened: () -> Unit = {}) {
     val app = LocalContext.current.applicationContext as HyllaApplication
     val fleet by app.store.fleet.collectAsStateWithLifecycle()
     val posture = rememberWindowPosture()
-    HyllaNavigation(fleet, posture, app.store, app.me, app.notifications, link, onLinkOpened)
+    HyllaNavigation(fleet, posture, app.store, app.me, app.notifications, app.watchList, link, onLinkOpened)
 }

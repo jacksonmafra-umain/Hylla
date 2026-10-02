@@ -32,6 +32,7 @@
                 <data android:scheme="hylla" android:host="device" />
             </intent-filter>
         </activity>
+        <receiver android:name=".notify.ReturnReceiver" android:exported="false" />
     </application>
 
 </manifest>

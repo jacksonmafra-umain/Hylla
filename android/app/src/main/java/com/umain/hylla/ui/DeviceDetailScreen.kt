@@ -1,6 +1,8 @@
 package com.umain.hylla.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Column
@@ -28,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
 import com.umain.hylla.R
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
@@ -36,6 +39,7 @@ import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.Lifecycle
 import com.umain.hylla.fleet.PersonId
+import com.umain.hylla.fleet.isClaimable
 import com.umain.hylla.layout.AdaptiveGrid
 import com.umain.hylla.layout.AdaptiveLayout
 import com.umain.hylla.layout.LocalPaneCount
@@ -51,6 +55,8 @@ fun DeviceDetailScreen(
     widthClass: WidthClass,
     store: FleetStore,
     me: PersonId?,
+    watched: Boolean,
+    onToggleWatch: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -127,10 +133,18 @@ fun DeviceDetailScreen(
                 modifier = Modifier.fillMaxSize(),
             ) {
                 item(key = "action", span = { GridItemSpan(maxLineSpan) }) {
-                    if (device.assignmentStatus == AssignmentStatus.InUse) {
-                        OutlinedButton(onClick = { sheet = DetailSheet.Return }) { Text(stringResource(R.string.scan_return)) }
-                    } else if (device.lifecycle == Lifecycle.InUse) {
-                        Button(onClick = { sheet = DetailSheet.Claim }) { Text(stringResource(R.string.scan_claim)) }
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        if (device.assignmentStatus == AssignmentStatus.InUse) {
+                            OutlinedButton(onClick = { sheet = DetailSheet.Return }) { Text(stringResource(R.string.scan_return)) }
+                        } else if (device.lifecycle == Lifecycle.InUse) {
+                            Button(onClick = { sheet = DetailSheet.Claim }) { Text(stringResource(R.string.scan_claim)) }
+                        }
+                        // Waiting makes sense only for a device someone cannot take right now.
+                        if (!device.isClaimable && device.lifecycle == Lifecycle.InUse) {
+                            OutlinedButton(onClick = onToggleWatch) {
+                                Text(stringResource(if (watched) R.string.unwatch else R.string.watch))
+                            }
+                        }
                     }
                 }
                 items(fields, key = { it.label }) { field ->
