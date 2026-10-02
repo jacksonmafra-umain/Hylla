@@ -2,10 +2,11 @@ import SwiftUI
 
 @main
 struct HyllaApp: App {
-    /// Bundled fixture. A broken fixture is a build-time mistake, so failing loudly is right.
-    private let fleet: Fleet = {
+    /// Seeded from the bundled fixture. A broken fixture is a build-time mistake, so failing
+    /// loudly is right.
+    @State private var store: FleetStore = {
         do {
-            return try FleetFixture.load()
+            return FleetStore(fleet: try FleetFixture.load())
         } catch {
             fatalError("devices.json failed to load: \(error)")
         }
@@ -13,7 +14,7 @@ struct HyllaApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(fleet: fleet)
+            ContentView(store: store)
         }
     }
 }

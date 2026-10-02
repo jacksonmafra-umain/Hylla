@@ -7,16 +7,25 @@ import SwiftUI
 /// list, with its history as a third column when there is room.
 /// Resizing a window in Stage Manager switches between the two without losing the selection.
 struct ContentView: View {
-    let fleet: Fleet
+    let store: FleetStore
     @State private var selection: Device.ID?
+    @State private var scanning = false
+
+    private var fleet: Fleet { store.fleet }
 
     var body: some View {
         WindowPostureReader { posture in
             let layout = PaneLayout.compute(posture)
-            switch layout.paneCount {
-            case 3: threeColumns(posture, layout)
-            case 2: twoColumns(posture, listWidth: layout.panes[0].width)
-            default: stack(posture)
+            Group {
+                switch layout.paneCount {
+                case 3: threeColumns(posture, layout)
+                case 2: twoColumns(posture, listWidth: layout.panes[0].width)
+                default: stack(posture)
+                }
+            }
+            .fullScreenCover(isPresented: $scanning) {
+                // The scanner takes the whole window in every posture.
+                WindowPostureReader { ScanView(store: store, posture: $0) }
             }
         }
     }
@@ -26,7 +35,7 @@ struct ContentView: View {
             get: { selection.map { [$0] } ?? [] },
             set: { selection = $0.last }
         )) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: false)
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: false, onScan: { scanning = true })
                 .navigationDestination(for: Device.ID.self) { id in
                     DeviceDetailView(fleet: fleet, id: id, widthClass: posture.widthClass)
                 }
@@ -35,7 +44,7 @@ struct ContentView: View {
 
     private func threeColumns(_ posture: WindowPosture, _ layout: PaneLayout) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true)
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, onScan: { scanning = true })
                 .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: layout.panes[0].width, max: layout.panes[0].width)
                 .toolbar(removing: .sidebarToggle)
         } content: {
@@ -55,7 +64,7 @@ struct ContentView: View {
 
     private func twoColumns(_ posture: WindowPosture, listWidth: CGFloat) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true)
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, onScan: { scanning = true })
                 .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: listWidth, max: listWidth)
                 .toolbar(removing: .sidebarToggle)
         } detail: {
@@ -70,5 +79,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(fleet: try! FleetFixture.load())
+    ContentView(store: FleetStore(fleet: try! FleetFixture.load()))
 }

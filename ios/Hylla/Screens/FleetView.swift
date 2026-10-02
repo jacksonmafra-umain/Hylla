@@ -6,6 +6,7 @@ struct FleetView: View {
     @Binding var selection: Device.ID?
     /// Beside the detail, the selected tile is marked; alone, it is about to be covered anyway.
     let highlightsSelection: Bool
+    var onScan: () -> Void = {}
 
     var body: some View {
         ScrollView {
@@ -34,6 +35,11 @@ struct FleetView: View {
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Fleet")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Scan", action: onScan)
+            }
+        }
     }
 }
 
