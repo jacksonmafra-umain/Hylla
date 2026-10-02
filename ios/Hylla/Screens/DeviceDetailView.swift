@@ -13,6 +13,7 @@ struct DeviceDetailView: View {
         var id: Self { self }
     }
 
+    @Environment(Feedback.self) private var feedback: Feedback?
     @State private var modal: Modal?
     @State private var confirmingReturn = false
 
@@ -57,15 +58,25 @@ struct DeviceDetailView: View {
                 switch modal {
                 case .claim:
                     ClaimSheet(device: device, fleet: fleet, me: me) { person in
-                        try? store.claim(device.id, by: person)
+                        if (try? store.claim(device.id, by: person)) != nil {
+                            let name = fleet.person(person)?.name ?? ""
+                            feedback?.show(String(localized: "\(device.deviceName) is now with \(name)."), onUndo: { store.undo() })
+                        }
                         self.modal = nil
                     }
                 case .edit:
-                    EditSheet(device: device, onSave: store.update)
+                    EditSheet(device: device) { (edited: Device) throws(FleetStore.Failure) in
+                        try store.update(edited)
+                        feedback?.show(String(localized: "\(edited.deviceName) is saved."), onUndo: { store.undo() })
+                    }
                 }
             }
             .alert("Return \(device.deviceName)?", isPresented: $confirmingReturn) {
-                Button("Return to the shelf", role: .destructive) { try? store.returnDevice(device.id) }
+                Button("Return to the shelf", role: .destructive) {
+                    if (try? store.returnDevice(device.id)) != nil {
+                        feedback?.show(String(localized: "\(device.deviceName) is back on the shelf."), onUndo: { store.undo() })
+                    }
+                }
                 Button("Cancel", role: .cancel) {}
             } message: {
                 Text("It goes back on the shelf and \(device.currentUser.flatMap(fleet.person)?.name ?? "") no longer holds it.")

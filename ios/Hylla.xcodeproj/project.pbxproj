@@ -12,6 +12,7 @@
 		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
 		10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF374C3AC3DA11834D7D417 /* FleetStore.swift */; };
 		14517DA123216619FC15DFE7 /* FleetRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */; };
+		178B94BC9855B6197DAB2887 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9A040061CC47002CDF6B6B /* Feedback.swift */; };
 		1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */; };
 		21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */; };
 		277A4F626C878AC61B36B4B8 /* ThisDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */; };
@@ -72,6 +73,7 @@
 		207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureTests.swift; sourceTree = "<group>"; };
 		28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetRootView.swift; sourceTree = "<group>"; };
 		29AE1B66966F3A3CBC72098E /* ShelfTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTag.swift; sourceTree = "<group>"; };
+		2E9A040061CC47002CDF6B6B /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		3048761974723000145069DC /* ScanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanUITests.swift; sourceTree = "<group>"; };
 		42D8CF2C4341039DDB7E69AB /* WindowPostureReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureReader.swift; sourceTree = "<group>"; };
 		485260CCB2262F2B28676C8C /* FleetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFilter.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				1E52CA097F72ED1526880F92 /* CoverView.swift */,
 				C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */,
 				F289F00CFBE36BE727E4FAC7 /* EditSheet.swift */,
+				2E9A040061CC47002CDF6B6B /* Feedback.swift */,
 				96F911AB879A792AC558A47C /* FilterSheet.swift */,
 				28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */,
 				DC3268A8D0E68715ACA57AA9 /* FleetView.swift */,
@@ -395,6 +398,7 @@
 				615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */,
 				413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */,
 				F163184A58C1E25B65D51A16 /* EditSheet.swift in Sources */,
+				178B94BC9855B6197DAB2887 /* Feedback.swift in Sources */,
 				7209B22C089E8477388509ED /* FilterSheet.swift in Sources */,
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
 				7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */,

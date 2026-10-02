@@ -13,6 +13,7 @@ struct RootView: View {
     @State private var destination = Destination.fleet
     @State private var selection: Device.ID?
     @State private var scanning = false
+    @State private var feedback = Feedback()
     /// Who holds this phone. Local only: not an account, never synced.
     @AppStorage("me") private var meRaw = ""
 
@@ -38,6 +39,14 @@ struct RootView: View {
                         }
                     }
                     .tabViewStyle(.sidebarAdaptable)
+                    // One banner for the whole shell, above the tab bar, so it stays put when a
+                    // pane changes underneath it.
+                    .overlay(alignment: .bottom) {
+                        FeedbackBanner(feedback: feedback)
+                            .padding(.bottom, 56)
+                            .animation(.snappy, value: feedback.current)
+                    }
+                    .environment(feedback)
                 }
             }
             .fullScreenCover(isPresented: $scanning) {
