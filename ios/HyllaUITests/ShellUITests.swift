@@ -24,4 +24,20 @@ final class ShellUITests: XCTestCase {
         app.buttons["Fleet"].firstMatch.tap()
         XCTAssertTrue(app.buttons.containing(.staticText, identifier: "Flip7 Black").firstMatch.waitForExistence(timeout: 5))
     }
+
+    @MainActor
+    func testRegisterThisDevice() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-HyllaResetDefaults", "YES"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
+
+        app.buttons["This device"].firstMatch.tap()
+        app.buttons["Register this device"].tap()
+        XCTAssertTrue(app.navigationBars["Register this device"].waitForExistence(timeout: 5))
+        app.buttons["Register"].tap()
+
+        let confirmation = app.staticTexts.matching(NSPredicate(format: "label ENDSWITH %@", "is registered as HYL-020.")).firstMatch
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+    }
 }
