@@ -87,7 +87,7 @@ The tri-fold layouts are covered by unit tests on both platforms, which feed two
 ## Verify
 
 ```sh
-cd android && ./gradlew :app:testDebugUnitTest      # 56 unit tests
+cd android && ./gradlew :app:testDebugUnitTest      # 53 unit tests
 cd ios && xcodebuild -project Hylla.xcodeproj -scheme Hylla \
   -destination 'platform=iOS Simulator,name=iPad Pro 13-inch (M5),OS=27.2' test   # 52 unit + 5 UI
 ```
