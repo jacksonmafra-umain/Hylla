@@ -1,6 +1,6 @@
 package com.umain.hylla.ui
 
-import androidx.activity.compose.BackHandler
+import androidx.activity.compose.PredictiveBackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +46,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -53,6 +54,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -65,6 +67,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.umain.hylla.R
+import kotlin.coroutines.cancellation.CancellationException
 import com.umain.hylla.fleet.AssignmentStatus
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
@@ -94,9 +97,28 @@ fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, me: Pers
     // the viewfinder to a strip while the keyboard is up. Tabletop keeps its split at the crease.
     val typing = WindowInsets.isImeVisible && !computed.sideBySide && posture.posture != Posture.Tabletop
     val layout = if (typing) computed.withViewfinderHeight(KEYBOARD_VIEWFINDER_DP) else computed
-    // Drawn outside the navigation display, so it handles system back itself.
-    BackHandler(onBack = onBack)
-    Box(Modifier.fillMaxSize()) {
+    // Drawn outside the navigation display, so it handles system back itself, following the
+    // predictive gesture: the scanner shrinks with the swipe, and only leaves if you let go.
+    var backProgress by remember { mutableFloatStateOf(0f) }
+    PredictiveBackHandler { gesture ->
+        try {
+            gesture.collect { backProgress = it.progress }
+            onBack()
+        } catch (cancelled: CancellationException) {
+            backProgress = 0f
+            throw cancelled
+        }
+    }
+    Box(
+        Modifier
+            .fillMaxSize()
+            .graphicsLayer {
+                val scale = 1f - 0.08f * backProgress
+                scaleX = scale
+                scaleY = scale
+                alpha = 1f - 0.3f * backProgress
+            },
+    ) {
         Viewfinder(Modifier.placeAt(layout.viewfinder), onBack)
         Surface(Modifier.placeAt(layout.controls)) {
             ScanControls(fleet, store, me)

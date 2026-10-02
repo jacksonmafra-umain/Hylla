@@ -1,6 +1,11 @@
 package com.umain.hylla
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -185,6 +190,15 @@ private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackS
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         sceneStrategies = listOf(strategy),
+        // During the predictive back gesture the scene underneath grows into place while the
+        // current one shrinks and fades, so letting go is a decision made with the destination
+        // already in view. Folding mid-gesture is fine: the back stack has one shape everywhere.
+        predictivePopTransitionSpec = {
+            ContentTransform(
+                targetContentEnter = fadeIn() + scaleIn(initialScale = 0.92f),
+                initialContentExit = fadeOut() + scaleOut(targetScale = 0.92f),
+            )
+        },
         entryProvider = entryProvider {
             entry<FleetRoute>(metadata = PaneRole.List.metadata()) {
                 FleetScreen(
