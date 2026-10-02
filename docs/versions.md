@@ -22,6 +22,7 @@ Source of truth: `android/gradle/libs.versions.toml` and `android/gradle/wrapper
 | androidx.window:window, window-core | 1.5.1 | 2026-10-01 | Google Maven |
 | androidx.navigation3:navigation3-runtime, navigation3-ui | 1.2.0 | 2026-10-02 | Google Maven |
 | androidx.compose.material:material-icons-core (via BOM) | 1.7.8 | 2026-10-02 | Compose BOM |
+| androidx.compose.material3:material3-adaptive-navigation-suite (via BOM) | 1.4.0 | 2026-10-02 | Compose BOM |
 | junit:junit | 4.13.2 | 2026-10-01 | Maven Central |
 | androidx.test.ext:junit | 1.3.0 | 2026-10-02 | Google Maven |
 | androidx.test:runner | 1.7.0 | 2026-10-02 | Google Maven |

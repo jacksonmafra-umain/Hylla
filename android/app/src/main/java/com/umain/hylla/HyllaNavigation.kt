@@ -1,32 +1,47 @@
 package com.umain.hylla
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.ui.NavDisplay
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.MeStore
+import com.umain.hylla.layout.ChromeKind
+import com.umain.hylla.layout.ChromeLayout
+import com.umain.hylla.layout.MultiPaneSceneStrategy
 import com.umain.hylla.layout.PaneLayout
 import com.umain.hylla.layout.PaneRole
-import com.umain.hylla.layout.MultiPaneSceneStrategy
+import com.umain.hylla.layout.contentArea
 import com.umain.hylla.posture.Posture
 import com.umain.hylla.posture.WindowPosture
 import com.umain.hylla.ui.CoverSurface
@@ -34,6 +49,8 @@ import com.umain.hylla.ui.DeviceDetailScreen
 import com.umain.hylla.ui.FleetScreen
 import com.umain.hylla.ui.HistoryPane
 import com.umain.hylla.ui.ScanScreen
+import com.umain.hylla.ui.ThisDeviceScreen
+import com.umain.hylla.ui.YouScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -45,17 +62,74 @@ data class DeviceRoute(val id: DeviceId) : NavKey
 @Serializable
 data object ScanRoute : NavKey
 
+/** Top-level destinations, the ones the navigation chrome switches between. */
+enum class TopLevel(val label: Int, val icon: ImageVector) {
+    Fleet(R.string.nav_fleet, Icons.AutoMirrored.Filled.List),
+    ThisDevice(R.string.nav_this_device, Icons.Filled.Info),
+    You(R.string.nav_you, Icons.Filled.Person),
+}
+
 /**
- * Fleet, detail and history: one at a time, two side by side, or all three.
+ * The app shell: navigation chrome around three top-level destinations.
  *
- * The back stack is the same in both: `[Fleet]` or `[Fleet, Device]`. The scene strategy decides
- * from the [PaneLayout] whether the top entry is shown alone or next to the list. Folding or
- * resizing changes the layout, never the stack, so nothing is lost either way.
+ * The fleet keeps its own back stack, `[Fleet]` or `[Fleet, Device]`, shown one pane at a time or
+ * side by side by the scene strategy. The cover surface and the scanner take the whole window, so
+ * they are drawn instead of the shell rather than inside it.
  */
 @Composable
 fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meStore: MeStore) {
     val backStack = rememberNavBackStack(FleetRoute)
-    val layout = remember(posture) { PaneLayout.compute(posture) }
+    var tab by rememberSaveable { mutableStateOf(TopLevel.Fleet) }
+    val me by meStore.me.collectAsStateWithLifecycle()
+
+    // The cover surface replaces the whole UI without touching the back stack, so opening the
+    // phone again lands exactly where you were.
+    if (posture.posture == Posture.Cover && backStack.lastOrNull() != ScanRoute) {
+        CoverSurface(fleet, me, onScan = { backStack.add(ScanRoute) })
+        return
+    }
+    if (backStack.lastOrNull() == ScanRoute) {
+        ScanScreen(fleet, posture, store, me, onBack = { backStack.removeLastOrNull() })
+        return
+    }
+
+    val chrome = ChromeLayout.compute(posture)
+    // Back from another top-level destination returns to the fleet before it leaves the app.
+    BackHandler(enabled = tab != TopLevel.Fleet) { tab = TopLevel.Fleet }
+
+    NavigationSuiteScaffold(
+        layoutType = chrome.kind.suiteType,
+        navigationSuiteItems = {
+            TopLevel.entries.forEach { destination ->
+                item(
+                    selected = tab == destination,
+                    onClick = { tab = destination },
+                    icon = { Icon(destination.icon, contentDescription = null) },
+                    label = { Text(stringResource(destination.label)) },
+                )
+            }
+        },
+    ) {
+        when (tab) {
+            TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack)
+            TopLevel.ThisDevice -> ThisDeviceScreen(posture)
+            TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set)
+        }
+    }
+}
+
+private val ChromeKind.suiteType: NavigationSuiteType
+    get() = when (this) {
+        ChromeKind.None -> NavigationSuiteType.None
+        ChromeKind.BottomBar -> NavigationSuiteType.NavigationBar
+        ChromeKind.Rail -> NavigationSuiteType.NavigationRail
+        ChromeKind.Drawer -> NavigationSuiteType.NavigationDrawer
+    }
+
+/** Fleet, detail and history: one at a time, two side by side, or all three. */
+@Composable
+private fun FleetPanes(fleet: Fleet, content: WindowPosture, backStack: NavBackStack<NavKey>) {
+    val layout = remember(content) { PaneLayout.compute(content) }
     val strategy = remember(layout, fleet) {
         MultiPaneSceneStrategy<NavKey>(
             layout = layout,
@@ -64,14 +138,6 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meS
         )
     }
     val selected = (backStack.lastOrNull() as? DeviceRoute)?.id
-    val me by meStore.me.collectAsStateWithLifecycle()
-
-    // The cover surface replaces the whole UI without touching the back stack, so opening the
-    // phone again lands exactly where you were. Scanning from it pushes the scanner as usual.
-    if (posture.posture == Posture.Cover && backStack.lastOrNull() != ScanRoute) {
-        CoverSurface(fleet, me, onScan = { backStack.add(ScanRoute) })
-        return
-    }
 
     NavDisplay(
         backStack = backStack,
@@ -81,23 +147,17 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meS
             entry<FleetRoute>(metadata = PaneRole.List.metadata()) {
                 FleetScreen(
                     fleet = fleet,
-                    posture = posture,
+                    widthClass = content.widthClass,
                     selected = selected.takeIf { layout.paneCount > 1 },
                     onDeviceClick = { backStack.select(it) },
                     onScan = { backStack.add(ScanRoute) },
-                    me = me,
-                    onChooseMe = meStore::set,
                 )
-            }
-            // No pane role: the scanner always takes the whole window.
-            entry<ScanRoute> {
-                ScanScreen(fleet, posture, store, me, onBack = { backStack.removeLastOrNull() })
             }
             entry<DeviceRoute>(metadata = { route: DeviceRoute -> PaneRole.Detail.metadata(subject = route.id) }) { route ->
                 DeviceDetailScreen(
                     fleet = fleet,
                     id = route.id,
-                    widthClass = posture.widthClass,
+                    widthClass = content.widthClass,
                     onBack = { backStack.removeLastOrNull() },
                 )
             }

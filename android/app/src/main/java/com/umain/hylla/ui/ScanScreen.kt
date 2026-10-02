@@ -1,5 +1,6 @@
 package com.umain.hylla.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -84,6 +85,8 @@ import com.umain.hylla.posture.WindowPosture
 @Composable
 fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, me: PersonId?, onBack: () -> Unit) {
     val layout = remember(posture) { ScanLayout.compute(posture) }
+    // Drawn outside the navigation display, so it handles system back itself.
+    BackHandler(onBack = onBack)
     Box(Modifier.fillMaxSize()) {
         Viewfinder(Modifier.placeAt(layout.viewfinder), onBack)
         Surface(Modifier.placeAt(layout.controls)) {
