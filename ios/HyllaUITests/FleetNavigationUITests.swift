@@ -25,6 +25,34 @@ final class FleetNavigationUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Fleet"].waitForExistence(timeout: 5))
     }
 
+    /// Landscape adds width, so the fleet gains a column; it stays one pane.
+    @MainActor
+    func testFleetInLandscape() {
+        let app = XCUIApplication()
+        app.launch()
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+
+        XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
+        // Let the rotation settle. Simulator screenshots of a rotated window are cropped to the
+        // portrait width, so the layout is checked through element frames, not the image.
+        Thread.sleep(forTimeInterval: 1.5)
+        let columns = columnsInFirstRow(app)
+        XCTAssertGreaterThanOrEqual(columns, 2, "landscape should gain a column")
+        let note = XCTAttachment(string: "first-row columns in landscape: \(columns)")
+        note.name = "landscape-columns"
+        note.lifetime = .keepAlways
+        add(note)
+    }
+
+    /// Fleet tiles whose top edge lines up with the first tile's.
+    @MainActor
+    private func columnsInFirstRow(_ app: XCUIApplication) -> Int {
+        let names = ["Fold7 Blue", "Flip7 Black", "TriFold", "Pixel 10 Pro Fold", "Pixel 9 Pro Fold", "OnePlus Open"]
+        let tops = names.map { app.staticTexts[$0].frame.minY }
+        return tops.filter { abs($0 - tops[0]) < 1 }.count
+    }
+
     /// The largest accessibility text size, the iOS counterpart of 200% font scale on Android.
     @MainActor
     func testFleetAndDetailAtLargestDynamicType() {
