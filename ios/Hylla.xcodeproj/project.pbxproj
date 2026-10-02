@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AD4599EA2058B5774F9630 /* HistoryView.swift */; };
 		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
+		10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF374C3AC3DA11834D7D417 /* FleetStore.swift */; };
 		1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */; };
 		210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */; };
 		21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */; };
@@ -16,13 +17,16 @@
 		413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */; };
 		47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C549761A2DF93824ACB90AF /* WindowPosture.swift */; };
 		49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */; };
+		4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */; };
 		6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB41B1B16BAA8B79B9B80BCC /* PaneLayout.swift */; };
+		74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AE1B66966F3A3CBC72098E /* ShelfTag.swift */; };
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
 		77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
 		9F68B4331B1370822031CABD /* FleetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3268A8D0E68715ACA57AA9 /* FleetView.swift */; };
 		A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */; };
 		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
+		AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */; };
 		C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */; };
 		CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */; };
 		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
@@ -50,8 +54,10 @@
 
 /* Begin PBXFileReference section */
 		207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureTests.swift; sourceTree = "<group>"; };
+		29AE1B66966F3A3CBC72098E /* ShelfTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTag.swift; sourceTree = "<group>"; };
 		42D8CF2C4341039DDB7E69AB /* WindowPostureReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureReader.swift; sourceTree = "<group>"; };
 		5C549761A2DF93824ACB90AF /* WindowPosture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPosture.swift; sourceTree = "<group>"; };
+		5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetStoreTests.swift; sourceTree = "<group>"; };
 		625154AED9AE337CFF40CFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		725DF1C7FE5873B5483A7EBA /* Hylla.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hylla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneLayoutTests.swift; sourceTree = "<group>"; };
@@ -60,6 +66,8 @@
 		8C582CE67806106883217387 /* FleetLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetLabels.swift; sourceTree = "<group>"; };
 		97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveGrid.swift; sourceTree = "<group>"; };
 		9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReadout.swift; sourceTree = "<group>"; };
+		9AF374C3AC3DA11834D7D417 /* FleetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetStore.swift; sourceTree = "<group>"; };
+		A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLayout.swift; sourceTree = "<group>"; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
 		BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,6 +101,8 @@
 				BF7DB665ACA20D441C5C3988 /* Fleet.swift */,
 				F6ADED52C1405844211F8A61 /* FleetFixture.swift */,
 				8C582CE67806106883217387 /* FleetLabels.swift */,
+				9AF374C3AC3DA11834D7D417 /* FleetStore.swift */,
+				29AE1B66966F3A3CBC72098E /* ShelfTag.swift */,
 			);
 			path = Fleet;
 			sourceTree = "<group>";
@@ -133,6 +143,7 @@
 			children = (
 				825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */,
 				D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */,
+				5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */,
 				7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */,
 				207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */,
 			);
@@ -177,6 +188,7 @@
 				97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */,
 				80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */,
 				EB41B1B16BAA8B79B9B80BCC /* PaneLayout.swift */,
+				A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -308,6 +320,7 @@
 			files = (
 				2F2E36933467B01C6C10E8C7 /* AdaptiveLayoutTests.swift in Sources */,
 				AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */,
+				4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */,
 				CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */,
 				1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */,
 			);
@@ -333,11 +346,14 @@
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
 				FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */,
+				10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */,
 				9F68B4331B1370822031CABD /* FleetView.swift in Sources */,
 				08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
 				6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */,
 				77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */,
+				AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */,
+				74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */,
 				47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */,
 				FFD11C178D517BEED105096D /* WindowPostureReader.swift in Sources */,
 			);

@@ -1,0 +1,67 @@
+import Foundation
+import Observation
+
+/// The fleet as the app currently knows it, and the changes made to it.
+///
+/// In memory for now: it lives as long as the process. Chapter 16 makes it persistent and queues
+/// every change for sync. Every operation keeps the fixture invariants, so
+/// ``FleetFixture/validate(_:)`` passes after each one.
+@MainActor
+@Observable
+final class FleetStore {
+    enum Failure: Error, Equatable {
+        case noDevice(Device.ID)
+        case noPerson(Person.ID)
+        case inUse(String)
+        case notInUse(String)
+    }
+
+    private(set) var fleet: Fleet
+    private let today: () -> CalendarDate
+
+    init(fleet: Fleet, today: @escaping () -> CalendarDate = { CalendarDate.today() }) {
+        self.fleet = fleet
+        self.today = today
+    }
+
+    /// `person` takes `device` from the shelf. Throws if someone already holds it.
+    func claim(_ device: Device.ID, by person: Person.ID) throws(Failure) {
+        guard let index = fleet.devices.firstIndex(where: { $0.id == device }) else { throw .noDevice(device) }
+        let current = fleet.devices[index]
+        guard current.assignmentStatus != .inUse else { throw .inUse(current.deviceName) }
+        guard fleet.person(person) != nil else { throw .noPerson(person) }
+        let day = today()
+        fleet.devices[index].assignmentStatus = .inUse
+        fleet.devices[index].currentUser = person
+        fleet.devices[index].since = day
+        fleet.assignments.append(Assignment(deviceId: device, person: person, from: day, to: nil))
+    }
+
+    /// `device` goes back on the shelf. Throws if nobody holds it.
+    func returnDevice(_ device: Device.ID) throws(Failure) {
+        guard let index = fleet.devices.firstIndex(where: { $0.id == device }) else { throw .noDevice(device) }
+        let current = fleet.devices[index]
+        guard current.assignmentStatus == .inUse else { throw .notInUse(current.deviceName) }
+        let day = today()
+        fleet.devices[index].assignmentStatus = .available
+        fleet.devices[index].currentUser = nil
+        fleet.devices[index].since = day
+        for i in fleet.assignments.indices where fleet.assignments[i].deviceId == device && fleet.assignments[i].to == nil {
+            fleet.assignments[i].to = day
+        }
+    }
+}
+
+extension Fleet {
+    func device(_ id: Device.ID) -> Device? {
+        devices.first { $0.id == id }
+    }
+}
+
+extension CalendarDate {
+    /// Today in `calendar`'s time zone.
+    static func today(in calendar: Calendar = .current, now: Date = .now) -> CalendarDate {
+        let parts = calendar.dateComponents([.year, .month, .day], from: now)
+        return CalendarDate(year: parts.year!, month: parts.month!, day: parts.day!)
+    }
+}
