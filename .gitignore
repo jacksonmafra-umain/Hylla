@@ -20,3 +20,6 @@ xcuserdata/
 # Secrets — see docs/decisions.md
 ios/Config/Secrets.xcconfig
 ios/build-device/
+
+# Screenshot matrices (scripts/*-matrix.sh)
+/build/
