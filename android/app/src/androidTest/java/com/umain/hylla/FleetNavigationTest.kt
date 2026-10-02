@@ -18,6 +18,9 @@ class FleetNavigationTest {
     @get:Rule
     val compose = createAndroidComposeRule<MainActivity>()
 
+    /** The fleet's title, not the navigation item that shares its label. */
+    private val fleetTitle = hasText("Fleet") and !hasClickAction()
+
     private fun openFold7() {
         compose.onNodeWithText("Fold7 Blue").performClick()
         compose.onNodeWithText("SM-F966B").assertIsDisplayed()
@@ -29,7 +32,7 @@ class FleetNavigationTest {
 
         compose.onNodeWithContentDescription("Back").performClick()
 
-        compose.onNodeWithText("Fleet").assertIsDisplayed()
+        compose.onNode(fleetTitle).assertIsDisplayed()
     }
 
     @Test
@@ -38,7 +41,7 @@ class FleetNavigationTest {
 
         compose.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
 
-        compose.onNodeWithText("Fleet").assertIsDisplayed()
+        compose.onNode(fleetTitle).assertIsDisplayed()
     }
 
     @Test
