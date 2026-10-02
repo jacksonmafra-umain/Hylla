@@ -1,5 +1,7 @@
 package com.umain.hylla.fleet
 
+import com.umain.hylla.store.FleetPersistence
+import com.umain.hylla.store.Operation
 import java.time.Clock
 import java.time.LocalDate
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,8 +16,13 @@ import kotlinx.coroutines.flow.update
  * every change for sync. Every operation keeps the fixture invariants, so [FleetFixture.validate]
  * passes after each one.
  */
-class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZone()) {
-    private val state = MutableStateFlow(initial)
+class FleetStore(
+    fixture: Fleet,
+    private val clock: Clock = Clock.systemDefaultZone(),
+    private val persistence: FleetPersistence? = null,
+) {
+    // The saved fleet, if there is one that still validates, else the bundled fixture.
+    private val state = MutableStateFlow(persistence?.load() ?: fixture)
     val fleet: StateFlow<Fleet> = state.asStateFlow()
 
     /** The fleet before the last successful change, for one level of undo. */
@@ -24,7 +31,7 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
     private val today: LocalDate get() = LocalDate.now(clock)
 
     /** [person] takes [device] from the shelf. Fails if someone already holds it. */
-    fun claim(device: DeviceId, person: PersonId): Result<Unit> = change { fleet ->
+    fun claim(device: DeviceId, person: PersonId): Result<Unit> = change(Operation.Claim(device, person, today)) { fleet ->
         val current = fleet.device(device) ?: return@change failure("No device $device")
         if (current.assignmentStatus == AssignmentStatus.InUse) return@change failure("${current.deviceName} is in use")
         if (fleet.person(person) == null) return@change failure("No person $person")
@@ -39,7 +46,7 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
     }
 
     /** [device] goes back on the shelf. Fails if nobody holds it. */
-    fun returnDevice(device: DeviceId): Result<Unit> = change { fleet ->
+    fun returnDevice(device: DeviceId): Result<Unit> = change(Operation.Return(device, today)) { fleet ->
         val current = fleet.device(device) ?: return@change failure("No device $device")
         if (current.assignmentStatus != AssignmentStatus.InUse) return@change failure("${current.deviceName} is not in use")
         Result.success(fleet.copy(
@@ -59,7 +66,7 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
      * [claim] and [returnDevice] change. Moving `since` on a held device moves the start of its
      * open assignment with it. An edit that would break the fleet's invariants is rejected.
      */
-    fun update(edited: Device): Result<Unit> = change { fleet ->
+    fun update(edited: Device): Result<Unit> = change(Operation.Edit(edited.id)) { fleet ->
         val current = fleet.device(edited.id) ?: return@change failure("No device ${edited.id}")
         if (edited.assignmentStatus != current.assignmentStatus || edited.currentUser != current.currentUser) {
             return@change failure("Claim or return to change who holds ${current.deviceName}")
@@ -83,11 +90,15 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
         val previous = beforeLastChange ?: return Result.failure(IllegalStateException("Nothing to undo"))
         state.value = previous
         beforeLastChange = null
+        persist(Operation.Undo, previous)
         return Result.success(Unit)
     }
 
-    /** Applies [transform] atomically; a failure leaves the fleet as it was. */
-    private fun change(transform: (Fleet) -> Result<Fleet>): Result<Unit> {
+    /**
+     * Applies [transform] atomically; a failure leaves the fleet as it was. A success is saved and
+     * journalled before this returns, so a change the UI has confirmed survives the process.
+     */
+    private fun change(operation: Operation, transform: (Fleet) -> Result<Fleet>): Result<Unit> {
         var outcome = Result.success(Unit)
         state.update { fleet ->
             transform(fleet).fold(
@@ -101,7 +112,13 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
                 },
             )
         }
+        if (outcome.isSuccess) persist(operation, state.value)
         return outcome
+    }
+
+    private fun persist(operation: Operation, fleet: Fleet) {
+        persistence?.save(fleet)
+        persistence?.append(operation)
     }
 
     private fun failure(message: String) = Result.failure<Fleet>(IllegalStateException(message))

@@ -6,6 +6,7 @@ import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.MeStore
 import com.umain.hylla.fleet.NotificationSettings
 import com.umain.hylla.fleet.loadFleet
+import com.umain.hylla.store.FileFleetPersistence
 import com.umain.hylla.notify.Notices
 import com.umain.hylla.notify.Notifier
 import com.umain.hylla.notify.OverdueWorker
@@ -17,10 +18,12 @@ import kotlinx.coroutines.launch
 
 /**
  * Owns the [FleetStore], so it outlives the Activity. A fold, a rotation or a density change
- * recreates the Activity; the claims made before it must still be there afterwards.
+ * recreates the Activity; the claims made before it must still be there afterwards. Since
+ * chapter 16 the store is also saved to disk, so they survive the process too.
  */
 class HyllaApplication : Application() {
-    val store: FleetStore by lazy { FleetStore(assets.loadFleet()) }
+    /** Saved under the app's private files, so it survives the process but not an uninstall. */
+    val store: FleetStore by lazy { FleetStore(assets.loadFleet(), persistence = FileFleetPersistence(filesDir)) }
     val me: MeStore by lazy { MeStore(getSharedPreferences("hylla", MODE_PRIVATE)) }
     val notifications: NotificationSettings by lazy { NotificationSettings(getSharedPreferences("hylla", MODE_PRIVATE)) }
     val watchList: WatchList by lazy { WatchList(getSharedPreferences("hylla", MODE_PRIVATE)) }
