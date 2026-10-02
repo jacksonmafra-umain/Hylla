@@ -27,6 +27,15 @@ struct Assignment: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case deviceId, person, from, to
     }
+
+    /// `to` is written as `null` while the device is held, never left out.
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(deviceId, forKey: .deviceId)
+        try container.encode(person, forKey: .person)
+        try container.encode(from, forKey: .from)
+        try container.encode(to, forKey: .to)
+    }
 }
 
 struct Person: Codable, Hashable, Identifiable, Sendable {
@@ -64,6 +73,26 @@ struct Device: Codable, Hashable, Identifiable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case id, deviceName, deviceType, platform, modelName, modelNumber, osVersion, uiVersion
         case assignmentStatus, currentUser, since, homeUse, lifecycle, notes
+    }
+
+    /// Writes `null` for absent values instead of leaving the key out. The decoder requires every
+    /// key (chapter 1), so a saved fleet must have them all, the same as the fixture.
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(deviceName, forKey: .deviceName)
+        try container.encode(deviceType, forKey: .deviceType)
+        try container.encode(platform, forKey: .platform)
+        try container.encode(modelName, forKey: .modelName)
+        try container.encode(modelNumber, forKey: .modelNumber)
+        try container.encode(osVersion, forKey: .osVersion)
+        try container.encode(uiVersion, forKey: .uiVersion)
+        try container.encode(assignmentStatus, forKey: .assignmentStatus)
+        try container.encode(currentUser, forKey: .currentUser)
+        try container.encode(since, forKey: .since)
+        try container.encode(homeUse, forKey: .homeUse)
+        try container.encode(lifecycle, forKey: .lifecycle)
+        try container.encode(notes, forKey: .notes)
     }
 }
 
