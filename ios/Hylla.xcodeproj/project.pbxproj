@@ -18,6 +18,7 @@
 		277A4F626C878AC61B36B4B8 /* ThisDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */; };
 		2F2E36933467B01C6C10E8C7 /* AdaptiveLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */; };
 		413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */; };
+		447B74F923896CAF723764C6 /* PermissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E2B7C0F5A5A92AF46CF6A6 /* PermissionUITests.swift */; };
 		47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C549761A2DF93824ACB90AF /* WindowPosture.swift */; };
 		49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */; };
 		4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */; };
@@ -29,6 +30,7 @@
 		7209B22C089E8477388509ED /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F911AB879A792AC558A47C /* FilterSheet.swift */; };
 		74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AE1B66966F3A3CBC72098E /* ShelfTag.swift */; };
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
+		76D17D08FD79FB4C4143BAD8 /* PermissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6A34725F16BFF2250789A0 /* PermissionState.swift */; };
 		77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
 		7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485260CCB2262F2B28676C8C /* FleetFilter.swift */; };
@@ -42,9 +44,12 @@
 		A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */; };
 		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
 		AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */; };
+		BA398E310634E08A546AA23A /* ScannedCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF454D1C954DBA7890F53958 /* ScannedCode.swift */; };
+		BA89FC30DBC9DCE6C1089D3F /* PermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */; };
 		C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */; };
 		CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */; };
 		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
+		E50818008F342C32CC8F1BEC /* CameraScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD39C9B6FD8C396D6BA26EE /* CameraScanner.swift */; };
 		F163184A58C1E25B65D51A16 /* EditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F289F00CFBE36BE727E4FAC7 /* EditSheet.swift */; };
 		F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048761974723000145069DC /* ScanUITests.swift */; };
 		F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 625154AED9AE337CFF40CFBD /* Assets.xcassets */; };
@@ -75,6 +80,8 @@
 		207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureTests.swift; sourceTree = "<group>"; };
 		28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetRootView.swift; sourceTree = "<group>"; };
 		29AE1B66966F3A3CBC72098E /* ShelfTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTag.swift; sourceTree = "<group>"; };
+		29E2B7C0F5A5A92AF46CF6A6 /* PermissionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionUITests.swift; sourceTree = "<group>"; };
+		2AD39C9B6FD8C396D6BA26EE /* CameraScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScanner.swift; sourceTree = "<group>"; };
 		2D06037EFF6DE87B660EE8BF /* DeepLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkTests.swift; sourceTree = "<group>"; };
 		2E9A040061CC47002CDF6B6B /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		3048761974723000145069DC /* ScanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanUITests.swift; sourceTree = "<group>"; };
@@ -91,6 +98,7 @@
 		7B1A361D69CA3D550E12437C /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 		7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneLayoutTests.swift; sourceTree = "<group>"; };
 		80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayout.swift; sourceTree = "<group>"; };
+		82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionTests.swift; sourceTree = "<group>"; };
 		825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutTests.swift; sourceTree = "<group>"; };
 		8C582CE67806106883217387 /* FleetLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetLabels.swift; sourceTree = "<group>"; };
 		96F911AB879A792AC558A47C /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
@@ -100,6 +108,7 @@
 		9F9DA5620360409950965130 /* SheetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsUITests.swift; sourceTree = "<group>"; };
 		A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLayout.swift; sourceTree = "<group>"; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF454D1C954DBA7890F53958 /* ScannedCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedCode.swift; sourceTree = "<group>"; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
 		BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFilterTests.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
@@ -115,6 +124,7 @@
 		DC3268A8D0E68715ACA57AA9 /* FleetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetView.swift; sourceTree = "<group>"; };
 		E3AD4599EA2058B5774F9630 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		EB41B1B16BAA8B79B9B80BCC /* PaneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneLayout.swift; sourceTree = "<group>"; };
+		EE6A34725F16BFF2250789A0 /* PermissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionState.swift; sourceTree = "<group>"; };
 		F289F00CFBE36BE727E4FAC7 /* EditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheet.swift; sourceTree = "<group>"; };
 		F6ADED52C1405844211F8A61 /* FleetFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixture.swift; sourceTree = "<group>"; };
 		FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
@@ -140,6 +150,7 @@
 				F6ADED52C1405844211F8A61 /* FleetFixture.swift */,
 				8C582CE67806106883217387 /* FleetLabels.swift */,
 				9AF374C3AC3DA11834D7D417 /* FleetStore.swift */,
+				AF454D1C954DBA7890F53958 /* ScannedCode.swift */,
 				29AE1B66966F3A3CBC72098E /* ShelfTag.swift */,
 			);
 			path = Fleet;
@@ -148,6 +159,7 @@
 		39C2A80B657D885D297036F0 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				2AD39C9B6FD8C396D6BA26EE /* CameraScanner.swift */,
 				C2AF287F39A3AF1C107CBB63 /* ClaimSheet.swift */,
 				1E52CA097F72ED1526880F92 /* CoverView.swift */,
 				C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */,
@@ -195,6 +207,7 @@
 				D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */,
 				5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */,
 				7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */,
+				82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */,
 				207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */,
 			);
 			path = HyllaTests;
@@ -208,6 +221,7 @@
 				6402A98D80B09E2A8A62869E /* RootView.swift */,
 				2F6FCF56E12E702037768CCD /* Fleet */,
 				DE9FAB16EF512A61A5F6E215 /* Layout */,
+				DAF16F3CF80FC6C783C34C81 /* Permission */,
 				B3449A7CCCEE7D350E621F50 /* Posture */,
 				39C2A80B657D885D297036F0 /* Screens */,
 			);
@@ -232,6 +246,14 @@
 			path = Posture;
 			sourceTree = "<group>";
 		};
+		DAF16F3CF80FC6C783C34C81 /* Permission */ = {
+			isa = PBXGroup;
+			children = (
+				EE6A34725F16BFF2250789A0 /* PermissionState.swift */,
+			);
+			path = Permission;
+			sourceTree = "<group>";
+		};
 		DE9FAB16EF512A61A5F6E215 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +270,7 @@
 			children = (
 				76B79E88C7A2BD647825A63C /* CoverUITests.swift */,
 				C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */,
+				29E2B7C0F5A5A92AF46CF6A6 /* PermissionUITests.swift */,
 				3048761974723000145069DC /* ScanUITests.swift */,
 				9F9DA5620360409950965130 /* SheetsUITests.swift */,
 				D06195FD5764459EB6989523 /* ShellUITests.swift */,
@@ -378,6 +401,7 @@
 				AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */,
 				4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */,
 				CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */,
+				BA89FC30DBC9DCE6C1089D3F /* PermissionTests.swift in Sources */,
 				1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +412,7 @@
 			files = (
 				086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */,
 				A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */,
+				447B74F923896CAF723764C6 /* PermissionUITests.swift in Sources */,
 				F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */,
 				7AAB4893FB035422C53BCED3 /* SheetsUITests.swift in Sources */,
 				A155E745F7D38BEF78ACECB3 /* ShellUITests.swift in Sources */,
@@ -401,6 +426,7 @@
 				21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */,
 				C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */,
 				49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */,
+				E50818008F342C32CC8F1BEC /* CameraScanner.swift in Sources */,
 				59733FD4C5F80B6DFB07A370 /* ClaimSheet.swift in Sources */,
 				615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */,
 				FD974CBABE4F3D16A76E9AE1 /* DeepLink.swift in Sources */,
@@ -418,11 +444,13 @@
 				08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
 				6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */,
+				76D17D08FD79FB4C4143BAD8 /* PermissionState.swift in Sources */,
 				7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */,
 				77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */,
 				8F12FF46648440C5BA75F494 /* RootView.swift in Sources */,
 				AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */,
 				52C89EA17DFD75CD15DEF36B /* ScanView.swift in Sources */,
+				BA398E310634E08A546AA23A /* ScannedCode.swift in Sources */,
 				74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */,
 				277A4F626C878AC61B36B4B8 /* ThisDeviceView.swift in Sources */,
 				47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */,
@@ -492,6 +520,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hylla/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hylla;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Hylla uses the camera only to read shelf tags. Nothing is recorded or stored.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -674,6 +703,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hylla/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hylla;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Hylla uses the camera only to read shelf tags. Nothing is recorded or stored.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
