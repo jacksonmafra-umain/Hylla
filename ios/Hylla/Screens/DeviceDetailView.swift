@@ -4,6 +4,8 @@ struct DeviceDetailView: View {
     let fleet: Fleet
     let id: Device.ID
     let widthClass: WidthClass
+    /// False when a history column sits beside the detail.
+    var showsHistory = true
 
     var body: some View {
         if let device = fleet.devices.first(where: { $0.id == id }) {
@@ -22,7 +24,12 @@ struct DeviceDetailView: View {
                     }
                 }
                 .padding(.horizontal, AdaptiveLayout.margin(widthClass))
-                .padding(.vertical, AdaptiveLayout.gutter(widthClass))
+                .padding(.top, AdaptiveLayout.gutter(widthClass))
+                if showsHistory {
+                    HistorySection(fleet: fleet, device: device.id)
+                        .padding(.horizontal, AdaptiveLayout.margin(widthClass))
+                }
+                Spacer(minLength: AdaptiveLayout.margin(widthClass))
             }
             .navigationTitle(device.deviceName)
             .navigationBarTitleDisplayMode(.inline)

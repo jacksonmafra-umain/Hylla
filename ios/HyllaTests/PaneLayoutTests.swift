@@ -33,8 +33,36 @@ struct PaneLayoutTests {
         #expect(layout.panes.map(\.width) == [412.8, 619.2])
     }
 
-    @Test func listPaneStopsGrowingAtItsMaximum() {
-        #expect(panes(1376, 1032).panes.first?.width == 480)
+    @Test func listPaneNeverGrowsPastItsMaximum() {
+        for width in stride(from: CGFloat(720), through: 2400, by: 13) {
+            let list = panes(width, 1000).panes[0].width
+            #expect(list <= PaneLayout.listMaxWidth, "width \(width)")
+        }
+    }
+
+    @Test func largeFlatWindowShowsListDetailAndHistory() {
+        let layout = panes(1376, 1032)
+        #expect(layout.paneCount == 3)
+        #expect(abs(layout.panes[0].width - 385.28) < 0.01)
+        #expect(layout.panes[2].width == 360)
+    }
+
+    @Test func atTheLargeBreakpointTheDetailStillGetsItsMinimum() {
+        #expect(panes(1200, 900).panes.map(\.width) == [360, 480, 360])
+    }
+
+    @Test func triFoldGivesOnePanePerSegment() {
+        let layout = panes(1110, 900, hinge(at: 370, height: 900), hinge(at: 740, height: 900))
+        #expect(layout.panes.map(\.width) == [370, 370, 370])
+    }
+
+    @Test func triFoldHingesInReverseStillGivePanesLeftToRight() {
+        let layout = panes(1110, 900, hinge(at: 740, height: 900), hinge(at: 370, height: 900))
+        #expect(layout.panes.map(\.minX) == [0, 370, 740])
+    }
+
+    @Test func triFoldWithSegmentsBelowTheMinimumCollapses() {
+        #expect(panes(1020, 900, hinge(at: 340, height: 900), hinge(at: 680, height: 900)).paneCount == 1)
     }
 
     @Test func bookPostureSplitsAtTheHinge() {
