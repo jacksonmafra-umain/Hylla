@@ -10,7 +10,7 @@ struct ContentView: View {
             NavigationStack(path: $path) {
                 FleetView(fleet: fleet, posture: posture)
                     .navigationDestination(for: Device.ID.self) { id in
-                        DeviceDetailView(fleet: fleet, id: id)
+                        DeviceDetailView(fleet: fleet, id: id, widthClass: posture.widthClass)
                     }
             }
         }

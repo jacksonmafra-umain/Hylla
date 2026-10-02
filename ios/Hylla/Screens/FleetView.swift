@@ -5,24 +5,34 @@ struct FleetView: View {
     let posture: WindowPosture
 
     var body: some View {
-        List {
-            Section {
-                ForEach(fleet.devices) { device in
-                    NavigationLink(value: device.id) {
-                        DeviceRow(device: device, fleet: fleet)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                AdaptiveGrid(widthClass: posture.widthClass, minColumnWidth: AdaptiveLayout.fleetTileMinWidth) {
+                    ForEach(fleet.devices) { device in
+                        NavigationLink(value: device.id) {
+                            DeviceTile(device: device, fleet: fleet)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("This window")
+                        .font(.headline)
+                        .accessibilityAddTraits(.isHeader)
+                    PostureReadout(posture: posture)
+                }
             }
-            Section("This window") {
-                PostureReadout(posture: posture)
-                    .frame(maxWidth: .infinity)
-            }
+            .padding(.horizontal, AdaptiveLayout.margin(posture.widthClass))
+            .padding(.vertical, AdaptiveLayout.gutter(posture.widthClass))
         }
+        .background(Color(.systemGroupedBackground))
         .navigationTitle("Fleet")
     }
 }
 
-private struct DeviceRow: View {
+/// Status sits on its own line rather than beside the name: at large Dynamic Type sizes a
+/// trailing label squeezes the model name into a column one word wide.
+private struct DeviceTile: View {
     let device: Device
     let fleet: Fleet
 
@@ -36,7 +46,10 @@ private struct DeviceRow: View {
             Text(device.statusText(in: fleet))
                 .font(.subheadline.weight(.semibold))
         }
-        .padding(.vertical, 2)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: .rect(cornerRadius: 12))
+        .contentShape(.rect(cornerRadius: 12))
     }
 }
 

@@ -3,18 +3,26 @@ import SwiftUI
 struct DeviceDetailView: View {
     let fleet: Fleet
     let id: Device.ID
+    let widthClass: WidthClass
 
     var body: some View {
         if let device = fleet.devices.first(where: { $0.id == id }) {
-            List(fields(for: device), id: \.label) { field in
-                // Label above value, so large Dynamic Type sizes wrap instead of colliding.
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(field.label)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Text(field.value)
+            ScrollView {
+                AdaptiveGrid(widthClass: widthClass, minColumnWidth: AdaptiveLayout.detailFieldMinWidth) {
+                    ForEach(fields(for: device), id: \.label) { field in
+                        // Label above value, so large Dynamic Type sizes wrap instead of colliding.
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(field.label)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text(field.value)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityElement(children: .combine)
+                    }
                 }
-                .accessibilityElement(children: .combine)
+                .padding(.horizontal, AdaptiveLayout.margin(widthClass))
+                .padding(.vertical, AdaptiveLayout.gutter(widthClass))
             }
             .navigationTitle(device.deviceName)
             .navigationBarTitleDisplayMode(.inline)
@@ -54,6 +62,6 @@ struct DeviceDetailView: View {
 
 #Preview {
     NavigationStack {
-        DeviceDetailView(fleet: try! FleetFixture.load(), id: Device.ID(rawValue: "HYL-001"))
+        DeviceDetailView(fleet: try! FleetFixture.load(), id: Device.ID(rawValue: "HYL-001"), widthClass: .compact)
     }
 }
