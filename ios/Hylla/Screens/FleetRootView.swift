@@ -29,6 +29,12 @@ struct FleetRootView: View {
                 default: stack(posture)
                 }
             }
+            // Beside the list, a new selection changes another pane without moving focus there;
+            // say what it now shows, so VoiceOver users know the detail changed.
+            .onChange(of: selection) { _, new in
+                guard PaneLayout.compute(posture).paneCount > 1, let name = new.flatMap(fleet.device)?.deviceName else { return }
+                AccessibilityNotification.Announcement(String(localized: "Showing \(name)")).post()
+            }
             // Presented here, where the filter lives, not from inside a split view column: from
             // the sidebar of a NavigationSplitView on iPad the sheet's toggles did not update it.
             .sheet(isPresented: $filtering) { FilterSheet(filter: $filter) }

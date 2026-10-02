@@ -42,9 +42,11 @@ struct FleetView: View {
                 Button(filter.activeCount == 0 ? String(localized: "Filters") : String(localized: "Filters (\(filter.activeCount))")) {
                     onFilters()
                 }
+                .keyboardShortcut("f", modifiers: .command)
             }
             ToolbarItem(placement: .primaryAction) {
                 Button("Scan", action: onScan)
+                    .keyboardShortcut("k", modifiers: .command)
             }
         }
     }
