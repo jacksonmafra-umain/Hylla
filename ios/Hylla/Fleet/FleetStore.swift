@@ -19,7 +19,11 @@ final class FleetStore {
         case invalid([String])
     }
 
-    private(set) var fleet: Fleet
+    private(set) var fleet: Fleet {
+        willSet { beforeLastChange = fleet }
+    }
+    /// The fleet before the last successful change, for one level of undo.
+    private var beforeLastChange: Fleet?
     fileprivate let today: () -> CalendarDate
 
     init(fleet: Fleet, today: @escaping () -> CalendarDate = { CalendarDate.today() }) {
@@ -34,14 +38,27 @@ final class FleetStore {
         guard current.assignmentStatus != .inUse else { throw .inUse(current.deviceName) }
         guard fleet.person(person) != nil else { throw .noPerson(person) }
         let day = today()
-        fleet.devices[index].assignmentStatus = .inUse
-        fleet.devices[index].currentUser = person
-        fleet.devices[index].since = day
-        fleet.assignments.append(Assignment(deviceId: device, person: person, from: day, to: nil))
+        // Build the next fleet and assign it once, so undo keeps the whole change, not a step.
+        var next = fleet
+        next.devices[index].assignmentStatus = .inUse
+        next.devices[index].currentUser = person
+        next.devices[index].since = day
+        next.assignments.append(Assignment(deviceId: device, person: person, from: day, to: nil))
+        fleet = next
     }
 
     fileprivate func replace(_ next: Fleet) {
         fleet = next
+    }
+
+    /// Puts the fleet back as it was before the last change. One level only: undo is for the
+    /// "that was the wrong device" moment right after a claim, not a history.
+    @discardableResult
+    func undo() -> Bool {
+        guard let previous = beforeLastChange else { return false }
+        fleet = previous
+        beforeLastChange = nil
+        return true
     }
 
     /// `device` goes back on the shelf. Throws if nobody holds it.
@@ -50,12 +67,14 @@ final class FleetStore {
         let current = fleet.devices[index]
         guard current.assignmentStatus == .inUse else { throw .notInUse(current.deviceName) }
         let day = today()
-        fleet.devices[index].assignmentStatus = .available
-        fleet.devices[index].currentUser = nil
-        fleet.devices[index].since = day
-        for i in fleet.assignments.indices where fleet.assignments[i].deviceId == device && fleet.assignments[i].to == nil {
-            fleet.assignments[i].to = day
+        var next = fleet
+        next.devices[index].assignmentStatus = .available
+        next.devices[index].currentUser = nil
+        next.devices[index].since = day
+        for i in next.assignments.indices where next.assignments[i].deviceId == device && next.assignments[i].to == nil {
+            next.assignments[i].to = day
         }
+        fleet = next
     }
 }
 

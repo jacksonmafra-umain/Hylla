@@ -119,6 +119,34 @@ struct FleetStoreEditTests {
     }
 }
 
+@MainActor
+struct FleetStoreUndoTests {
+    func store() throws -> FleetStore {
+        let url = URL(filePath: #filePath).deletingLastPathComponent().appending(path: "../../fixtures/devices.json").standardized
+        return FleetStore(fleet: try FleetFixture.decode(Data(contentsOf: url)), today: { CalendarDate(year: 2026, month: 10, day: 2) })
+    }
+
+    @Test func undoPutsTheFleetBackAsItWasBeforeTheLastChange() throws {
+        let store = try store()
+        let before = store.fleet
+        try store.claim(Device.ID(rawValue: "HYL-002"), by: Person.ID(rawValue: "p-02"))
+
+        #expect(store.undo())
+        #expect(store.fleet == before)
+    }
+
+    @Test func undoIsOneLevelAndAFailedChangeDoesNotReplaceIt() throws {
+        let store = try store()
+        let flip = Device.ID(rawValue: "HYL-002")
+        try store.claim(flip, by: Person.ID(rawValue: "p-02"))
+        #expect(throws: FleetStore.Failure.self) { try store.claim(flip, by: Person.ID(rawValue: "p-02")) }
+
+        store.undo()
+        #expect(store.fleet.device(flip)?.assignmentStatus == .available)
+        #expect(!store.undo())
+    }
+}
+
 struct ShelfTagTests {
     @Test(arguments: ["HYL-002", "hyl-2", "HYL2", "2", " 002 "])
     func looseSpellingsResolveToTheCanonicalTag(text: String) {
