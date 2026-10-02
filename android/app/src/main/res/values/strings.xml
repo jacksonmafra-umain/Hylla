@@ -14,6 +14,10 @@
     <string name="history_period_open">Since %1$s</string>
     <string name="scan_action">Scan</string>
     <string name="scan_title">Check out or return</string>
+    <string name="scan_camera_rationale">Hylla uses the camera only to read shelf tags. Nothing is recorded or stored.</string>
+    <string name="scan_use_camera">Use the camera</string>
+    <string name="scan_camera_blocked">Camera access is off for Hylla. Turn it on in Settings, or type the tag.</string>
+    <string name="open_settings">Open Settings</string>
     <string name="scan_viewfinder">Camera viewfinder</string>
     <string name="scan_hint">Point the camera at a shelf tag, or type it below.</string>
     <string name="scan_tag_label">Shelf tag</string>
@@ -53,6 +57,10 @@
     <string name="undo">Undo</string>
     <string name="feedback_saved">%1$s is saved.</string>
     <string name="copy_shelf_tag">Copy shelf tag</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_switch">Notify me about devices</string>
+    <string name="notifications_explain">When a device you hold is overdue, and when one you are waiting for is back on the shelf.</string>
+    <string name="notifications_blocked">Notifications are off for Hylla in Settings.</string>
     <string name="nav_fleet">Fleet</string>
     <string name="nav_this_device">This device</string>
     <string name="nav_you">You</string>

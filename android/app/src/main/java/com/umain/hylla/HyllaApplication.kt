@@ -3,6 +3,7 @@ package com.umain.hylla
 import android.app.Application
 import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.MeStore
+import com.umain.hylla.fleet.NotificationSettings
 import com.umain.hylla.fleet.loadFleet
 
 /**
@@ -12,4 +13,5 @@ import com.umain.hylla.fleet.loadFleet
 class HyllaApplication : Application() {
     val store: FleetStore by lazy { FleetStore(assets.loadFleet()) }
     val me: MeStore by lazy { MeStore(getSharedPreferences("hylla", MODE_PRIVATE)) }
+    val notifications: NotificationSettings by lazy { NotificationSettings(getSharedPreferences("hylla", MODE_PRIVATE)) }
 }

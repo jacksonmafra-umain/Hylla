@@ -1,6 +1,7 @@
 package com.umain.hylla.ui
 
 import androidx.activity.compose.PredictiveBackHandler
+import android.Manifest
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -55,6 +56,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -74,11 +77,15 @@ import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.PersonId
+import com.umain.hylla.fleet.ScannedCode
 import com.umain.hylla.fleet.ShelfTag
 import com.umain.hylla.fleet.device
 import com.umain.hylla.layout.ScanLayout
 import com.umain.hylla.posture.DpBounds
 import com.umain.hylla.posture.Posture
+import com.umain.hylla.permission.PermissionState
+import com.umain.hylla.permission.RuntimePermission
+import com.umain.hylla.permission.rememberRuntimePermission
 import com.umain.hylla.posture.WindowPosture
 
 /**
@@ -97,6 +104,9 @@ fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, me: Pers
     // the viewfinder to a strip while the keyboard is up. Tabletop keeps its split at the crease.
     val typing = WindowInsets.isImeVisible && !computed.sideBySide && posture.posture != Posture.Tabletop
     val layout = if (typing) computed.withViewfinderHeight(KEYBOARD_VIEWFINDER_DP) else computed
+    // The tag being looked up, shared by the camera and the typed field.
+    var found by rememberSaveable { mutableStateOf<String?>(null) }
+    val haptics = LocalHapticFeedback.current
     // Drawn outside the navigation display, so it handles system back itself, following the
     // predictive gesture: the scanner shrinks with the swipe, and only leaves if you let go.
     var backProgress by remember { mutableFloatStateOf(0f) }
@@ -119,9 +129,15 @@ fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, me: Pers
                 alpha = 1f - 0.3f * backProgress
             },
     ) {
-        Viewfinder(Modifier.placeAt(layout.viewfinder), onBack)
+        Viewfinder(Modifier.placeAt(layout.viewfinder), onBack, onCode = { raw ->
+            val id = ScannedCode.parse(raw)?.value
+            if (id != null && id != found) {
+                found = id
+                haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+            }
+        })
         Surface(Modifier.placeAt(layout.controls)) {
-            ScanControls(fleet, store, me)
+            ScanControls(fleet, store, me, found, onFound = { found = it })
         }
     }
 }
@@ -141,18 +157,26 @@ private fun Modifier.placeAt(bounds: DpBounds) =
  * and a fixed 200 dp guide would run over everything. The hint only shows where it fits.
  */
 @Composable
-private fun Viewfinder(modifier: Modifier, onBack: () -> Unit) {
+private fun Viewfinder(modifier: Modifier, onBack: () -> Unit, onCode: (String) -> Unit) {
     val description = stringResource(R.string.scan_viewfinder)
+    val camera = rememberRuntimePermission(Manifest.permission.CAMERA)
     BoxWithConstraints(modifier.background(Color(0xFF101418))) {
+        if (camera.state == PermissionState.Granted) {
+            CameraScanner(onCode = onCode)
+        } else {
+            CameraPrompt(camera, Modifier.align(Alignment.Center).padding(24.dp))
+        }
         val guide = (minOf(maxWidth, maxHeight) * 0.55f).coerceAtMost(200.dp)
-        Box(
-            Modifier
-                .align(Alignment.Center)
-                .size(guide)
-                .border(3.dp, Color.White.copy(alpha = 0.8f), RoundedCornerShape(guide / 8))
-                .semantics { contentDescription = description },
-        )
-        if (maxHeight >= 280.dp) {
+        if (camera.state == PermissionState.Granted) {
+            Box(
+                Modifier
+                    .align(Alignment.Center)
+                    .size(guide)
+                    .border(3.dp, Color.White.copy(alpha = 0.8f), RoundedCornerShape(guide / 8))
+                    .semantics { contentDescription = description },
+            )
+        }
+        if (maxHeight >= 280.dp && camera.state == PermissionState.Granted) {
             Text(
                 stringResource(R.string.scan_hint),
                 color = Color.White,
@@ -170,10 +194,25 @@ private fun Viewfinder(modifier: Modifier, onBack: () -> Unit) {
     }
 }
 
+/** Asks for the camera, or says where to turn it on. Never at launch: only when scanning. */
 @Composable
-private fun ScanControls(fleet: Fleet, store: FleetStore, me: PersonId?) {
+private fun CameraPrompt(camera: RuntimePermission, modifier: Modifier) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        val blocked = camera.state == PermissionState.Blocked
+        Text(
+            stringResource(if (blocked) R.string.scan_camera_blocked else R.string.scan_camera_rationale),
+            color = Color.White,
+            textAlign = TextAlign.Center,
+        )
+        Button(onClick = if (blocked) camera.openSettings else camera.request) {
+            Text(stringResource(if (blocked) R.string.open_settings else R.string.scan_use_camera))
+        }
+    }
+}
+
+@Composable
+private fun ScanControls(fleet: Fleet, store: FleetStore, me: PersonId?, found: String?, onFound: (String?) -> Unit) {
     var tag by rememberSaveable { mutableStateOf("") }
-    var found by rememberSaveable { mutableStateOf<String?>(null) }
     var message by rememberSaveable { mutableStateOf<String?>(null) }
     val device = found?.let { fleet.device(DeviceId(it)) }
     val notATag = stringResource(R.string.scan_not_a_tag)
@@ -183,7 +222,7 @@ private fun ScanControls(fleet: Fleet, store: FleetStore, me: PersonId?) {
         // In tabletop the keyboard fills the controls segment; put it away to show the result.
         keyboard?.hide()
         val id = ShelfTag.parse(tag)
-        found = id?.value
+        onFound(id?.value)
         message = if (id == null) notATag else null
     }
 

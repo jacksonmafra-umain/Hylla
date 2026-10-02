@@ -59,6 +59,7 @@ import com.umain.hylla.fleet.FleetFilter
 import com.umain.hylla.fleet.PersonId
 import com.umain.hylla.fleet.FleetStore
 import com.umain.hylla.fleet.MeStore
+import com.umain.hylla.fleet.NotificationSettings
 import com.umain.hylla.layout.ChromeKind
 import com.umain.hylla.layout.ChromeLayout
 import com.umain.hylla.layout.MultiPaneSceneStrategy
@@ -108,6 +109,7 @@ fun HyllaNavigation(
     posture: WindowPosture,
     store: FleetStore,
     meStore: MeStore,
+    notifications: NotificationSettings,
     link: DeviceId? = null,
     onLinkOpened: () -> Unit = {},
 ) {
@@ -175,7 +177,7 @@ fun HyllaNavigation(
             when (tab) {
                 TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack, store, me)
                 TopLevel.ThisDevice -> ThisDeviceScreen(posture)
-                TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set)
+                TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set, settings = notifications)
             }
             SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
         }
