@@ -40,6 +40,7 @@
 		7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485260CCB2262F2B28676C8C /* FleetFilter.swift */; };
 		7AAB4893FB035422C53BCED3 /* SheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9DA5620360409950965130 /* SheetsUITests.swift */; };
 		7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C738846931936956614C5A04 /* PersonPicker.swift */; };
+		7B8FE70FD84E4E7EC1C1BA04 /* AccessibilityAuditUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF301DBE23BC0D065109632F /* AccessibilityAuditUITests.swift */; };
 		7CD58E30D163BD46A2850CDB /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B420904C17AC52542AA498FB /* PersistenceTests.swift */; };
 		7EDFE010B0CF14C0C6215081 /* Notices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041126262B45728C58157E33 /* Notices.swift */; };
 		8F12FF46648440C5BA75F494 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402A98D80B09E2A8A62869E /* RootView.swift */; };
@@ -124,6 +125,7 @@
 		A5163A756E85D0D3168A1E97 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 		A5C242E35C200E03F77C8035 /* NotifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTests.swift; sourceTree = "<group>"; };
 		AEE1C95912F75072376660D4 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		AF301DBE23BC0D065109632F /* AccessibilityAuditUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityAuditUITests.swift; sourceTree = "<group>"; };
 		AF454D1C954DBA7890F53958 /* ScannedCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedCode.swift; sourceTree = "<group>"; };
 		B420904C17AC52542AA498FB /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 		F150055588D12D9881CFB9A2 /* HyllaUITests */ = {
 			isa = PBXGroup;
 			children = (
+				AF301DBE23BC0D065109632F /* AccessibilityAuditUITests.swift */,
 				76B79E88C7A2BD647825A63C /* CoverUITests.swift */,
 				C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */,
 				BE38798DB82A1A4851346947 /* NotificationUITests.swift */,
@@ -470,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B8FE70FD84E4E7EC1C1BA04 /* AccessibilityAuditUITests.swift in Sources */,
 				086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */,
 				A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */,
 				8FDD361C82B68528C095AE45 /* NotificationUITests.swift in Sources */,
