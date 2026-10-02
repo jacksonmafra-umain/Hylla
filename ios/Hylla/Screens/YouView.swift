@@ -58,6 +58,8 @@ private struct NotificationsSection: View {
             Text(permission == .blocked && wanted
                  ? "Notifications are off for Hylla in Settings."
                  : "When a device you hold is overdue, and when one you are waiting for is back on the shelf.")
+                // Footnote-sized text needs more contrast than the system's secondary footer gives.
+                .foregroundStyle(.primary)
         }
         .task { await refresh() }
         .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await refresh() } } }

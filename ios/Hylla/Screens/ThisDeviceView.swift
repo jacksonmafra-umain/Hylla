@@ -15,7 +15,6 @@ struct ThisDeviceView: View {
                     PostureReadout(posture: posture)
                     Text("Adds this device to the fleet with its model, OS and the window it reports right now.")
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                     Button("Register this device") { registering = true }
                         .buttonStyle(.borderedProminent)

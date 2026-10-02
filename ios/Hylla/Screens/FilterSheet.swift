@@ -38,8 +38,12 @@ struct FilterSheet: View {
             .navigationTitle("Filters")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Clear") { filter = FleetFilter() }.disabled(filter.activeCount == 0)
+                // Shown only when there is something to clear: a disabled button's grey fails the
+                // contrast audit and offers nothing.
+                if filter.activeCount > 0 {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Clear") { filter = FleetFilter() }
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
