@@ -25,6 +25,7 @@ import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.layout.AdaptiveGrid
 import com.umain.hylla.layout.AdaptiveLayout
+import com.umain.hylla.layout.LocalInMultiPane
 import com.umain.hylla.posture.WidthClass
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -45,8 +46,11 @@ fun DeviceDetailScreen(
             TopAppBar(
                 title = { Text(device?.deviceName ?: stringResource(R.string.device_not_found_title)) },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
+                    // Beside the list there is nothing to go up to; system back still clears the detail.
+                    if (!LocalInMultiPane.current) {
+                        IconButton(onClick = onBack) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
+                        }
                     }
                 },
             )

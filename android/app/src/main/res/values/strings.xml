@@ -7,6 +7,7 @@
     <string name="device_row_supporting">%1$s · %2$s %3$s</string>
     <string name="status_with_holder">%1$s · %2$s</string>
 
+    <string name="select_device">Select a device to see its details.</string>
     <string name="device_not_found_title">Not found</string>
     <string name="device_not_found">No device with shelf tag %1$s.</string>
     <string name="os_version">%1$s %2$s</string>

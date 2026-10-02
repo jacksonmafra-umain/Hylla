@@ -1,11 +1,13 @@
 package com.umain.hylla.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -18,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.umain.hylla.R
@@ -34,6 +37,7 @@ import com.umain.hylla.posture.WindowPosture
 fun FleetScreen(
     fleet: Fleet,
     posture: WindowPosture,
+    selected: DeviceId?,
     onDeviceClick: (DeviceId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -54,7 +58,7 @@ fun FleetScreen(
             modifier = Modifier.fillMaxSize(),
         ) {
             items(fleet.devices, key = { it.id.value }) { device ->
-                DeviceTile(device, fleet, onClick = { onDeviceClick(device.id) })
+                DeviceTile(device, fleet, selected = device.id == selected, onClick = { onDeviceClick(device.id) })
             }
             item(key = "window", span = { GridItemSpan(maxLineSpan) }) {
                 Column(Modifier.padding(top = 16.dp)) {
@@ -75,8 +79,17 @@ fun FleetScreen(
  * squeezes the model name into a column one word wide.
  */
 @Composable
-private fun DeviceTile(device: Device, fleet: Fleet, onClick: () -> Unit) {
-    OutlinedCard(onClick = onClick) {
+private fun DeviceTile(device: Device, fleet: Fleet, selected: Boolean, onClick: () -> Unit) {
+    OutlinedCard(
+        onClick = onClick,
+        modifier = Modifier.semantics { this.selected = selected },
+        border = if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else CardDefaults.outlinedCardBorder(),
+        colors = if (selected) {
+            CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
+        } else {
+            CardDefaults.outlinedCardColors()
+        },
+    ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(device.deviceName, style = MaterialTheme.typography.titleMedium)
             Text(
