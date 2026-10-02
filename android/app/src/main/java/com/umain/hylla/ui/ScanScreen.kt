@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -73,6 +75,7 @@ import com.umain.hylla.fleet.ShelfTag
 import com.umain.hylla.fleet.device
 import com.umain.hylla.layout.ScanLayout
 import com.umain.hylla.posture.DpBounds
+import com.umain.hylla.posture.Posture
 import com.umain.hylla.posture.WindowPosture
 
 /**
@@ -82,9 +85,15 @@ import com.umain.hylla.posture.WindowPosture
  * the crease runs between them. The camera itself arrives with the permission flow in chapter 14;
  * typing the tag works everywhere and stays as the accessible fallback.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, me: PersonId?, onBack: () -> Unit) {
-    val layout = remember(posture) { ScanLayout.compute(posture) }
+    val computed = remember(posture) { ScanLayout.compute(posture) }
+    // Typing a tag in a stacked layout: the keyboard rises into the controls, and on a wide
+    // window held upright (an unfolded Fold in landscape) only the field was left visible. Shrink
+    // the viewfinder to a strip while the keyboard is up. Tabletop keeps its split at the crease.
+    val typing = WindowInsets.isImeVisible && !computed.sideBySide && posture.posture != Posture.Tabletop
+    val layout = if (typing) computed.withViewfinderHeight(KEYBOARD_VIEWFINDER_DP) else computed
     // Drawn outside the navigation display, so it handles system back itself.
     BackHandler(onBack = onBack)
     Box(Modifier.fillMaxSize()) {
@@ -93,6 +102,13 @@ fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, me: Pers
             ScanControls(fleet, store, me)
         }
     }
+}
+
+private const val KEYBOARD_VIEWFINDER_DP = 96f
+
+private fun ScanLayout.withViewfinderHeight(height: Float): ScanLayout {
+    val split = viewfinder.top + minOf(height, viewfinder.height)
+    return copy(viewfinder = viewfinder.copy(bottom = split), controls = controls.copy(top = split))
 }
 
 private fun Modifier.placeAt(bounds: DpBounds) =

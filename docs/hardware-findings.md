@@ -35,3 +35,16 @@ measurement.
 the window is the only input. A per-model offset would be a second input that silently goes
 stale. The right fix is the device declaring its cutout, and this has been noted for reporting to
 Samsung.
+
+## 2026-10-02 — The scanner's keyboard on an unfolded Fold in landscape
+
+**Device:** the same SM-F971B, unfolded, landscape, about 930 × 700 dp.
+
+**Seen:** typing a shelf tag on the scanner, only the text field was left above the keyboard;
+the title and *Look up* were pushed out of view. The height class is `Medium`, so the scan layout
+stacks the viewfinder over the controls at 45%, and the keyboard takes most of what remains.
+The emulator's flat portrait window had not shown it.
+
+**What the app does:** while the keyboard is up in a stacked layout, the viewfinder shrinks to a
+96 dp strip and the controls take the rest. Tabletop keeps its split at the crease, because there
+the viewfinder faces the shelf and the keyboard is meant for the lower half.
