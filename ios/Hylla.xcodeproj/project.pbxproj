@@ -22,13 +22,17 @@
 		4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */; };
 		50A4D928B5476747DCD0A95A /* FleetFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */; };
 		52C89EA17DFD75CD15DEF36B /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A361D69CA3D550E12437C /* ScanView.swift */; };
+		59733FD4C5F80B6DFB07A370 /* ClaimSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AF287F39A3AF1C107CBB63 /* ClaimSheet.swift */; };
 		615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52CA097F72ED1526880F92 /* CoverView.swift */; };
 		6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB41B1B16BAA8B79B9B80BCC /* PaneLayout.swift */; };
+		7209B22C089E8477388509ED /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F911AB879A792AC558A47C /* FilterSheet.swift */; };
 		74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AE1B66966F3A3CBC72098E /* ShelfTag.swift */; };
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
 		77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
 		7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485260CCB2262F2B28676C8C /* FleetFilter.swift */; };
+		7AAB4893FB035422C53BCED3 /* SheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9DA5620360409950965130 /* SheetsUITests.swift */; };
+		7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C738846931936956614C5A04 /* PersonPicker.swift */; };
 		8F12FF46648440C5BA75F494 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402A98D80B09E2A8A62869E /* RootView.swift */; };
 		9D0EF5CC0B4ADDD261922A22 /* YouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA5E9317003C8261B4140B /* YouView.swift */; };
 		9F68B4331B1370822031CABD /* FleetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3268A8D0E68715ACA57AA9 /* FleetView.swift */; };
@@ -39,6 +43,7 @@
 		C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */; };
 		CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */; };
 		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
+		F163184A58C1E25B65D51A16 /* EditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F289F00CFBE36BE727E4FAC7 /* EditSheet.swift */; };
 		F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048761974723000145069DC /* ScanUITests.swift */; };
 		F97C4017709BBD0EDA4DA059 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 625154AED9AE337CFF40CFBD /* Assets.xcassets */; };
 		FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C582CE67806106883217387 /* FleetLabels.swift */; };
@@ -83,16 +88,20 @@
 		80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayout.swift; sourceTree = "<group>"; };
 		825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutTests.swift; sourceTree = "<group>"; };
 		8C582CE67806106883217387 /* FleetLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetLabels.swift; sourceTree = "<group>"; };
+		96F911AB879A792AC558A47C /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
 		97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveGrid.swift; sourceTree = "<group>"; };
 		9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReadout.swift; sourceTree = "<group>"; };
 		9AF374C3AC3DA11834D7D417 /* FleetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetStore.swift; sourceTree = "<group>"; };
+		9F9DA5620360409950965130 /* SheetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsUITests.swift; sourceTree = "<group>"; };
 		A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLayout.swift; sourceTree = "<group>"; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
 		BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFilterTests.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
 		C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetNavigationUITests.swift; sourceTree = "<group>"; };
+		C2AF287F39A3AF1C107CBB63 /* ClaimSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimSheet.swift; sourceTree = "<group>"; };
 		C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
+		C738846931936956614C5A04 /* PersonPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonPicker.swift; sourceTree = "<group>"; };
 		C766B65C2303EB4270D96C14 /* devices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = devices.json; sourceTree = "<group>"; };
 		CBC39601BE77E6CCBA48D616 /* HyllaUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06195FD5764459EB6989523 /* ShellUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellUITests.swift; sourceTree = "<group>"; };
@@ -100,6 +109,7 @@
 		DC3268A8D0E68715ACA57AA9 /* FleetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetView.swift; sourceTree = "<group>"; };
 		E3AD4599EA2058B5774F9630 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		EB41B1B16BAA8B79B9B80BCC /* PaneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneLayout.swift; sourceTree = "<group>"; };
+		F289F00CFBE36BE727E4FAC7 /* EditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheet.swift; sourceTree = "<group>"; };
 		F6ADED52C1405844211F8A61 /* FleetFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixture.swift; sourceTree = "<group>"; };
 		FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,11 +141,15 @@
 		39C2A80B657D885D297036F0 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C2AF287F39A3AF1C107CBB63 /* ClaimSheet.swift */,
 				1E52CA097F72ED1526880F92 /* CoverView.swift */,
 				C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */,
+				F289F00CFBE36BE727E4FAC7 /* EditSheet.swift */,
+				96F911AB879A792AC558A47C /* FilterSheet.swift */,
 				28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */,
 				DC3268A8D0E68715ACA57AA9 /* FleetView.swift */,
 				E3AD4599EA2058B5774F9630 /* HistoryView.swift */,
+				C738846931936956614C5A04 /* PersonPicker.swift */,
 				7B1A361D69CA3D550E12437C /* ScanView.swift */,
 				5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */,
 				70DA5E9317003C8261B4140B /* YouView.swift */,
@@ -226,6 +240,7 @@
 				76B79E88C7A2BD647825A63C /* CoverUITests.swift */,
 				C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */,
 				3048761974723000145069DC /* ScanUITests.swift */,
+				9F9DA5620360409950965130 /* SheetsUITests.swift */,
 				D06195FD5764459EB6989523 /* ShellUITests.swift */,
 			);
 			path = HyllaUITests;
@@ -364,6 +379,7 @@
 				086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */,
 				A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */,
 				F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */,
+				7AAB4893FB035422C53BCED3 /* SheetsUITests.swift in Sources */,
 				A155E745F7D38BEF78ACECB3 /* ShellUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,8 +391,11 @@
 				21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */,
 				C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */,
 				49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */,
+				59733FD4C5F80B6DFB07A370 /* ClaimSheet.swift in Sources */,
 				615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */,
 				413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */,
+				F163184A58C1E25B65D51A16 /* EditSheet.swift in Sources */,
+				7209B22C089E8477388509ED /* FilterSheet.swift in Sources */,
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
 				7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
@@ -387,6 +406,7 @@
 				08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
 				6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */,
+				7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */,
 				77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */,
 				8F12FF46648440C5BA75F494 /* RootView.swift in Sources */,
 				AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */,

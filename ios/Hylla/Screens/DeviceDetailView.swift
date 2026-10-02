@@ -1,15 +1,30 @@
 import SwiftUI
 
 struct DeviceDetailView: View {
-    let fleet: Fleet
+    let store: FleetStore
     let id: Device.ID
+    var me: Person.ID?
     let widthClass: WidthClass
     /// False when a history column sits beside the detail.
     var showsHistory = true
 
+    private enum Modal: Identifiable {
+        case claim, edit
+        var id: Self { self }
+    }
+
+    @State private var modal: Modal?
+    @State private var confirmingReturn = false
+
+    private var fleet: Fleet { store.fleet }
+
     var body: some View {
         if let device = fleet.devices.first(where: { $0.id == id }) {
             ScrollView {
+                action(for: device)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, AdaptiveLayout.margin(widthClass))
+                    .padding(.top, AdaptiveLayout.gutter(widthClass))
                 AdaptiveGrid(widthClass: widthClass, minColumnWidth: AdaptiveLayout.detailFieldMinWidth) {
                     ForEach(fields(for: device), id: \.label) { field in
                         // Label above value, so large Dynamic Type sizes wrap instead of colliding.
@@ -33,12 +48,45 @@ struct DeviceDetailView: View {
             }
             .navigationTitle(device.deviceName)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Edit") { modal = .edit }
+                }
+            }
+            .sheet(item: $modal) { modal in
+                switch modal {
+                case .claim:
+                    ClaimSheet(device: device, fleet: fleet, me: me) { person in
+                        try? store.claim(device.id, by: person)
+                        self.modal = nil
+                    }
+                case .edit:
+                    EditSheet(device: device, onSave: store.update)
+                }
+            }
+            .alert("Return \(device.deviceName)?", isPresented: $confirmingReturn) {
+                Button("Return to the shelf", role: .destructive) { try? store.returnDevice(device.id) }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("It goes back on the shelf and \(device.currentUser.flatMap(fleet.person)?.name ?? "") no longer holds it.")
+            }
         } else {
             ContentUnavailableView(
                 "Not found",
                 systemImage: "questionmark.square.dashed",
                 description: Text("No device with shelf tag \(id.rawValue).")
             )
+        }
+    }
+
+    @ViewBuilder
+    private func action(for device: Device) -> some View {
+        if device.assignmentStatus == .inUse {
+            Button("Return to the shelf") { confirmingReturn = true }
+                .buttonStyle(.bordered)
+        } else if device.lifecycle == .inUse {
+            Button("Claim") { modal = .claim }
+                .buttonStyle(.borderedProminent)
         }
     }
 
@@ -69,6 +117,6 @@ struct DeviceDetailView: View {
 
 #Preview {
     NavigationStack {
-        DeviceDetailView(fleet: try! FleetFixture.load(), id: Device.ID(rawValue: "HYL-001"), widthClass: .compact)
+        DeviceDetailView(store: FleetStore(fleet: try! FleetFixture.load()), id: Device.ID(rawValue: "HYL-001"), widthClass: .compact)
     }
 }

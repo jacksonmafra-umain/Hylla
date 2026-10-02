@@ -28,7 +28,7 @@ struct RootView: View {
                 } else {
                     TabView(selection: $destination) {
                         Tab("Fleet", systemImage: "list.bullet", value: .fleet) {
-                            FleetRootView(store: store, selection: $selection, onScan: { scanning = true })
+                            FleetRootView(store: store, selection: $selection, me: me, onScan: { scanning = true })
                         }
                         Tab("This device", systemImage: "info.circle", value: .thisDevice) {
                             ThisDeviceView(posture: window)

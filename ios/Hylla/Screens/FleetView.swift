@@ -6,13 +6,20 @@ struct FleetView: View {
     @Binding var selection: Device.ID?
     /// Beside the detail, the selected tile is marked; alone, it is about to be covered anyway.
     let highlightsSelection: Bool
+    let filter: FleetFilter
+    var onFilters: () -> Void = {}
     var onScan: () -> Void = {}
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
+                let devices = fleet.devices.filter(filter.matches)
+                if devices.isEmpty {
+                    Text("No devices match these filters.")
+                        .padding(.vertical, 24)
+                }
                 AdaptiveGrid(widthClass: posture.widthClass, minColumnWidth: AdaptiveLayout.fleetTileMinWidth) {
-                    ForEach(fleet.devices) { device in
+                    ForEach(devices) { device in
                         let selected = highlightsSelection && selection == device.id
                         Button {
                             selection = device.id
@@ -29,7 +36,13 @@ struct FleetView: View {
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Fleet")
+
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(filter.activeCount == 0 ? String(localized: "Filters") : String(localized: "Filters (\(filter.activeCount))")) {
+                    onFilters()
+                }
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button("Scan", action: onScan)
             }
@@ -75,7 +88,8 @@ private struct DeviceTile: View {
             fleet: try! FleetFixture.load(),
             posture: WindowPosture(size: CGSize(width: 402, height: 874)),
             selection: .constant(nil),
-            highlightsSelection: false
+            highlightsSelection: false,
+            filter: FleetFilter()
         )
     }
 }

@@ -12,18 +12,26 @@ import SwiftUI
 struct FleetRootView: View {
     let store: FleetStore
     @Binding var selection: Device.ID?
+    var me: Person.ID?
     let onScan: () -> Void
+    @State private var filter = FleetFilter()
+    @State private var filtering = false
 
     private var fleet: Fleet { store.fleet }
 
     var body: some View {
         WindowPostureReader { posture in
             let layout = PaneLayout.compute(posture)
-            switch layout.paneCount {
-            case 3: threeColumns(posture, layout)
-            case 2: twoColumns(posture, listWidth: layout.panes[0].width)
-            default: stack(posture)
+            Group {
+                switch layout.paneCount {
+                case 3: threeColumns(posture, layout)
+                case 2: twoColumns(posture, listWidth: layout.panes[0].width)
+                default: stack(posture)
+                }
             }
+            // Presented here, where the filter lives, not from inside a split view column: from
+            // the sidebar of a NavigationSplitView on iPad the sheet's toggles did not update it.
+            .sheet(isPresented: $filtering) { FilterSheet(filter: $filter) }
         }
     }
 
@@ -32,22 +40,22 @@ struct FleetRootView: View {
             get: { selection.map { [$0] } ?? [] },
             set: { selection = $0.last }
         )) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: false, onScan: onScan)
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: false, filter: filter, onFilters: { filtering = true }, onScan: onScan)
                 .navigationDestination(for: Device.ID.self) { id in
-                    DeviceDetailView(fleet: fleet, id: id, widthClass: posture.widthClass)
+                    DeviceDetailView(store: store, id: id, me: me, widthClass: posture.widthClass)
                 }
         }
     }
 
     private func threeColumns(_ posture: WindowPosture, _ layout: PaneLayout) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, onScan: onScan)
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, filter: filter, onFilters: { filtering = true }, onScan: onScan)
                 .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: layout.panes[0].width, max: layout.panes[0].width)
                 .toolbar(removing: .sidebarToggle)
         } content: {
             Group {
                 if let selection {
-                    DeviceDetailView(fleet: fleet, id: selection, widthClass: posture.widthClass, showsHistory: false)
+                    DeviceDetailView(store: store, id: selection, me: me, widthClass: posture.widthClass, showsHistory: false)
                 } else {
                     ContentUnavailableView("Select a device to see its details.", systemImage: "iphone.gen3")
                 }
@@ -61,12 +69,12 @@ struct FleetRootView: View {
 
     private func twoColumns(_ posture: WindowPosture, listWidth: CGFloat) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, onScan: onScan)
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, filter: filter, onFilters: { filtering = true }, onScan: onScan)
                 .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: listWidth, max: listWidth)
                 .toolbar(removing: .sidebarToggle)
         } detail: {
             if let selection {
-                DeviceDetailView(fleet: fleet, id: selection, widthClass: posture.widthClass)
+                DeviceDetailView(store: store, id: selection, me: me, widthClass: posture.widthClass)
             } else {
                 ContentUnavailableView("Select a device to see its details.", systemImage: "iphone.gen3")
             }
