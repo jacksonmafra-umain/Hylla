@@ -3,14 +3,14 @@ package com.umain.hylla.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -18,10 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import com.umain.hylla.R
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
+import com.umain.hylla.layout.AdaptiveGrid
+import com.umain.hylla.layout.AdaptiveLayout
+import com.umain.hylla.posture.WidthClass
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -30,6 +34,7 @@ import java.time.format.FormatStyle
 fun DeviceDetailScreen(
     fleet: Fleet,
     id: DeviceId,
+    widthClass: WidthClass,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -53,13 +58,22 @@ fun DeviceDetailScreen(
             }
         } else {
             val fields = deviceFields(device, fleet)
-            LazyColumn(Modifier.fillMaxSize(), contentPadding = padding) {
+            AdaptiveGrid(
+                widthClass = widthClass,
+                minColumnWidth = AdaptiveLayout.DETAIL_FIELD_MIN_WIDTH_DP,
+                contentPadding = padding,
+                modifier = Modifier.fillMaxSize(),
+            ) {
                 items(fields, key = { it.label }) { field ->
-                    // ListItem merges its slots, so a screen reader reads "Model, Galaxy Z Fold7".
-                    ListItem(
-                        overlineContent = { Text(stringResource(field.label)) },
-                        headlineContent = { Text(field.value) },
-                    )
+                    // One node per field, so a screen reader reads "Model, Galaxy Z Fold7".
+                    Column(Modifier.semantics(mergeDescendants = true) {}) {
+                        Text(
+                            stringResource(field.label),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Text(field.value, style = MaterialTheme.typography.bodyLarge)
+                    }
                 }
             }
         }

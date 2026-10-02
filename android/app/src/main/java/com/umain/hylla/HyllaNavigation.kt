@@ -42,6 +42,7 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture) {
                 DeviceDetailScreen(
                     fleet = fleet,
                     id = route.id,
+                    widthClass = posture.widthClass,
                     onBack = { backStack.removeLastOrNull() },
                 )
             }
