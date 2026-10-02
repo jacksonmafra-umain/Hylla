@@ -36,7 +36,9 @@ final class SheetsUITests: XCTestCase {
         let android = app.switches["Android"]
         android.switches.firstMatch.tap()
         // On the iPad simulator neither the control nor the row toggles under XCUITest, and
-        // the runner has hung twice trying. Unverified there by automation; see chapter 10.
+        // the runner has hung twice trying. Not the binding: a probe toggle with only local
+        // @State did not flip either, nor did a coordinate tap. The tap is not delivered.
+        // Unverified there by automation; see chapter 10.
         try XCTSkipIf(UIDevice.current.userInterfaceIdiom == .pad && android.value as? String != "1",
                       "Form toggles in a sheet do not respond to XCUITest taps on the iPad simulator.")
         XCTAssertEqual(android.value as? String, "1", "Android is on")
