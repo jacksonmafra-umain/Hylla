@@ -54,3 +54,24 @@ The emulator's flat portrait window had not shown it.
 **What the app does:** while the keyboard is up in a stacked layout, the viewfinder shrinks to a
 96 dp strip and the controls take the rest. Tabletop keeps its split at the crease, because there
 the viewfinder faces the shelf and the keyboard is meant for the lower half.
+
+## 2026-10-02 — The iPad list column stays at 320 pt
+
+**Device:** iPad Pro 13-inch (M5) simulator, iPadOS 27.2 beta, portrait, 1032 × 1376 pt.
+
+**Seen:** the chapter 20 screenshot matrix showed the list column narrower than the 360 pt
+minimum. A UI test confirmed it: the list's navigation bar is **320 pt** wide. `PaneLayout` asks
+for 413 pt (40% of 1032), through `navigationSplitViewColumnWidth(min: 360, ideal: 413, max: 413)`.
+Passing a single fixed width, `navigationSplitViewColumnWidth(413)`, gives the same 320 pt.
+
+**What the app does:** nothing different. It keeps asking for the width `PaneLayout` computes.
+At 320 pt the list still reads at default text sizes (it is narrower than an iPhone), and at
+AccessibilityXXXL the tiles wrap, but nothing is cut off.
+
+**How it is tracked:** `testTwoPanesShowListBesideDetail` checks the width inside a strict
+`XCTExpectFailure`. When the system honours the width, the expected failure stops happening and
+the test fails, which is the signal to remove the wrapper.
+
+**Not yet known:** whether this is the beta, or the `NavigationSplitView` sitting inside a
+`.sidebarAdaptable` `TabView`. Chapter 5's table first reported 413 | 619. Those were the values
+`PaneLayout` computed, not ones measured on screen; the table now gives both.

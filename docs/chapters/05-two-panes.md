@@ -107,7 +107,7 @@ own column count from its own width.
 | `fold_api36` | Half-opened, book | 426 \| 426, at the hinge |
 | `fold_api36` | Closed | One pane, detail kept, up button shown |
 | `pixel6pro_api35` | Portrait and landscape | One pane |
-| iPad Pro 13" | Portrait | 413 \| 619 |
+| iPad Pro 13" | Portrait | Asks for 413 \| 619; the list is drawn at **320** on iPadOS 27.2 (see [hardware findings](../hardware-findings.md)) |
 | iPad Pro 13" | Landscape | 480 \| 896, list in one column |
 | iPhone 18 Pro | Portrait and landscape | One pane |
 
