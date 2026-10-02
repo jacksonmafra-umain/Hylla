@@ -16,6 +16,7 @@ struct DeviceDetailView: View {
     @Environment(Feedback.self) private var feedback: Feedback?
     @State private var modal: Modal?
     @State private var confirmingReturn = false
+    @AppStorage("watched") private var watchedRaw = ""
 
     private var fleet: Fleet { store.fleet }
 
@@ -92,12 +93,23 @@ struct DeviceDetailView: View {
 
     @ViewBuilder
     private func action(for device: Device) -> some View {
-        if device.assignmentStatus == .inUse {
-            Button("Return to the shelf") { confirmingReturn = true }
+        HStack {
+            if device.assignmentStatus == .inUse {
+                Button("Return to the shelf") { confirmingReturn = true }
+                    .buttonStyle(.bordered)
+            } else if device.lifecycle == .inUse {
+                Button("Claim") { modal = .claim }
+                    .buttonStyle(.borderedProminent)
+            }
+            // Waiting makes sense only for a device someone cannot take right now.
+            if !device.isClaimable && device.lifecycle == .inUse {
+                let watched = WatchList.decode(watchedRaw)
+                Button(watched.contains(device.id) ? "Stop waiting for it" : "Notify me when it is back") {
+                    let next = watched.contains(device.id) ? watched.subtracting([device.id]) : watched.union([device.id])
+                    watchedRaw = WatchList.encode(next)
+                }
                 .buttonStyle(.bordered)
-        } else if device.lifecycle == .inUse {
-            Button("Claim") { modal = .claim }
-                .buttonStyle(.borderedProminent)
+            }
         }
     }
 

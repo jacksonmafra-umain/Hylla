@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 /// The app shell: three top-level destinations in a tab view that adapts its own shape.
 ///
@@ -6,6 +7,13 @@ import SwiftUI
 /// sidebar. Unlike Android's chrome, the system decides the shape from the horizontal size class;
 /// what the app decides is everything inside it. The cover surface and the scanner take the whole
 /// window, so they are drawn instead of the shell rather than inside it.
+/// What the overdue schedule depends on; a change to any of them reschedules it.
+private struct OverdueInputs: Equatable {
+    let fleet: Fleet
+    let me: Person.ID?
+    let wanted: Bool
+}
+
 struct RootView: View {
     enum Destination: Hashable { case fleet, thisDevice, you }
 
@@ -20,6 +28,9 @@ struct RootView: View {
     @AppStorage("me") private var meRaw = ""
 
     private var me: Person.ID? { meRaw.isEmpty ? nil : Person.ID(rawValue: meRaw) }
+    @AppStorage("notifications.enabled") private var notificationsWanted = false
+    @AppStorage("watched") private var watchedRaw = ""
+    private let notifier = Notifier(center: UNUserNotificationCenter.current())
 
     var body: some View {
         WindowPostureReader { window in
@@ -64,6 +75,18 @@ struct RootView: View {
             selection = id
         }
         .onAppear { if selection == nil { selection = storedSelection.map(Device.ID.init(rawValue:)) } }
+        // A watched device that becomes claimable is announced once and leaves the watch list.
+        .onChange(of: store.fleet) { before, after in
+            let watched = WatchList.decode(watchedRaw)
+            for device in Notices.backOnTheShelf(before: before, after: after, watched: watched) {
+                if notificationsWanted { Task { await notifier.backOnTheShelf(device) } }
+                watchedRaw = WatchList.encode(watched.subtracting([device.id]))
+            }
+        }
+        // Overdue notifications follow the fleet, who holds the phone and the switch.
+        .task(id: OverdueInputs(fleet: store.fleet, me: me, wanted: notificationsWanted)) {
+            await notifier.scheduleOverdue(store.fleet, me: notificationsWanted ? me : nil, today: .today())
+        }
         .onChange(of: selection) { _, new in storedSelection = new?.rawValue }
     }
 }

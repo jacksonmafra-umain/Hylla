@@ -10,13 +10,16 @@
 		086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B79E88C7A2BD647825A63C /* CoverUITests.swift */; };
 		08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AD4599EA2058B5774F9630 /* HistoryView.swift */; };
 		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
+		0D064549D5B04FAE37DC90B3 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1C95912F75072376660D4 /* Notifier.swift */; };
 		10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF374C3AC3DA11834D7D417 /* FleetStore.swift */; };
+		1297BAA3239D7872A8B8F361 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5163A756E85D0D3168A1E97 /* NotificationDelegate.swift */; };
 		14517DA123216619FC15DFE7 /* FleetRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */; };
 		178B94BC9855B6197DAB2887 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9A040061CC47002CDF6B6B /* Feedback.swift */; };
 		1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */; };
 		21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */; };
 		277A4F626C878AC61B36B4B8 /* ThisDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */; };
 		2F2E36933467B01C6C10E8C7 /* AdaptiveLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */; };
+		32141EB725C50B01D15C0A28 /* WatchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDCAB119D9D9BDCE97D2504 /* WatchList.swift */; };
 		413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */; };
 		447B74F923896CAF723764C6 /* PermissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E2B7C0F5A5A92AF46CF6A6 /* PermissionUITests.swift */; };
 		47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C549761A2DF93824ACB90AF /* WindowPosture.swift */; };
@@ -36,7 +39,9 @@
 		7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485260CCB2262F2B28676C8C /* FleetFilter.swift */; };
 		7AAB4893FB035422C53BCED3 /* SheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9DA5620360409950965130 /* SheetsUITests.swift */; };
 		7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C738846931936956614C5A04 /* PersonPicker.swift */; };
+		7EDFE010B0CF14C0C6215081 /* Notices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041126262B45728C58157E33 /* Notices.swift */; };
 		8F12FF46648440C5BA75F494 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402A98D80B09E2A8A62869E /* RootView.swift */; };
+		8FDD361C82B68528C095AE45 /* NotificationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38798DB82A1A4851346947 /* NotificationUITests.swift */; };
 		9D0EF5CC0B4ADDD261922A22 /* YouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA5E9317003C8261B4140B /* YouView.swift */; };
 		9E75BD81EB89C70205739298 /* DeepLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D06037EFF6DE87B660EE8BF /* DeepLinkTests.swift */; };
 		9F68B4331B1370822031CABD /* FleetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3268A8D0E68715ACA57AA9 /* FleetView.swift */; };
@@ -48,6 +53,7 @@
 		BA89FC30DBC9DCE6C1089D3F /* PermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */; };
 		C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */; };
 		CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */; };
+		D75FBE85FFBFC60ADA7517A9 /* NotifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C242E35C200E03F77C8035 /* NotifyTests.swift */; };
 		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
 		E50818008F342C32CC8F1BEC /* CameraScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD39C9B6FD8C396D6BA26EE /* CameraScanner.swift */; };
 		F163184A58C1E25B65D51A16 /* EditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F289F00CFBE36BE727E4FAC7 /* EditSheet.swift */; };
@@ -76,6 +82,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041126262B45728C58157E33 /* Notices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notices.swift; sourceTree = "<group>"; };
 		1E52CA097F72ED1526880F92 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureTests.swift; sourceTree = "<group>"; };
 		28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetRootView.swift; sourceTree = "<group>"; };
@@ -105,11 +112,16 @@
 		97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveGrid.swift; sourceTree = "<group>"; };
 		9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReadout.swift; sourceTree = "<group>"; };
 		9AF374C3AC3DA11834D7D417 /* FleetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetStore.swift; sourceTree = "<group>"; };
+		9BDCAB119D9D9BDCE97D2504 /* WatchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchList.swift; sourceTree = "<group>"; };
 		9F9DA5620360409950965130 /* SheetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsUITests.swift; sourceTree = "<group>"; };
 		A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLayout.swift; sourceTree = "<group>"; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5163A756E85D0D3168A1E97 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
+		A5C242E35C200E03F77C8035 /* NotifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTests.swift; sourceTree = "<group>"; };
+		AEE1C95912F75072376660D4 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		AF454D1C954DBA7890F53958 /* ScannedCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedCode.swift; sourceTree = "<group>"; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
+		BE38798DB82A1A4851346947 /* NotificationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUITests.swift; sourceTree = "<group>"; };
 		BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFilterTests.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
 		C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetNavigationUITests.swift; sourceTree = "<group>"; };
@@ -177,6 +189,17 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		4D42EC09DC3216392259C591 /* Notify */ = {
+			isa = PBXGroup;
+			children = (
+				041126262B45728C58157E33 /* Notices.swift */,
+				A5163A756E85D0D3168A1E97 /* NotificationDelegate.swift */,
+				AEE1C95912F75072376660D4 /* Notifier.swift */,
+				9BDCAB119D9D9BDCE97D2504 /* WatchList.swift */,
+			);
+			path = Notify;
+			sourceTree = "<group>";
+		};
 		54BEFBE2C8943EF36132D4AE = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +229,7 @@
 				BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */,
 				D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */,
 				5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */,
+				A5C242E35C200E03F77C8035 /* NotifyTests.swift */,
 				7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */,
 				82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */,
 				207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */,
@@ -221,6 +245,7 @@
 				6402A98D80B09E2A8A62869E /* RootView.swift */,
 				2F6FCF56E12E702037768CCD /* Fleet */,
 				DE9FAB16EF512A61A5F6E215 /* Layout */,
+				4D42EC09DC3216392259C591 /* Notify */,
 				DAF16F3CF80FC6C783C34C81 /* Permission */,
 				B3449A7CCCEE7D350E621F50 /* Posture */,
 				39C2A80B657D885D297036F0 /* Screens */,
@@ -270,6 +295,7 @@
 			children = (
 				76B79E88C7A2BD647825A63C /* CoverUITests.swift */,
 				C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */,
+				BE38798DB82A1A4851346947 /* NotificationUITests.swift */,
 				29E2B7C0F5A5A92AF46CF6A6 /* PermissionUITests.swift */,
 				3048761974723000145069DC /* ScanUITests.swift */,
 				9F9DA5620360409950965130 /* SheetsUITests.swift */,
@@ -400,6 +426,7 @@
 				50A4D928B5476747DCD0A95A /* FleetFilterTests.swift in Sources */,
 				AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */,
 				4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */,
+				D75FBE85FFBFC60ADA7517A9 /* NotifyTests.swift in Sources */,
 				CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */,
 				BA89FC30DBC9DCE6C1089D3F /* PermissionTests.swift in Sources */,
 				1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */,
@@ -412,6 +439,7 @@
 			files = (
 				086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */,
 				A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */,
+				8FDD361C82B68528C095AE45 /* NotificationUITests.swift in Sources */,
 				447B74F923896CAF723764C6 /* PermissionUITests.swift in Sources */,
 				F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */,
 				7AAB4893FB035422C53BCED3 /* SheetsUITests.swift in Sources */,
@@ -443,6 +471,9 @@
 				9F68B4331B1370822031CABD /* FleetView.swift in Sources */,
 				08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
+				7EDFE010B0CF14C0C6215081 /* Notices.swift in Sources */,
+				1297BAA3239D7872A8B8F361 /* NotificationDelegate.swift in Sources */,
+				0D064549D5B04FAE37DC90B3 /* Notifier.swift in Sources */,
 				6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */,
 				76D17D08FD79FB4C4143BAD8 /* PermissionState.swift in Sources */,
 				7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */,
@@ -453,6 +484,7 @@
 				BA398E310634E08A546AA23A /* ScannedCode.swift in Sources */,
 				74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */,
 				277A4F626C878AC61B36B4B8 /* ThisDeviceView.swift in Sources */,
+				32141EB725C50B01D15C0A28 /* WatchList.swift in Sources */,
 				47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */,
 				FFD11C178D517BEED105096D /* WindowPostureReader.swift in Sources */,
 				9D0EF5CC0B4ADDD261922A22 /* YouView.swift in Sources */,

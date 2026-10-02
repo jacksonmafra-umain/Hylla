@@ -2,6 +2,7 @@ import SwiftUI
 
 @main
 struct HyllaApp: App {
+    @UIApplicationDelegateAdaptor(NotificationDelegate.self) private var notificationDelegate
     /// Seeded from the bundled fixture. A broken fixture is a build-time mistake, so failing
     /// loudly is right.
     @State private var store: FleetStore = {
@@ -24,6 +25,7 @@ struct HyllaApp: App {
     var body: some Scene {
         WindowGroup {
             RootView(store: store)
+                .task { notificationDelegate.store = store }
         }
     }
 }
