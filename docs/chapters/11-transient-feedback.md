@@ -8,6 +8,12 @@ You claimed a device. The app should say so briefly, without stopping you, and l
 back if you tapped the wrong tile. Where that message lives is a platform decision, and the two
 platforms answer it differently.
 
+## In pictures
+
+![Android: a claim confirms in a snackbar above the navigation bar, with Undo.](img/11-android-snackbar-undo.png)
+
+*Android: a claim confirms in a snackbar above the navigation bar, with Undo.*
+
 ## Android: snackbar, toast, or nothing
 
 | Situation | Choice | Why |

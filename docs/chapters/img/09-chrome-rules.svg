@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" font-family="-apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+  <rect width="860" height="220" fill="#ffffff"/>
+  <g fill="#E6F2F4" stroke="#2E6B76" stroke-width="2">
+    <rect x="20" y="30" width="150" height="110" rx="10"/><rect x="190" y="30" width="150" height="110" rx="10"/>
+    <rect x="360" y="30" width="150" height="110" rx="10"/><rect x="530" y="30" width="150" height="110" rx="10"/>
+    <rect x="700" y="30" width="140" height="110" rx="10"/>
+  </g>
+  <rect x="20" y="120" width="150" height="20" fill="#2E6B76"/>
+  <line x1="265" y1="30" x2="265" y2="140" stroke="#C0392B" stroke-width="3" stroke-dasharray="6 4"/><rect x="190" y="120" width="150" height="20" fill="#2E6B76"/>
+  <rect x="360" y="30" width="24" height="110" fill="#2E6B76"/>
+  <rect x="530" y="30" width="24" height="110" fill="#2E6B76"/>
+  <rect x="700" y="30" width="54" height="110" fill="#2E6B76"/>
+  <text x="95" y="20" text-anchor="middle" font-weight="600">Compact width</text><text x="95" y="165" text-anchor="middle">bottom bar</text>
+  <text x="265" y="20" text-anchor="middle" font-weight="600">Hinge or crease</text><text x="265" y="165" text-anchor="middle">bottom bar</text><text x="265" y="183" text-anchor="middle" fill="#555">keeps the split on the hinge</text>
+  <text x="435" y="20" text-anchor="middle" font-weight="600">Compact height</text><text x="435" y="165" text-anchor="middle">rail</text><text x="435" y="183" text-anchor="middle" fill="#555">no height to spare</text>
+  <text x="605" y="20" text-anchor="middle" font-weight="600">Medium – Large</text><text x="605" y="165" text-anchor="middle">rail</text>
+  <text x="770" y="20" text-anchor="middle" font-weight="600">≥ 1600</text><text x="770" y="165" text-anchor="middle">drawer</text><text x="770" y="183" text-anchor="middle" fill="#555">costs no pane</text>
+  <text x="430" y="210" text-anchor="middle" fill="#333">Panes are laid out in the content area the chrome leaves.</text>
+</svg>

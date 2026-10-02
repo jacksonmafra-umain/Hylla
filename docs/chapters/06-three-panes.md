@@ -20,6 +20,16 @@ The fall-back is always *fewer* panes, never narrower ones:
   segments, because that would put content across a hinge.
 - A large window whose detail would drop below 360 gets two panes.
 
+## In pictures
+
+![A 1333 dp window: fleet, detail and history; empty, then with Fold7 Blue selected.](img/06-android-three-panes.png)
+
+*A 1333 dp window: fleet, detail and history; empty, then with Fold7 Blue selected.*
+
+![With one pane the same history ends the detail.](img/06-phone-history-section.png)
+
+*With one pane the same history ends the detail.*
+
 ## The history
 
 Chapter 6 needed data the fixture did not have. `devices.json` now has an `assignments` list:

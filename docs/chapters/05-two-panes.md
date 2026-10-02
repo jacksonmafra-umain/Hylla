@@ -22,6 +22,20 @@ a pane too narrow to read is worse than a pane reached by navigation.
 A phone in landscape is `Expanded` width but `Compact` height, so it stays one pane. This is the
 second half of *landscape is not width*: the split reads both classes.
 
+## In pictures
+
+![PaneLayout's rules. A pane below the legible minimum always collapses the layout.](img/05-pane-rules.svg)
+
+*PaneLayout's rules. A pane below the legible minimum always collapses the layout.*
+
+![fold_api36: flat split with placeholder, selection, book posture split at the hinge, closed (detail alone), back, reopened.](img/05-fold-two-panes.png)
+
+*fold_api36: flat split with placeholder, selection, book posture split at the hinge, closed (detail alone), back, reopened.*
+
+![iPad Pro portrait: NavigationSplitView with the selected tile marked.](img/05-ipad-two-panes.png)
+
+*iPad Pro portrait: NavigationSplitView with the selected tile marked.*
+
 ## Before
 
 Chapter 4's single pane gained columns, but on an unfolded foldable the detail was still a

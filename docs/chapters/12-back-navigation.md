@@ -17,6 +17,12 @@ Because the back stack has one shape in every posture (`[Fleet]` or `[Fleet, Dev
 chapter 5), these are not separate code paths. Back always removes the top entry, and the posture
 decides only what that looks like.
 
+## In pictures
+
+![Mid-gesture: the detail shrinks and fades over the fleet (left); the scanner follows the gesture (right).](img/12-predictive-back-midgesture.png)
+
+*Mid-gesture: the detail shrinks and fades over the fleet (left); the scanner follows the gesture (right).*
+
 ## Android: predictive back
 
 **Predictive back** lets you see where back goes before you commit. Dragging from the edge

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" font-family="-apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+  <rect width="900" height="300" fill="#ffffff"/>
+  <!-- Book -->
+  <text x="110" y="24" text-anchor="middle" font-weight="600">Book: one vertical hinge</text>
+  <rect x="20" y="40" width="180" height="190" fill="#E6F2F4" stroke="#2E6B76" stroke-width="2"/>
+  <line x1="100" y1="40" x2="100" y2="230" stroke="#C0392B" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="60" y="140" text-anchor="middle">seg 1</text><text x="150" y="140" text-anchor="middle">seg 2</text>
+  <text x="110" y="255" text-anchor="middle" fill="#555">split at the hinge, not at 50%</text>
+  <!-- Tri-fold -->
+  <text x="340" y="24" text-anchor="middle" font-weight="600">Tri-fold: two hinges</text>
+  <rect x="240" y="40" width="200" height="190" fill="#E6F2F4" stroke="#2E6B76" stroke-width="2"/>
+  <line x1="306" y1="40" x2="306" y2="230" stroke="#C0392B" stroke-width="3" stroke-dasharray="6 4"/>
+  <line x1="373" y1="40" x2="373" y2="230" stroke="#C0392B" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="273" y="140" text-anchor="middle">1</text><text x="340" y="140" text-anchor="middle">2</text><text x="406" y="140" text-anchor="middle">3</text>
+  <text x="340" y="255" text-anchor="middle" fill="#555">folds are a list; firstOrNull() drops one</text>
+  <!-- Tabletop -->
+  <text x="565" y="24" text-anchor="middle" font-weight="600">Tabletop: horizontal crease</text>
+  <rect x="480" y="40" width="170" height="190" fill="#E6F2F4" stroke="#2E6B76" stroke-width="2"/>
+  <line x1="480" y1="135" x2="650" y2="135" stroke="#C0392B" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="565" y="92" text-anchor="middle">top segment</text><text x="565" y="185" text-anchor="middle">bottom segment</text>
+  <text x="565" y="255" text-anchor="middle" fill="#555">content above, controls below</text>
+  <!-- Occluding -->
+  <text x="790" y="24" text-anchor="middle" font-weight="600">Occluding hinge</text>
+  <rect x="700" y="40" width="180" height="190" fill="#E6F2F4" stroke="#2E6B76" stroke-width="2"/>
+  <rect x="780" y="40" width="20" height="190" fill="#555"/>
+  <text x="740" y="140" text-anchor="middle">seg 1</text><text x="840" y="140" text-anchor="middle">seg 2</text>
+  <text x="790" y="255" text-anchor="middle" fill="#555">the hinge's bounds are excluded</text>
+  <text x="450" y="288" text-anchor="middle" fill="#333">isSeparating, not the fold state, decides whether a fold splits the layout</text>
+</svg>

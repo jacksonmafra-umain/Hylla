@@ -26,6 +26,20 @@ In tabletop, the split comes from the hinge's bounds, like chapter 5's book post
 - Folds stay a list: with more than one horizontal hinge, the viewfinder takes the first segment
   and the controls the last.
 
+## In pictures
+
+![Tabletop: viewfinder above the crease, claim form below; claimed, and the fleet updated.](img/07-tabletop-claim.png)
+
+*Tabletop: viewfinder above the crease, claim form below; claimed, and the fleet updated.*
+
+![Before the fix: in tabletop the keyboard covered Look up.](img/07-before-keyboard-covers-form.png)
+
+*Before the fix: in tabletop the keyboard covered Look up.*
+
+![Later fix from real hardware: with the keyboard up, the viewfinder shrinks to a strip.](img/hw-scanner-keyboard-fixed.png)
+
+*Later fix from real hardware: with the keyboard up, the viewfinder shrinks to a strip.*
+
 ## A store, finally
 
 Claiming needs somewhere to write. `FleetStore` holds the fleet and applies two changes:

@@ -16,6 +16,16 @@ The small detent is the content's own height, not a fixed fraction, so it grows 
 and font scale instead of clipping. The half detent can be dragged to full height when large text
 makes the filters long.
 
+## In pictures
+
+![Editing: keyboard up, then back — Discard changes? before anything is lost.](img/10-discard-dialog.png)
+
+*Editing: keyboard up, then back — Discard changes? before anything is lost.*
+
+![The full-height edit sheet with the keyboard: the focused field stays visible and the form scrolls to Save.](img/10-edit-with-keyboard.png)
+
+*The full-height edit sheet with the keyboard: the focused field stays visible and the form scrolls to Save.*
+
 ## Pickers
 
 | Picker | Where | Android | iOS |

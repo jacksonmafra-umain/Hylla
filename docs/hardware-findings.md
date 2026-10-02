@@ -22,6 +22,10 @@ The inner display reports no cutout at all, so `WindowInsets.displayCutout` is z
 rotation. Padding the shell by the cutout, which the app now does for side cutouts and waterfall
 edges, cannot help: there is nothing to pad by.
 
+![The SM-F971B unfolded: two panes and the rail](chapters/img/hw-sm-f971b-two-panes.png)
+
+![In portrait the rail is centred, clear of the camera](chapters/img/hw-sm-f971b-rail-centred.png)
+
 **What the app does:**
 
 - Keeps the cutout padding. It is correct on every device that reports its cutout.
@@ -44,6 +48,8 @@ Samsung.
 the title and *Look up* were pushed out of view. The height class is `Medium`, so the scan layout
 stacks the viewfinder over the controls at 45%, and the keyboard takes most of what remains.
 The emulator's flat portrait window had not shown it.
+
+![With the keyboard up, the viewfinder is a strip and the form stays in view](chapters/img/hw-scanner-keyboard-fixed.png)
 
 **What the app does:** while the keyboard is up in a stacked layout, the viewfinder shrinks to a
 96 dp strip and the controls take the rest. Tabletop keeps its split at the crease, because there

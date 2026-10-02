@@ -15,6 +15,28 @@ The app now has three top-level destinations:
 The chrome that switches between them changes shape with the window: **bottom bar → navigation
 rail → drawer**.
 
+## In pictures
+
+![Chrome by window, with the two overrides: hinges keep a bottom bar, a compact height gets a rail.](img/09-chrome-rules.svg)
+
+*Chrome by window, with the two overrides: hinges keep a bottom bar, a compact height gets a rail.*
+
+![fold_api36: closed (bar), opened (rail, 360 | 412), book (bar, split at the hinge), closed landscape (rail), 1733 dp (drawer, three panes).](img/09-chrome-by-posture.png)
+
+*fold_api36: closed (bar), opened (rail, 360 | 412), book (bar, split at the hinge), closed landscape (rail), 1733 dp (drawer, three panes).*
+
+![Android platform splash screen, then the app.](img/09-android-splash.png)
+
+*Android platform splash screen, then the app.*
+
+![iOS launch screen, then the app.](img/09-ios-launch.png)
+
+*iOS launch screen, then the app.*
+
+![On the SM-F971B the rail is centred, clear of a camera the device does not report (see hardware-findings.md).](img/hw-sm-f971b-rail-centred.png)
+
+*On the SM-F971B the rail is centred, clear of a camera the device does not report (see hardware-findings.md).*
+
 ## Android: the rule is the app's
 
 `ChromeLayout.compute(posture)`:

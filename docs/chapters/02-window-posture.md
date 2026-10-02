@@ -18,6 +18,24 @@ those segments, so the panes split at the hinge rather than at 50%.
 The model is a plain value with no platform dependencies beyond the size-class breakpoints. That
 makes every posture testable in milliseconds, including the ones there is no emulator for.
 
+## In pictures
+
+![How folds become segments: one hinge, two hinges, a horizontal crease, an occluding hinge.](img/02-folds-to-segments.svg)
+
+*How folds become segments: one hinge, two hinges, a horizontal crease, an occluding hinge.*
+
+![The readout on fold_api36: opened (flat), half-opened (book), half-opened and rotated (tabletop), closed.](img/02-fold-postures-readout.png)
+
+*The readout on fold_api36: opened (flat), half-opened (book), half-opened and rotated (tabletop), closed.*
+
+![iPhone 18 Pro and iPad Pro 13": compact and expanded, flat.](img/02-ios-readout.png)
+
+*iPhone 18 Pro and iPad Pro 13": compact and expanded, flat.*
+
+![After the fix: Android at 100% and 200%, iOS at the default and the largest size. Every line wraps in full and the screen scrolls.](img/02-largest-text.png)
+
+*After the fix: Android at 100% and 200%, iOS at the default and the largest size. Every line wraps in full and the screen scrolls.*
+
 ## Before
 
 There was no model. The easy versions of this code, the ones every chapter 19 anti-pattern

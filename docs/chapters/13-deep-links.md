@@ -11,6 +11,12 @@ the same thing: a device id.
 That is why chapter 3 addressed the detail by id from the start. A link needs no new
 destination: it builds the back stack the fleet would have had anyway.
 
+## In pictures
+
+![hylla://device/HYL-003 cold, hyl-17 into the running app, back to the fleet, and an unknown tag.](img/13-device-links.png)
+
+*hylla://device/HYL-003 cold, hyl-17 into the running app, back to the fleet, and an unknown tag.*
+
 ## Parsing
 
 `DeepLink.parse` is a pure function on both platforms, and the tests are the same:

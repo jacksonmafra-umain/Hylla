@@ -15,6 +15,16 @@ value, and keeping them apart is the point of the chapter:
 | Margins and gutters | The **window's** width class | Spacing is part of how the whole window reads. |
 | Column count | The **container's** measured width | In chapter 5 a pane is narrower than the window it sits in. A count taken from the window would put three columns in a pane that has room for one. |
 
+## In pictures
+
+![Phone portrait (1 column), unfolded (2), unfolded at 200% (1), phone landscape (2), unfolded detail (3 field columns).](img/04-android-grids.png)
+
+*Phone portrait (1 column), unfolded (2), unfolded at 200% (1), phone landscape (2), unfolded detail (3 field columns).*
+
+![iPad portrait: 3 fleet columns and 4 detail columns; at the largest text size, 1 wider column.](img/04-ipad-grids.png)
+
+*iPad portrait: 3 fleet columns and 4 detail columns; at the largest text size, 1 wider column.*
+
 ## Before
 
 Chapter 3 drew one column everywhere. On an unfolded foldable a device row was 852 dp wide:

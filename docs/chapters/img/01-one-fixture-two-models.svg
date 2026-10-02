@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" font-family="-apple-system, Segoe UI, Roboto, sans-serif" font-size="14">
+  <rect width="720" height="260" fill="#ffffff"/>
+  <rect x="270" y="20" width="180" height="56" rx="10" fill="#FFF3DD" stroke="#C98A1B" stroke-width="2"/>
+  <text x="360" y="45" text-anchor="middle" font-weight="600">fixtures/devices.json</text>
+  <text x="360" y="64" text-anchor="middle" fill="#555">the only shared artifact</text>
+  <path d="M320 76 L170 140" stroke="#888" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M400 76 L550 140" stroke="#888" stroke-width="2" marker-end="url(#a)"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#888"/></marker></defs>
+  <rect x="40" y="140" width="260" height="96" rx="10" fill="#E6F2F4" stroke="#2E6B76" stroke-width="2"/>
+  <text x="170" y="166" text-anchor="middle" font-weight="600">Android · Kotlin</text>
+  <text x="170" y="190" text-anchor="middle" fill="#333">kotlinx.serialization, strict</text>
+  <text x="170" y="210" text-anchor="middle" fill="#333">LocalDate · value class ids</text>
+  <rect x="420" y="140" width="260" height="96" rx="10" fill="#E6F2F4" stroke="#2E6B76" stroke-width="2"/>
+  <text x="550" y="166" text-anchor="middle" font-weight="600">iOS · Swift</text>
+  <text x="550" y="190" text-anchor="middle" fill="#333">Codable + key check, strict</text>
+  <text x="550" y="210" text-anchor="middle" fill="#333">CalendarDate · RawRepresentable ids</text>
+</svg>

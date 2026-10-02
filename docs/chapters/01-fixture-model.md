@@ -13,6 +13,20 @@ The file is the only artifact the two apps share. There is no shared code, no ge
 and no schema compiler. Each platform parses the same bytes in its own idiom, and both test
 suites read the file straight from the repository rather than from a copy.
 
+## In pictures
+
+![One fixture, parsed twice: each platform reads the same bytes into its own native model.](img/01-one-fixture-two-models.svg)
+
+*One fixture, parsed twice: each platform reads the same bytes into its own native model.*
+
+![Android after chapter 1: the fleet summary from the bundled fixture.](img/01-android-summary.png)
+
+*Android after chapter 1: the fleet summary from the bundled fixture.*
+
+![iOS after chapter 1, at the default and the largest accessibility text size.](img/01-ios-summary.png)
+
+*iOS after chapter 1, at the default and the largest accessibility text size.*
+
 ## Before
 
 The fleet lives in the `QA Devices` Notion database, edited by hand. It has more columns than

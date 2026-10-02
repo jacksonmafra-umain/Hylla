@@ -13,6 +13,16 @@ shows exactly two things there:
 There is no navigation chrome: no top bar, no tabs, no list. There is no room for it, and
 nothing else is worth doing with the phone closed.
 
+## In pictures
+
+![Opened with Fold7 selected; shrunk to a cover-sized window (one action, the devices you hold); scanning from the cover; reopened where it was.](img/08-android-cover.png)
+
+*Opened with Fold7 selected; shrunk to a cover-sized window (one action, the devices you hold); scanning from the cover; reopened where it was.*
+
+![iOS cover surface through the debug window override, and the scanner from it.](img/08-ios-cover.png)
+
+*iOS cover surface through the debug window override, and the scanner from it.*
+
 ## Deciding it from the window
 
 `Posture.Cover` comes from chapter 2: a window narrower than 480 with a compact height. It is

@@ -11,6 +11,32 @@ This is deliberately the *compact* app, and it runs unchanged on every window. O
 foldable or an iPad it is a single column stretched across the whole width. That is the "before"
 for chapters 4 to 6, which keep this navigation and change only what is shown side by side.
 
+## In pictures
+
+![Fleet, detail, and back to the fleet.](img/03-android-list-detail-back.png)
+
+*Fleet, detail, and back to the fleet.*
+
+![Before: rotation keeps the detail (top), but at 200% the trailing status squeezed the model into one word per line.](img/03-before-squeezed-at-200.png)
+
+*Before: rotation keeps the detail (top), but at 200% the trailing status squeezed the model into one word per line.*
+
+![After: status on its own line, at 100% and 200%.](img/03-after-status-own-line.png)
+
+*After: status on its own line, at 100% and 200%.*
+
+![iOS: fleet and detail.](img/03-ios-list-detail.png)
+
+*iOS: fleet and detail.*
+
+![iOS at the largest accessibility size: everything wraps.](img/03-ios-largest-text.png)
+
+*iOS at the largest accessibility size: everything wraps.*
+
+![The open detail survives closed, opened and half-opened — and is a single stretched column, the "before" for chapter 4.](img/03-detail-survives-folds.png)
+
+*The open detail survives closed, opened and half-opened — and is a single stretched column, the "before" for chapter 4.*
+
 ## Navigation
 
 | | Android | iOS |
