@@ -6,11 +6,12 @@ final class FleetNavigationUITests: XCTestCase {
     }
 
     @MainActor
-    func testFleetToDetailAndBack() {
+    func testFleetToDetailAndBack() throws {
         let app = XCUIApplication()
         app.launch()
 
         XCTAssertTrue(app.navigationBars["Fleet"].waitForExistence(timeout: 5))
+        try XCTSkipIf(app.staticTexts[Self.placeholder].exists, "Two panes: the detail sits beside the list, with no back.")
         attach(app, "fleet")
 
         app.buttons.containing(.staticText, identifier: "Fold7 Blue").firstMatch.tap()
@@ -25,7 +26,27 @@ final class FleetNavigationUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Fleet"].waitForExistence(timeout: 5))
     }
 
-    /// Landscape adds width, so the fleet gains a column; it stays one pane.
+    static let placeholder = "Select a device to see its details."
+
+    /// A regular-width iPad shows the list and the detail side by side.
+    @MainActor
+    func testTwoPanesShowListBesideDetail() throws {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
+        try XCTSkipUnless(app.staticTexts[Self.placeholder].exists, "One pane on this device.")
+
+        app.buttons.containing(.staticText, identifier: "Fold7 Blue").firstMatch.tap()
+
+        XCTAssertTrue(app.staticTexts["Model number, SM-F966B"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Flip7 Black"].isHittable, "the list stays beside the detail")
+        XCTAssertTrue(app.buttons.containing(.staticText, identifier: "Fold7 Blue").firstMatch.isSelected)
+        XCTAssertLessThan(app.staticTexts["Flip7 Black"].frame.maxX, 480, "the list pane is at most 480 pt")
+        attach(app, "two-panes")
+    }
+
+    /// Landscape adds width, so the fleet gains a column, or, where there is room for two legible
+    /// panes, the detail pane appears beside a one-column list. It never stretches one column.
     @MainActor
     func testFleetInLandscape() {
         let app = XCUIApplication()
@@ -38,7 +59,11 @@ final class FleetNavigationUITests: XCTestCase {
         // portrait width, so the layout is checked through element frames, not the image.
         Thread.sleep(forTimeInterval: 1.5)
         let columns = columnsInFirstRow(app)
-        XCTAssertGreaterThanOrEqual(columns, 2, "landscape should gain a column")
+        if app.staticTexts[Self.placeholder].exists {
+            XCTAssertEqual(columns, 1, "a 480 pt list pane holds one column")
+        } else {
+            XCTAssertGreaterThanOrEqual(columns, 2, "one pane in landscape should gain a column")
+        }
         let note = XCTAttachment(string: "first-row columns in landscape: \(columns)")
         note.name = "landscape-columns"
         note.lifetime = .keepAlways
