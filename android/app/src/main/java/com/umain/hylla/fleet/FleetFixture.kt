@@ -54,6 +54,14 @@ object FleetFixture {
             val to = assignment.to
             if (to != null && to < assignment.from) add("assignment on $id ends before it starts")
         }
+        for ((device, periods) in fleet.assignments.groupBy { it.deviceId }) {
+            // Nobody holds a device twice at once: each period starts after the one before ends.
+            val overlaps = periods.sortedBy { it.from }.zipWithNext().any { (earlier, later) ->
+                val end = earlier.to
+                end == null || later.from < end
+            }
+            if (overlaps) add("assignments on ${device.value} overlap")
+        }
         for (device in fleet.devices) {
             val open = fleet.assignments.filter { it.deviceId == device.id && it.to == null }
             val id = device.id.value

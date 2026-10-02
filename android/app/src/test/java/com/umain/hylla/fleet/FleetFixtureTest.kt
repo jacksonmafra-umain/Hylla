@@ -133,4 +133,16 @@ class FleetFixtureTest {
 
         assertThrows(SerializationException::class.java) { FleetFixture.parse(broken) }
     }
+
+    @Test
+    fun `overlapping assignments are rejected`() {
+        val fleet = FleetFixture.parse(sharedFixture)
+        val open = fleet.history(DeviceId("HYL-001")).first()
+        val overlapping = fleet.copy(
+            assignments = fleet.assignments.map { if (it == open) it.copy(from = LocalDate.of(2026, 8, 1)) else it },
+            devices = fleet.devices.map { if (it.id == open.deviceId) it.copy(since = LocalDate.of(2026, 8, 1)) else it },
+        )
+
+        assertEquals(listOf("assignments on HYL-001 overlap"), FleetFixture.validate(overlapping))
+    }
 }

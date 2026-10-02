@@ -51,6 +51,27 @@ class FleetStore(initial: Fleet, private val clock: Clock = Clock.systemDefaultZ
         ))
     }
 
+    /**
+     * Replaces the editable fields of a device: everything except who holds it, which only
+     * [claim] and [returnDevice] change. Moving `since` on a held device moves the start of its
+     * open assignment with it. An edit that would break the fleet's invariants is rejected.
+     */
+    fun update(edited: Device): Result<Unit> = change { fleet ->
+        val current = fleet.device(edited.id) ?: return@change failure("No device ${edited.id}")
+        if (edited.assignmentStatus != current.assignmentStatus || edited.currentUser != current.currentUser) {
+            return@change failure("Claim or return to change who holds ${current.deviceName}")
+        }
+        if (edited.since > today) return@change failure("Since cannot be in the future")
+        val next = fleet.copy(
+            devices = fleet.devices.replace(edited),
+            assignments = fleet.assignments.map {
+                if (it.deviceId == edited.id && it.to == null) it.copy(from = edited.since) else it
+            },
+        )
+        val problems = FleetFixture.validate(next)
+        if (problems.isNotEmpty()) failure(problems.joinToString()) else Result.success(next)
+    }
+
     /** Applies [transform] atomically; a failure leaves the fleet as it was. */
     private fun change(transform: (Fleet) -> Result<Fleet>): Result<Unit> {
         var outcome = Result.success(Unit)

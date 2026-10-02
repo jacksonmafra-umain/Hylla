@@ -64,4 +64,46 @@ class FleetStoreTest {
         assertTrue(store.returnDevice(flip).isFailure)
         assertEquals(before, store.fleet.value)
     }
+
+    @Test
+    fun `editing a record changes its fields and keeps the invariants`() {
+        val fold4 = store.fleet.value.device(DeviceId("HYL-019"))!!
+
+        assertTrue(store.update(fold4.copy(notes = "With IT", lifecycle = Lifecycle.Decommission)).isSuccess)
+        assertEquals("With IT", store.fleet.value.device(DeviceId("HYL-019"))!!.notes)
+        assertEquals(emptyList<String>(), FleetFixture.validate(store.fleet.value))
+    }
+
+    @Test
+    fun `moving since on a held device moves its open assignment`() {
+        val device = store.fleet.value.device(fold)!!
+        val earlier = LocalDate.of(2026, 9, 21)
+
+        assertTrue(store.update(device.copy(since = earlier)).isSuccess)
+        assertEquals(earlier, store.fleet.value.history(fold).first().from)
+    }
+
+    @Test
+    fun `an edit cannot change who holds the device`() {
+        val device = store.fleet.value.device(fold)!!
+
+        assertTrue(store.update(device.copy(currentUser = noah)).isFailure)
+    }
+
+    @Test
+    fun `since cannot move into the future`() {
+        val device = store.fleet.value.device(flip)!!
+
+        assertTrue(store.update(device.copy(since = LocalDate.of(2026, 10, 3))).isFailure)
+    }
+
+    @Test
+    fun `an edit that overlaps the previous holder is rejected`() {
+        // HYL-001's previous assignment ended on 2026-09-20; the open one cannot start before it.
+        val device = store.fleet.value.device(fold)!!
+        val before = store.fleet.value
+
+        assertTrue(store.update(device.copy(since = LocalDate.of(2026, 8, 1))).isFailure)
+        assertEquals(before, store.fleet.value)
+    }
 }
