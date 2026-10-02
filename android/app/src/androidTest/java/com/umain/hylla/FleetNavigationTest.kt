@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
@@ -66,5 +67,24 @@ class FleetNavigationTest {
 
         compose.onNode(hasText("Model") and hasText("Galaxy Z Fold7")).assertExists()
         compose.onNode(hasText("Model number") and hasText("SM-F966B")).assertExists()
+    }
+
+    @Test
+    fun backFromTheScannerReturnsToTheFleet() {
+        compose.onNodeWithText("Scan").performClick()
+        compose.onNodeWithText("Check out or return").assertIsDisplayed()
+
+        Espresso.pressBack()
+
+        compose.onNode(fleetTitle).assertIsDisplayed()
+    }
+
+    @Test
+    fun backFromAnotherDestinationReturnsToTheFleetFirst() {
+        compose.onNodeWithText("This device").performClick()
+
+        Espresso.pressBack()
+
+        compose.onNode(fleetTitle).assertIsDisplayed()
     }
 }
