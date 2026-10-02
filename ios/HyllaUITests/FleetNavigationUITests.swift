@@ -28,6 +28,20 @@ final class FleetNavigationUITests: XCTestCase {
 
     static let placeholder = "Select a device to see its details."
 
+    /// A device link opens that device; back goes to the fleet.
+    @MainActor
+    func testDeviceLinkOpensThatDevice() {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
+
+        app.open(URL(string: "hylla://device/HYL-003")!)
+
+        XCTAssertTrue(app.staticTexts["Model number, SM-F968B"].waitForExistence(timeout: 5))
+        app.open(URL(string: "hylla://device/HYL-099")!)
+        XCTAssertTrue(app.staticTexts["Not found"].waitForExistence(timeout: 5))
+    }
+
     /// The interactive pop gesture: drag from the leading edge back to the fleet.
     @MainActor
     func testEdgeSwipeGoesBack() throws {

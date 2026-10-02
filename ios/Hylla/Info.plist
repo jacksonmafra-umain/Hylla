@@ -3,6 +3,17 @@
 <!-- Merged with the generated Info.plist. Only what build settings cannot express lives here. -->
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.umain.hylla.device</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>hylla</string>
+			</array>
+		</dict>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

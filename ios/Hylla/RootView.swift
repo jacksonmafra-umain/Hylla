@@ -12,6 +12,8 @@ struct RootView: View {
     let store: FleetStore
     @State private var destination = Destination.fleet
     @State private var selection: Device.ID?
+    /// The selected device, restored when the system brings the scene back after killing it.
+    @SceneStorage("selection") private var storedSelection: String?
     @State private var scanning = false
     @State private var feedback = Feedback()
     /// Who holds this phone. Local only: not an account, never synced.
@@ -53,5 +55,15 @@ struct RootView: View {
                 WindowPostureReader { ScanView(store: store, posture: $0, me: me) }
             }
         }
+        // A device link shows that device on the fleet, replacing whatever was selected, and
+        // closes the scanner if it was open.
+        .onOpenURL { url in
+            guard let id = DeepLink.parse(url) else { return }
+            scanning = false
+            destination = .fleet
+            selection = id
+        }
+        .onAppear { if selection == nil { selection = storedSelection.map(Device.ID.init(rawValue:)) } }
+        .onChange(of: selection) { _, new in storedSelection = new?.rawValue }
     }
 }
