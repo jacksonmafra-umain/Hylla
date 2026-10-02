@@ -61,6 +61,12 @@ final class FleetStore {
         fleet = next
     }
 
+    /// Replaces the fleet and records why, for changes made outside this file.
+    func commit(_ next: Fleet, _ operation: Operation) {
+        fleet = next
+        persist(operation)
+    }
+
     /// Puts the fleet back as it was before the last change. One level only: undo is for the
     /// "that was the wrong device" moment right after a claim, not a history.
     @discardableResult

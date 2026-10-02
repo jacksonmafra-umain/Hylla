@@ -6,6 +6,7 @@ enum Operation: Codable, Equatable, Sendable {
     case claim(device: Device.ID, person: Person.ID, on: CalendarDate)
     case `return`(device: Device.ID, on: CalendarDate)
     case edit(device: Device.ID)
+    case register(device: Device.ID)
     case undo
 
     private enum CodingKeys: String, CodingKey { case type, device, person, on }
@@ -25,6 +26,9 @@ enum Operation: Codable, Equatable, Sendable {
         case let .edit(device):
             try container.encode("edit", forKey: .type)
             try container.encode(device, forKey: .device)
+        case let .register(device):
+            try container.encode("register", forKey: .type)
+            try container.encode(device, forKey: .device)
         case .undo:
             try container.encode("undo", forKey: .type)
         }
@@ -42,6 +46,8 @@ enum Operation: Codable, Equatable, Sendable {
                            on: try container.decode(CalendarDate.self, forKey: .on))
         case "edit":
             self = .edit(device: try container.decode(Device.ID.self, forKey: .device))
+        case "register":
+            self = .register(device: try container.decode(Device.ID.self, forKey: .device))
         case "undo":
             self = .undo
         case let other:

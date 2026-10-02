@@ -45,7 +45,7 @@ struct RootView: View {
                             FleetRootView(store: store, selection: $selection, me: me, onScan: { scanning = true })
                         }
                         Tab("This device", systemImage: "info.circle", value: .thisDevice) {
-                            ThisDeviceView(posture: window)
+                            ThisDeviceView(posture: window, store: store)
                         }
                         Tab("You", systemImage: "person", value: .you) {
                             YouView(fleet: store.fleet, me: $meRaw)

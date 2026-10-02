@@ -6,14 +6,19 @@ import SwiftUI
 struct EditSheet: View {
     let original: Device
     let onSave: (Device) throws(FleetStore.Failure) -> Void
+    /// Set when the sheet registers a draft rather than edits a record.
+    var title: String?
+    var saveLabel: String?
     @State private var device: Device
     @State private var confirmingDiscard = false
     @State private var error: String?
     @Environment(\.dismiss) private var dismiss
 
-    init(device: Device, onSave: @escaping (Device) throws(FleetStore.Failure) -> Void) {
+    init(device: Device, title: String? = nil, saveLabel: String? = nil, onSave: @escaping (Device) throws(FleetStore.Failure) -> Void) {
         original = device
         self.onSave = onSave
+        self.title = title
+        self.saveLabel = saveLabel
         _device = State(initialValue: device)
     }
 
@@ -48,7 +53,7 @@ struct EditSheet: View {
                     Text(error).foregroundStyle(.red)
                 }
             }
-            .navigationTitle("Edit \(original.deviceName)")
+            .navigationTitle(title ?? String(localized: "Edit \(original.deviceName)"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -63,7 +68,7 @@ struct EditSheet: View {
                         }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button(saveLabel ?? String(localized: "Save")) {
                         do {
                             try onSave(device)
                             dismiss()
@@ -71,7 +76,7 @@ struct EditSheet: View {
                             self.error = String(describing: error)
                         }
                     }
-                    .disabled(!dirty || device.deviceName.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .disabled((!dirty && saveLabel == nil) || device.deviceName.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
         }
