@@ -6,6 +6,8 @@ struct FleetView: View {
     @Binding var selection: Device.ID?
     /// Beside the detail, the selected tile is marked; alone, it is about to be covered anyway.
     let highlightsSelection: Bool
+    /// The raw id of who holds this phone, empty when not chosen.
+    @Binding var me: String
     var onScan: () -> Void = {}
 
     var body: some View {
@@ -36,6 +38,16 @@ struct FleetView: View {
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Fleet")
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    Picker("Who is holding this phone?", selection: $me) {
+                        ForEach(fleet.people) { Text($0.name).tag($0.id.rawValue) }
+                    }
+                } label: {
+                    let name = fleet.person(Person.ID(rawValue: me))?.name.split(separator: " ").first
+                    Text(name.map { "You: \($0)" } ?? String(localized: "You"))
+                }
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button("Scan", action: onScan)
             }
@@ -81,7 +93,8 @@ private struct DeviceTile: View {
             fleet: try! FleetFixture.load(),
             posture: WindowPosture(size: CGSize(width: 402, height: 874)),
             selection: .constant(nil),
-            highlightsSelection: false
+            highlightsSelection: false,
+            me: .constant("")
         )
     }
 }

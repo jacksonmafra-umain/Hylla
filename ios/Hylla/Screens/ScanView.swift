@@ -8,31 +8,48 @@ import SwiftUI
 struct ScanView: View {
     let store: FleetStore
     let posture: WindowPosture
+    var me: Person.ID?
     @Environment(\.dismiss) private var dismiss
+    @State private var viewfinderSize: CGSize = .zero
+    @State private var insets = EdgeInsets()
 
+    /// ``ScanLayout`` works in window coordinates; the stacks lay out inside the safe area. The
+    /// viewfinder extends under the safe area, so the inset is taken off its layout size to make
+    /// its visible size the one ``ScanLayout`` asked for.
     var body: some View {
         let layout = ScanLayout.compute(posture)
-        if layout.sideBySide {
-            HStack(spacing: 0) {
-                viewfinder.frame(width: layout.viewfinder.width).ignoresSafeArea(edges: [.leading, .vertical])
-                ScanControls(store: store)
-            }
-        } else {
-            VStack(spacing: 0) {
-                viewfinder.frame(height: layout.viewfinder.height).ignoresSafeArea(edges: [.top, .horizontal])
-                // An occluding crease is left empty.
-                Spacer().frame(height: max(0, layout.controls.minY - layout.viewfinder.maxY))
-                ScanControls(store: store)
+        Group {
+            if layout.sideBySide {
+                HStack(spacing: 0) {
+                    viewfinder
+                        .frame(width: max(0, layout.viewfinder.width - insets.leading))
+                        .ignoresSafeArea(edges: [.leading, .vertical])
+                    ScanControls(store: store, me: me)
+                }
+            } else {
+                VStack(spacing: 0) {
+                    viewfinder
+                        .frame(height: max(0, layout.viewfinder.height - insets.top))
+                        .ignoresSafeArea(edges: [.top, .horizontal])
+                    // An occluding crease is left empty.
+                    Spacer().frame(height: max(0, layout.controls.minY - layout.viewfinder.maxY))
+                    ScanControls(store: store, me: me)
+                }
             }
         }
+        .onGeometryChange(for: EdgeInsets.self) { $0.safeAreaInsets } action: { insets = $0 }
     }
 
     private var viewfinder: some View {
         ZStack {
             Color(red: 0.06, green: 0.08, blue: 0.09)
-            RoundedRectangle(cornerRadius: 24)
+            // The aiming guide scales with the viewfinder, which is ~150 pt tall on a cover-sized
+            // window. `containerRelativeFrame` would measure the screen, not the viewfinder, so
+            // the viewfinder measures itself.
+            let guide = min(min(viewfinderSize.width, viewfinderSize.height) * 0.55, 200)
+            RoundedRectangle(cornerRadius: guide / 8)
                 .strokeBorder(.white.opacity(0.8), lineWidth: 3)
-                .frame(width: 200, height: 200)
+                .frame(width: guide, height: guide)
                 .accessibilityLabel("Camera viewfinder")
             VStack {
                 HStack {
@@ -44,17 +61,21 @@ struct ScanView: View {
                     Spacer()
                 }
                 Spacer()
-                Text("Point the camera at a shelf tag, or type it below.")
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
+                if viewfinderSize.height >= 280 {
+                    Text("Point the camera at a shelf tag, or type it below.")
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                }
             }
             .padding()
         }
+        .onGeometryChange(for: CGSize.self) { $0.size } action: { viewfinderSize = $0 }
     }
 }
 
 private struct ScanControls: View {
     let store: FleetStore
+    let me: Person.ID?
     @State private var tag = ""
     @State private var found: Device.ID?
     @State private var notATag = false
@@ -126,7 +147,7 @@ private struct ScanControls: View {
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(.secondarySystemBackground), in: .rect(cornerRadius: 12))
-        .onAppear { person = person ?? store.fleet.people.first?.id }
+        .onAppear { person = person ?? me ?? store.fleet.people.first?.id }
     }
 
     private func lookUp() {

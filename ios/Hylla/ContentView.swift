@@ -10,6 +10,10 @@ struct ContentView: View {
     let store: FleetStore
     @State private var selection: Device.ID?
     @State private var scanning = false
+    /// Who holds this phone. Local only: not an account, never synced.
+    @AppStorage("me") private var meRaw = ""
+
+    private var me: Person.ID? { meRaw.isEmpty ? nil : Person.ID(rawValue: meRaw) }
 
     private var fleet: Fleet { store.fleet }
 
@@ -17,15 +21,21 @@ struct ContentView: View {
         WindowPostureReader { posture in
             let layout = PaneLayout.compute(posture)
             Group {
-                switch layout.paneCount {
-                case 3: threeColumns(posture, layout)
-                case 2: twoColumns(posture, listWidth: layout.panes[0].width)
-                default: stack(posture)
+                // The cover replaces the UI without touching the selection, so a larger window
+                // returns to where it was.
+                if posture.posture == .cover {
+                    CoverView(fleet: fleet, me: me, onScan: { scanning = true })
+                } else {
+                    switch layout.paneCount {
+                    case 3: threeColumns(posture, layout)
+                    case 2: twoColumns(posture, listWidth: layout.panes[0].width)
+                    default: stack(posture)
+                    }
                 }
             }
             .fullScreenCover(isPresented: $scanning) {
                 // The scanner takes the whole window in every posture.
-                WindowPostureReader { ScanView(store: store, posture: $0) }
+                WindowPostureReader { ScanView(store: store, posture: $0, me: me) }
             }
         }
     }
@@ -35,7 +45,7 @@ struct ContentView: View {
             get: { selection.map { [$0] } ?? [] },
             set: { selection = $0.last }
         )) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: false, onScan: { scanning = true })
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: false, me: $meRaw, onScan: { scanning = true })
                 .navigationDestination(for: Device.ID.self) { id in
                     DeviceDetailView(fleet: fleet, id: id, widthClass: posture.widthClass)
                 }
@@ -44,7 +54,7 @@ struct ContentView: View {
 
     private func threeColumns(_ posture: WindowPosture, _ layout: PaneLayout) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, onScan: { scanning = true })
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, me: $meRaw, onScan: { scanning = true })
                 .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: layout.panes[0].width, max: layout.panes[0].width)
                 .toolbar(removing: .sidebarToggle)
         } content: {
@@ -64,7 +74,7 @@ struct ContentView: View {
 
     private func twoColumns(_ posture: WindowPosture, listWidth: CGFloat) -> some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
-            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, onScan: { scanning = true })
+            FleetView(fleet: fleet, posture: posture, selection: $selection, highlightsSelection: true, me: $meRaw, onScan: { scanning = true })
                 .navigationSplitViewColumnWidth(min: AdaptiveLayout.minPaneWidth, ideal: listWidth, max: listWidth)
                 .toolbar(removing: .sidebarToggle)
         } detail: {

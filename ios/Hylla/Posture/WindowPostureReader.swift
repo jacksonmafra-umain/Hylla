@@ -14,16 +14,31 @@ struct WindowPostureReader<Content: View>: View {
 
     var body: some View {
         Group {
-            if let size {
+            if let size = Self.windowOverride ?? size {
                 content(WindowPosture(
                     size: size,
                     horizontalSizeClass: horizontalSizeClass,
                     verticalSizeClass: verticalSizeClass
                 ))
+                .frame(width: Self.windowOverride?.width, height: Self.windowOverride?.height)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onGeometryChange(for: CGSize.self, of: \.windowSize) { size = $0 }
+    }
+
+    /// Debug builds only: `-HyllaWindowOverride 330x350` lays the app out as if the window were
+    /// that size, the iOS counterpart of `adb shell wm size`. Simulators cannot make a window as
+    /// small as a cover screen from a script, so the UI tests use this to reach the cover surface.
+    private static var windowOverride: CGSize? {
+        #if DEBUG
+        guard let value = UserDefaults.standard.string(forKey: "HyllaWindowOverride") else { return nil }
+        let parts = value.split(separator: "x").compactMap { Double($0) }
+        guard parts.count == 2 else { return nil }
+        return CGSize(width: parts[0], height: parts[1])
+        #else
+        return nil
+        #endif
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B79E88C7A2BD647825A63C /* CoverUITests.swift */; };
 		08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AD4599EA2058B5774F9630 /* HistoryView.swift */; };
 		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
 		10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF374C3AC3DA11834D7D417 /* FleetStore.swift */; };
@@ -19,6 +20,7 @@
 		49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */; };
 		4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */; };
 		52C89EA17DFD75CD15DEF36B /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A361D69CA3D550E12437C /* ScanView.swift */; };
+		615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52CA097F72ED1526880F92 /* CoverView.swift */; };
 		6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB41B1B16BAA8B79B9B80BCC /* PaneLayout.swift */; };
 		74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AE1B66966F3A3CBC72098E /* ShelfTag.swift */; };
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
@@ -55,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E52CA097F72ED1526880F92 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureTests.swift; sourceTree = "<group>"; };
 		29AE1B66966F3A3CBC72098E /* ShelfTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTag.swift; sourceTree = "<group>"; };
 		3048761974723000145069DC /* ScanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanUITests.swift; sourceTree = "<group>"; };
@@ -63,6 +66,7 @@
 		5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetStoreTests.swift; sourceTree = "<group>"; };
 		625154AED9AE337CFF40CFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		725DF1C7FE5873B5483A7EBA /* Hylla.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hylla.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76B79E88C7A2BD647825A63C /* CoverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverUITests.swift; sourceTree = "<group>"; };
 		7B1A361D69CA3D550E12437C /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 		7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneLayoutTests.swift; sourceTree = "<group>"; };
 		80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayout.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 		39C2A80B657D885D297036F0 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				1E52CA097F72ED1526880F92 /* CoverView.swift */,
 				C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */,
 				DC3268A8D0E68715ACA57AA9 /* FleetView.swift */,
 				E3AD4599EA2058B5774F9630 /* HistoryView.swift */,
@@ -201,6 +206,7 @@
 		F150055588D12D9881CFB9A2 /* HyllaUITests */ = {
 			isa = PBXGroup;
 			children = (
+				76B79E88C7A2BD647825A63C /* CoverUITests.swift */,
 				C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */,
 				3048761974723000145069DC /* ScanUITests.swift */,
 			);
@@ -336,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */,
 				A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */,
 				F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */,
 			);
@@ -349,6 +356,7 @@
 				C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */,
 				49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */,
 				210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */,
+				615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */,
 				413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */,
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
