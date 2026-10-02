@@ -25,10 +25,19 @@ final class FleetStore {
     /// The fleet before the last successful change, for one level of undo.
     private var beforeLastChange: Fleet?
     fileprivate let today: () -> CalendarDate
+    fileprivate let persistence: (any FleetPersistence)?
 
-    init(fleet: Fleet, today: @escaping () -> CalendarDate = { CalendarDate.today() }) {
-        self.fleet = fleet
+    /// Starts from the saved fleet if there is one that still validates, else from `fleet`.
+    init(fleet: Fleet, today: @escaping () -> CalendarDate = { CalendarDate.today() }, persistence: (any FleetPersistence)? = nil) {
+        self.fleet = persistence?.load() ?? fleet
         self.today = today
+        self.persistence = persistence
+    }
+
+    /// Saves and journals a change before the caller confirms it, so it survives the process.
+    fileprivate func persist(_ operation: Operation) {
+        persistence?.save(fleet)
+        persistence?.append(operation)
     }
 
     /// `person` takes `device` from the shelf. Throws if someone already holds it.
@@ -45,6 +54,7 @@ final class FleetStore {
         next.devices[index].since = day
         next.assignments.append(Assignment(deviceId: device, person: person, from: day, to: nil))
         fleet = next
+        persist(.claim(device: device, person: person, on: day))
     }
 
     fileprivate func replace(_ next: Fleet) {
@@ -58,6 +68,7 @@ final class FleetStore {
         guard let previous = beforeLastChange else { return false }
         fleet = previous
         beforeLastChange = nil
+        persist(.undo)
         return true
     }
 
@@ -75,6 +86,7 @@ final class FleetStore {
             next.assignments[i].to = day
         }
         fleet = next
+        persist(.return(device: device, on: day))
     }
 }
 
@@ -99,6 +111,7 @@ extension FleetStore {
         let problems = FleetFixture.validate(next)
         guard problems.isEmpty else { throw .invalid(problems) }
         replace(next)
+        persist(.edit(device: edited.id))
     }
 }
 

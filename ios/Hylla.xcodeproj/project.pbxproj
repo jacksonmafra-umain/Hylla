@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0403921C3181B7909FCD0CF9 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1358213EDB48CA89C19304D /* Operation.swift */; };
 		086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B79E88C7A2BD647825A63C /* CoverUITests.swift */; };
 		08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AD4599EA2058B5774F9630 /* HistoryView.swift */; };
 		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
@@ -39,6 +40,7 @@
 		7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485260CCB2262F2B28676C8C /* FleetFilter.swift */; };
 		7AAB4893FB035422C53BCED3 /* SheetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9DA5620360409950965130 /* SheetsUITests.swift */; };
 		7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C738846931936956614C5A04 /* PersonPicker.swift */; };
+		7CD58E30D163BD46A2850CDB /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B420904C17AC52542AA498FB /* PersistenceTests.swift */; };
 		7EDFE010B0CF14C0C6215081 /* Notices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041126262B45728C58157E33 /* Notices.swift */; };
 		8F12FF46648440C5BA75F494 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402A98D80B09E2A8A62869E /* RootView.swift */; };
 		8FDD361C82B68528C095AE45 /* NotificationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE38798DB82A1A4851346947 /* NotificationUITests.swift */; };
@@ -53,6 +55,7 @@
 		BA89FC30DBC9DCE6C1089D3F /* PermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */; };
 		C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E586CDB047FC0E3C490866 /* AdaptiveLayout.swift */; };
 		CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */; };
+		D2014DFDDF7A6AFC0D45183A /* FleetPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE5FD91228ABDC1401614A3 /* FleetPersistence.swift */; };
 		D75FBE85FFBFC60ADA7517A9 /* NotifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C242E35C200E03F77C8035 /* NotifyTests.swift */; };
 		DAD8D594E69BE581F23F9FA8 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = C766B65C2303EB4270D96C14 /* devices.json */; };
 		E50818008F342C32CC8F1BEC /* CameraScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD39C9B6FD8C396D6BA26EE /* CameraScanner.swift */; };
@@ -120,16 +123,19 @@
 		A5C242E35C200E03F77C8035 /* NotifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTests.swift; sourceTree = "<group>"; };
 		AEE1C95912F75072376660D4 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		AF454D1C954DBA7890F53958 /* ScannedCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedCode.swift; sourceTree = "<group>"; };
+		B420904C17AC52542AA498FB /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
 		BE38798DB82A1A4851346947 /* NotificationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUITests.swift; sourceTree = "<group>"; };
 		BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFilterTests.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
 		C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetNavigationUITests.swift; sourceTree = "<group>"; };
+		C1358213EDB48CA89C19304D /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		C2AF287F39A3AF1C107CBB63 /* ClaimSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimSheet.swift; sourceTree = "<group>"; };
 		C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		C738846931936956614C5A04 /* PersonPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonPicker.swift; sourceTree = "<group>"; };
 		C766B65C2303EB4270D96C14 /* devices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = devices.json; sourceTree = "<group>"; };
 		C8C9D6F489CB86FEC73613DC /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
+		CAE5FD91228ABDC1401614A3 /* FleetPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetPersistence.swift; sourceTree = "<group>"; };
 		CBC39601BE77E6CCBA48D616 /* HyllaUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06195FD5764459EB6989523 /* ShellUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellUITests.swift; sourceTree = "<group>"; };
 		D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixtureTests.swift; sourceTree = "<group>"; };
@@ -150,6 +156,15 @@
 			);
 			name = Hylla;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		12E2C0E0F677E944E3BEAA14 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				CAE5FD91228ABDC1401614A3 /* FleetPersistence.swift */,
+				C1358213EDB48CA89C19304D /* Operation.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		2F6FCF56E12E702037768CCD /* Fleet */ = {
@@ -232,6 +247,7 @@
 				A5C242E35C200E03F77C8035 /* NotifyTests.swift */,
 				7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */,
 				82164B4AD6D31C4239CE23D1 /* PermissionTests.swift */,
+				B420904C17AC52542AA498FB /* PersistenceTests.swift */,
 				207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */,
 			);
 			path = HyllaTests;
@@ -249,6 +265,7 @@
 				DAF16F3CF80FC6C783C34C81 /* Permission */,
 				B3449A7CCCEE7D350E621F50 /* Posture */,
 				39C2A80B657D885D297036F0 /* Screens */,
+				12E2C0E0F677E944E3BEAA14 /* Store */,
 			);
 			path = Hylla;
 			sourceTree = "<group>";
@@ -429,6 +446,7 @@
 				D75FBE85FFBFC60ADA7517A9 /* NotifyTests.swift in Sources */,
 				CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */,
 				BA89FC30DBC9DCE6C1089D3F /* PermissionTests.swift in Sources */,
+				7CD58E30D163BD46A2850CDB /* PersistenceTests.swift in Sources */,
 				1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,6 +484,7 @@
 				7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
 				FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */,
+				D2014DFDDF7A6AFC0D45183A /* FleetPersistence.swift in Sources */,
 				14517DA123216619FC15DFE7 /* FleetRootView.swift in Sources */,
 				10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */,
 				9F68B4331B1370822031CABD /* FleetView.swift in Sources */,
@@ -474,6 +493,7 @@
 				7EDFE010B0CF14C0C6215081 /* Notices.swift in Sources */,
 				1297BAA3239D7872A8B8F361 /* NotificationDelegate.swift in Sources */,
 				0D064549D5B04FAE37DC90B3 /* Notifier.swift in Sources */,
+				0403921C3181B7909FCD0CF9 /* Operation.swift in Sources */,
 				6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */,
 				76D17D08FD79FB4C4143BAD8 /* PermissionState.swift in Sources */,
 				7B50303187F9DCBFB3519C85 /* PersonPicker.swift in Sources */,
