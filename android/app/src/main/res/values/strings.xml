@@ -69,6 +69,11 @@
     <string name="notify_back_text">The device you were waiting for can be claimed.</string>
     <string name="watch">Notify me when it is back</string>
     <string name="unwatch">Stop waiting for it</string>
+    <string name="register_action">Register this device</string>
+    <string name="register_explain">Adds this device to the fleet with its model, OS and the window it reports right now. Unfold it first to record the inner display.</string>
+    <string name="register_title">Register this device</string>
+    <string name="register_save">Register</string>
+    <string name="register_done">%1$s is registered as %2$s.</string>
     <string name="nav_fleet">Fleet</string>
     <string name="nav_this_device">This device</string>
     <string name="nav_you">You</string>

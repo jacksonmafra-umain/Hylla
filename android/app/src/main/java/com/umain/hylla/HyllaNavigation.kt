@@ -178,7 +178,7 @@ fun HyllaNavigation(
         Box(Modifier.fillMaxSize()) {
             when (tab) {
                 TopLevel.Fleet -> FleetPanes(fleet, posture.contentArea(chrome), backStack, store, me, watchList)
-                TopLevel.ThisDevice -> ThisDeviceScreen(posture)
+                TopLevel.ThisDevice -> ThisDeviceScreen(posture, fleet, store)
                 TopLevel.You -> YouScreen(fleet, me, onChooseMe = meStore::set, settings = notifications)
             }
             SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())

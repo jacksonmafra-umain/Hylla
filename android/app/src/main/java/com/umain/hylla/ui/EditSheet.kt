@@ -61,7 +61,7 @@ import java.time.format.FormatStyle
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditSheet(device: Device, onSave: (Device) -> Result<Unit>, onDismiss: () -> Unit) {
+fun EditSheet(device: Device, onSave: (Device) -> Result<Unit>, onDismiss: () -> Unit, title: String? = null, saveLabel: String? = null) {
     var name by rememberSaveable { mutableStateOf(device.deviceName) }
     var type by rememberSaveable { mutableStateOf(device.deviceType) }
     var os by rememberSaveable { mutableStateOf(device.osVersion) }
@@ -112,7 +112,7 @@ fun EditSheet(device: Device, onSave: (Device) -> Result<Unit>, onDismiss: () ->
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Text(
-                stringResource(R.string.edit_title, device.deviceName),
+                title ?: stringResource(R.string.edit_title, device.deviceName),
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.semantics { heading() },
             )
@@ -135,10 +135,11 @@ fun EditSheet(device: Device, onSave: (Device) -> Result<Unit>, onDismiss: () ->
                 }
                 Button(
                     onClick = { onSave(edited).onSuccess { onDismiss() }.onFailure { error = it.message } },
-                    enabled = dirty && name.isNotBlank(),
+                    // A draft can be saved as it is; an edit only once something changed.
+                    enabled = (dirty || saveLabel != null) && name.isNotBlank(),
                     modifier = Modifier.weight(1f),
                 ) {
-                    Text(stringResource(R.string.save))
+                    Text(saveLabel ?: stringResource(R.string.save))
                 }
             }
         }
