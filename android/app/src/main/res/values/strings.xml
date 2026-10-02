@@ -25,6 +25,15 @@
     <string name="scan_return">Return to the shelf</string>
     <string name="scan_claimed_by">%1$s is now with %2$s.</string>
     <string name="scan_returned">%1$s is back on the shelf.</string>
+    <string name="done">Done</string>
+    <string name="me_action">You</string>
+    <string name="me_action_named">You: %1$s</string>
+    <string name="me_title">Who is holding this phone?</string>
+    <string name="cover_scan">Scan to check out</string>
+    <string name="cover_you_hold">You hold</string>
+    <string name="cover_nothing_held">Nothing right now.</string>
+    <string name="cover_choose_me">Open the phone and tap You to choose who you are.</string>
+    <string name="cover_held_device">%1$s, since %2$s</string>
     <string name="device_not_found_title">Not found</string>
     <string name="device_not_found">No device with shelf tag %1$s.</string>
     <string name="os_version">%1$s %2$s</string>

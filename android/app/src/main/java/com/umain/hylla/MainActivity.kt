@@ -25,8 +25,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HyllaApp() {
-    val store = (LocalContext.current.applicationContext as HyllaApplication).store
-    val fleet by store.fleet.collectAsStateWithLifecycle()
+    val app = LocalContext.current.applicationContext as HyllaApplication
+    val fleet by app.store.fleet.collectAsStateWithLifecycle()
     val posture = rememberWindowPosture()
-    HyllaNavigation(fleet, posture, store)
+    HyllaNavigation(fleet, posture, app.store, app.me)
 }

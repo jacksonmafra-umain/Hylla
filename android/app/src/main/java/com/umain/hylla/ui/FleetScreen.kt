@@ -17,6 +17,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -28,6 +32,7 @@ import com.umain.hylla.R
 import com.umain.hylla.fleet.Device
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
+import com.umain.hylla.fleet.PersonId
 import com.umain.hylla.layout.AdaptiveGrid
 import com.umain.hylla.layout.AdaptiveLayout
 import com.umain.hylla.posture.PostureReadout
@@ -41,15 +46,27 @@ fun FleetScreen(
     selected: DeviceId?,
     onDeviceClick: (DeviceId) -> Unit,
     onScan: () -> Unit,
+    me: PersonId?,
+    onChooseMe: (PersonId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var choosingMe by rememberSaveable { mutableStateOf(false) }
+    if (choosingMe) {
+        MeDialog(fleet, me, onChoose = onChooseMe, onDismiss = { choosingMe = false })
+    }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.fleet_title)) },
-                actions = { TextButton(onClick = onScan) { Text(stringResource(R.string.scan_action)) } },
+                actions = {
+                    TextButton(onClick = { choosingMe = true }) {
+                        val name = me?.let(fleet::person)?.name?.substringBefore(' ')
+                        Text(if (name == null) stringResource(R.string.me_action) else stringResource(R.string.me_action_named, name))
+                    }
+                    TextButton(onClick = onScan) { Text(stringResource(R.string.scan_action)) }
+                },
                 scrollBehavior = scrollBehavior,
             )
         },

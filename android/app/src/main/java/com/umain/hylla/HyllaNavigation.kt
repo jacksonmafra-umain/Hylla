@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,14 +18,18 @@ import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.ui.NavDisplay
 import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.fleet.FleetStore
+import com.umain.hylla.fleet.MeStore
 import com.umain.hylla.layout.PaneLayout
 import com.umain.hylla.layout.PaneRole
 import com.umain.hylla.layout.MultiPaneSceneStrategy
+import com.umain.hylla.posture.Posture
 import com.umain.hylla.posture.WindowPosture
+import com.umain.hylla.ui.CoverSurface
 import com.umain.hylla.ui.DeviceDetailScreen
 import com.umain.hylla.ui.FleetScreen
 import com.umain.hylla.ui.HistoryPane
@@ -48,7 +53,7 @@ data object ScanRoute : NavKey
  * resizing changes the layout, never the stack, so nothing is lost either way.
  */
 @Composable
-fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore) {
+fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore, meStore: MeStore) {
     val backStack = rememberNavBackStack(FleetRoute)
     val layout = remember(posture) { PaneLayout.compute(posture) }
     val strategy = remember(layout, fleet) {
@@ -59,6 +64,14 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore) {
         )
     }
     val selected = (backStack.lastOrNull() as? DeviceRoute)?.id
+    val me by meStore.me.collectAsStateWithLifecycle()
+
+    // The cover surface replaces the whole UI without touching the back stack, so opening the
+    // phone again lands exactly where you were. Scanning from it pushes the scanner as usual.
+    if (posture.posture == Posture.Cover && backStack.lastOrNull() != ScanRoute) {
+        CoverSurface(fleet, me, onScan = { backStack.add(ScanRoute) })
+        return
+    }
 
     NavDisplay(
         backStack = backStack,
@@ -72,11 +85,13 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture, store: FleetStore) {
                     selected = selected.takeIf { layout.paneCount > 1 },
                     onDeviceClick = { backStack.select(it) },
                     onScan = { backStack.add(ScanRoute) },
+                    me = me,
+                    onChooseMe = meStore::set,
                 )
             }
             // No pane role: the scanner always takes the whole window.
             entry<ScanRoute> {
-                ScanScreen(fleet, posture, store, onBack = { backStack.removeLastOrNull() })
+                ScanScreen(fleet, posture, store, me, onBack = { backStack.removeLastOrNull() })
             }
             entry<DeviceRoute>(metadata = { route: DeviceRoute -> PaneRole.Detail.metadata(subject = route.id) }) { route ->
                 DeviceDetailScreen(

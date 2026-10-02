@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -81,12 +82,12 @@ import com.umain.hylla.posture.WindowPosture
  * typing the tag works everywhere and stays as the accessible fallback.
  */
 @Composable
-fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, onBack: () -> Unit) {
+fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, me: PersonId?, onBack: () -> Unit) {
     val layout = remember(posture) { ScanLayout.compute(posture) }
     Box(Modifier.fillMaxSize()) {
         Viewfinder(Modifier.placeAt(layout.viewfinder), onBack)
         Surface(Modifier.placeAt(layout.controls)) {
-            ScanControls(fleet, store)
+            ScanControls(fleet, store, me)
         }
     }
 }
@@ -94,23 +95,30 @@ fun ScanScreen(fleet: Fleet, posture: WindowPosture, store: FleetStore, onBack: 
 private fun Modifier.placeAt(bounds: DpBounds) =
     offset(bounds.left.dp, bounds.top.dp).size(bounds.width.dp, bounds.height.dp)
 
+/**
+ * The aiming guide scales with the viewfinder: on a cover screen the viewfinder is ~150 dp tall
+ * and a fixed 200 dp guide would run over everything. The hint only shows where it fits.
+ */
 @Composable
 private fun Viewfinder(modifier: Modifier, onBack: () -> Unit) {
     val description = stringResource(R.string.scan_viewfinder)
-    Box(modifier.background(Color(0xFF101418))) {
+    BoxWithConstraints(modifier.background(Color(0xFF101418))) {
+        val guide = (minOf(maxWidth, maxHeight) * 0.55f).coerceAtMost(200.dp)
         Box(
             Modifier
                 .align(Alignment.Center)
-                .size(200.dp)
-                .border(3.dp, Color.White.copy(alpha = 0.8f), RoundedCornerShape(24.dp))
+                .size(guide)
+                .border(3.dp, Color.White.copy(alpha = 0.8f), RoundedCornerShape(guide / 8))
                 .semantics { contentDescription = description },
         )
-        Text(
-            stringResource(R.string.scan_hint),
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp),
-        )
+        if (maxHeight >= 280.dp) {
+            Text(
+                stringResource(R.string.scan_hint),
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp),
+            )
+        }
         IconButton(
             onClick = onBack,
             colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
@@ -122,7 +130,7 @@ private fun Viewfinder(modifier: Modifier, onBack: () -> Unit) {
 }
 
 @Composable
-private fun ScanControls(fleet: Fleet, store: FleetStore) {
+private fun ScanControls(fleet: Fleet, store: FleetStore, me: PersonId?) {
     var tag by rememberSaveable { mutableStateOf("") }
     var found by rememberSaveable { mutableStateOf<String?>(null) }
     var message by rememberSaveable { mutableStateOf<String?>(null) }
@@ -168,7 +176,7 @@ private fun ScanControls(fleet: Fleet, store: FleetStore) {
             Text(stringResource(R.string.scan_look_up))
         }
         when {
-            device != null -> FoundDevice(device, fleet, store) { message = it }
+            device != null -> FoundDevice(device, fleet, store, me) { message = it }
             found != null -> Text(stringResource(R.string.device_not_found, found!!))
         }
         message?.let {
@@ -178,7 +186,7 @@ private fun ScanControls(fleet: Fleet, store: FleetStore) {
 }
 
 @Composable
-private fun FoundDevice(device: Device, fleet: Fleet, store: FleetStore, onDone: (String) -> Unit) {
+private fun FoundDevice(device: Device, fleet: Fleet, store: FleetStore, me: PersonId?, onDone: (String) -> Unit) {
     val claimedBy = stringResource(R.string.scan_claimed_by)
     val returned = stringResource(R.string.scan_returned)
     OutlinedCard(Modifier.fillMaxWidth()) {
@@ -192,7 +200,8 @@ private fun FoundDevice(device: Device, fleet: Fleet, store: FleetStore, onDone:
                     Text(stringResource(R.string.scan_return))
                 }
             } else {
-                var person by rememberSaveable { mutableStateOf(fleet.people.first().id.value) }
+                // Defaults to whoever holds this phone.
+                var person by rememberSaveable { mutableStateOf((me ?: fleet.people.first().id).value) }
                 PersonField(fleet, PersonId(person)) { person = it.value }
                 Button(onClick = {
                     val name = fleet.person(PersonId(person))?.name.orEmpty()
