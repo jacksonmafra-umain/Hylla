@@ -80,14 +80,9 @@ final class FleetNavigationUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Flip7 Black"].isHittable, "the list stays beside the detail")
         XCTAssertTrue(app.buttons.containing(.staticText, identifier: "Fold7 Blue").firstMatch.isSelected)
         XCTAssertLessThan(app.staticTexts["Flip7 Black"].frame.maxX, 480, "the list pane is at most 480 pt")
-        // iPadOS 27.2 beta keeps the list column at 320 pt whatever navigationSplitViewColumnWidth
-        // asks for (PaneLayout asks for 413 on an iPad Pro 13" in portrait). Strict: when the
-        // system honours the width, this stops failing and the test says so.
-        // See docs/hardware-findings.md, 2026-10-02.
-        XCTExpectFailure("NavigationSplitView ignores the list column width on iPadOS 27.2") {
-            XCTAssertGreaterThanOrEqual(app.navigationBars["Fleet"].frame.width, minimumPaneWidth,
-                                        "the list pane is at least 360 pt")
-        }
+        // The width PaneLayout asks for reaches the screen: at least the 360 pt minimum. It once
+        // did not, because of modifier order (chapter 20).
+        XCTAssertGreaterThanOrEqual(app.navigationBars["Fleet"].frame.width, minimumPaneWidth, "the list pane is at least 360 pt")
         attach(app, "two-panes")
     }
 
@@ -113,6 +108,9 @@ final class FleetNavigationUITests: XCTestCase {
         XCTAssertTrue(holder.waitForExistence(timeout: 5), "the history column lists the current holder")
         XCTAssertGreaterThan(holder.frame.minX, app.staticTexts["Model number, SM-F966B"].frame.maxX,
                              "history sits to the right of the detail")
+        // PaneLayout asks for 28% of the width: 385 pt on an iPad Pro 13" in landscape. Without a
+        // fixed width the system settled on the 360 pt minimum.
+        XCTAssertGreaterThan(app.navigationBars["Fleet"].frame.width, minimumPaneWidth, "the list pane is wider than the minimum")
     }
 
     /// Landscape adds width, so the fleet gains a column, or, where there is room for two legible
