@@ -43,6 +43,20 @@ The integration token lives in a gitignored file on the developer's machine:
 Neither file is committed; both are listed in `.gitignore`. Without a token the apps run from
 `fixtures/devices.json` only. A token is never written to source, fixtures, logs or docs.
 
+## 2026-10-02 — Offline-first is local only: no sync in v1
+
+Chapter 16 makes the store durable on the device: the fleet survives process death, and every
+change is appended to an operation journal. Nothing leaves the device. There is no Hylla backend
+and Notion stays read-only (2026-10-01), so claims and returns made on one phone are not seen on
+another, and there are no cross-device conflicts to resolve.
+
+Considered and not chosen for v1: a simulated remote behind a sync interface, Firebase /
+Firestore, and making Notion read-write. The journal is the seam a future sync would read from;
+the decision to add one can be made without changing how the store records changes.
+
+Consequence: the feature inventory's "queue, sync, resolve conflicts" is out of scope for v1, and
+chapter 16 says so.
+
 ## Open
 
 - **Landing page.** Undecided. Blocks the first screenshots.
