@@ -104,4 +104,18 @@ final class SheetsUITests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["Fold4 for IT"].waitForExistence(timeout: 5))
     }
+
+    @MainActor
+    func testAClaimShowsABannerThatCanUndoIt() {
+        let app = launch()
+        open("Pixel 9a", in: app)
+        app.buttons["Claim"].firstMatch.tap()
+        app.buttons["Saga Nyberg"].tap()
+        app.buttons["confirm-claim"].tap()
+
+        XCTAssertTrue(app.staticTexts["Pixel 9a is now with Saga Nyberg."].waitForExistence(timeout: 5))
+        app.buttons["Undo"].tap()
+
+        XCTAssertTrue(app.staticTexts["Status, Available"].waitForExistence(timeout: 5))
+    }
 }
