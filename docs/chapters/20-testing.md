@@ -103,16 +103,40 @@ The iOS script captures each simulator at the default size and at AccessibilityX
 
 ![iOS matrix](img/20-ios-matrix.png)
 
-*iPhone 18 Pro and iPad Pro 13", at Large and AccessibilityXXXL.*
+*iPhone 18 Pro and iPad Pro 13", at Large and AccessibilityXXXL. The iPad list here is the 320 pt one, before the fix.*
 
 **What the matrix caught.** Look at the iPad: the list is narrow. Measured, it is **320 pt**,
-under the 360 pt minimum from chapter 4. `PaneLayout` asks for 413, and iPadOS 27.2 draws 320 pt
-whatever `navigationSplitViewColumnWidth` says. No test had checked a width, only that two panes
-existed. Chapter 5's table had reported the computed 413 as if it had been observed.
+under the 360 pt minimum from chapter 4. `PaneLayout` asked for 413. No test had checked a width,
+only that two panes existed, and chapter 5's table had reported the computed 413 as if it had
+been observed.
 
-The finding is in [hardware findings](../hardware-findings.md). The UI test now checks the width
-inside a **strict** `XCTExpectFailure`. When the system honours the width, the expected failure
-stops happening, the test fails, and the wrapper comes out.
+Narrowing it down, one variable at a time, measuring the list column in a screenshot each time:
+
+| Change | List column |
+| --- | --- |
+| None | 320 |
+| A fixed `navigationSplitViewColumnWidth(600)` | 320 |
+| `.prominentDetail` instead of `.balanced` | 320 |
+| No `TabView` around the split view | 320 |
+| iPadOS 27.0 and iPadOS 18.6, not the 27.2 beta | 320 |
+| **No `.toolbar(removing: .sidebarToggle)`** | **413** |
+| **`.toolbar(removing:)` first, the width after it** | **413** |
+
+The width was never reaching the column. Applied *before* `.toolbar(removing: .sidebarToggle)`,
+`navigationSplitViewColumnWidth` is lost, and the column falls back to the system's 320 pt. Applied
+after it, the column gets what `PaneLayout` asks for. Both split layouts now apply it last.
+
+With that fixed, a width check in the three-pane test found a second gap. In landscape,
+`PaneLayout` asks for a 385 pt list and `min: 360, ideal: 385, max: 385` got **360**: with three
+columns the system settles on the minimum. A fixed `navigationSplitViewColumnWidth(385)` gets
+385. The UI tests now check the list's width on screen, in two panes and in three.
+
+![Before and after](img/20-ipad-list-fixed.png)
+
+*iPad Pro 13" portrait: the list at the system's 320 pt, and at the 413 pt `PaneLayout` asks for.*
+
+It looked like a beta bug at first, and the first draft of this chapter said so. Running the same
+build on the released 27.0 and on 18.6 ruled that out in two minutes.
 
 That is the point of a matrix: it shows what the screen does, not what the code meant.
 
