@@ -14,10 +14,13 @@ final class FleetStore {
         case noPerson(Person.ID)
         case inUse(String)
         case notInUse(String)
+        case holderChanged(String)
+        case sinceInFuture
+        case invalid([String])
     }
 
     private(set) var fleet: Fleet
-    private let today: () -> CalendarDate
+    fileprivate let today: () -> CalendarDate
 
     init(fleet: Fleet, today: @escaping () -> CalendarDate = { CalendarDate.today() }) {
         self.fleet = fleet
@@ -37,6 +40,10 @@ final class FleetStore {
         fleet.assignments.append(Assignment(deviceId: device, person: person, from: day, to: nil))
     }
 
+    fileprivate func replace(_ next: Fleet) {
+        fleet = next
+    }
+
     /// `device` goes back on the shelf. Throws if nobody holds it.
     func returnDevice(_ device: Device.ID) throws(Failure) {
         guard let index = fleet.devices.firstIndex(where: { $0.id == device }) else { throw .noDevice(device) }
@@ -49,6 +56,30 @@ final class FleetStore {
         for i in fleet.assignments.indices where fleet.assignments[i].deviceId == device && fleet.assignments[i].to == nil {
             fleet.assignments[i].to = day
         }
+    }
+}
+
+extension FleetStore {
+    /// Replaces the editable fields of a device: everything except who holds it, which only
+    /// ``claim(_:by:)`` and ``returnDevice(_:)`` change. Moving `since` on a held device moves the
+    /// start of its open assignment with it. An edit that would break the fleet's invariants is
+    /// rejected and changes nothing.
+    func update(_ edited: Device) throws(Failure) {
+        guard let current = fleet.device(edited.id) else { throw .noDevice(edited.id) }
+        guard edited.assignmentStatus == current.assignmentStatus, edited.currentUser == current.currentUser else {
+            throw .holderChanged(current.deviceName)
+        }
+        guard edited.since <= today() else { throw .sinceInFuture }
+        var next = fleet
+        next.devices = next.devices.map { $0.id == edited.id ? edited : $0 }
+        next.assignments = next.assignments.map { assignment in
+            var assignment = assignment
+            if assignment.deviceId == edited.id && assignment.to == nil { assignment.from = edited.since }
+            return assignment
+        }
+        let problems = FleetFixture.validate(next)
+        guard problems.isEmpty else { throw .invalid(problems) }
+        replace(next)
     }
 }
 

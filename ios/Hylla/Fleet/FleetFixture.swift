@@ -68,6 +68,15 @@ enum FleetFixture {
             }
             if let to = assignment.to, to < assignment.from { problems.append("assignment on \(id) ends before it starts") }
         }
+        for (device, periods) in Dictionary(grouping: fleet.assignments, by: \.deviceId).sorted(by: { $0.key.rawValue < $1.key.rawValue }) {
+            // Nobody holds a device twice at once: each period starts after the one before ends.
+            let sorted = periods.sorted { $0.from < $1.from }
+            let overlaps = zip(sorted, sorted.dropFirst()).contains { earlier, later in
+                guard let end = earlier.to else { return true }
+                return later.from < end
+            }
+            if overlaps { problems.append("assignments on \(device.rawValue) overlap") }
+        }
         for device in fleet.devices {
             let open = fleet.assignments.filter { $0.deviceId == device.id && $0.to == nil }
             let id = device.id.rawValue

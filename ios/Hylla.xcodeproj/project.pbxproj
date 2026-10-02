@@ -20,6 +20,7 @@
 		47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C549761A2DF93824ACB90AF /* WindowPosture.swift */; };
 		49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */; };
 		4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */; };
+		50A4D928B5476747DCD0A95A /* FleetFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */; };
 		52C89EA17DFD75CD15DEF36B /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A361D69CA3D550E12437C /* ScanView.swift */; };
 		615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52CA097F72ED1526880F92 /* CoverView.swift */; };
 		6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB41B1B16BAA8B79B9B80BCC /* PaneLayout.swift */; };
@@ -27,6 +28,7 @@
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
 		77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
+		7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485260CCB2262F2B28676C8C /* FleetFilter.swift */; };
 		8F12FF46648440C5BA75F494 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402A98D80B09E2A8A62869E /* RootView.swift */; };
 		9D0EF5CC0B4ADDD261922A22 /* YouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA5E9317003C8261B4140B /* YouView.swift */; };
 		9F68B4331B1370822031CABD /* FleetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3268A8D0E68715ACA57AA9 /* FleetView.swift */; };
@@ -67,6 +69,7 @@
 		29AE1B66966F3A3CBC72098E /* ShelfTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTag.swift; sourceTree = "<group>"; };
 		3048761974723000145069DC /* ScanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanUITests.swift; sourceTree = "<group>"; };
 		42D8CF2C4341039DDB7E69AB /* WindowPostureReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureReader.swift; sourceTree = "<group>"; };
+		485260CCB2262F2B28676C8C /* FleetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFilter.swift; sourceTree = "<group>"; };
 		5C549761A2DF93824ACB90AF /* WindowPosture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPosture.swift; sourceTree = "<group>"; };
 		5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetStoreTests.swift; sourceTree = "<group>"; };
 		5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisDeviceView.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLayout.swift; sourceTree = "<group>"; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
+		BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFilterTests.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
 		C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetNavigationUITests.swift; sourceTree = "<group>"; };
 		C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 			children = (
 				FC613F4B2E8CB94C434A0836 /* CalendarDate.swift */,
 				BF7DB665ACA20D441C5C3988 /* Fleet.swift */,
+				485260CCB2262F2B28676C8C /* FleetFilter.swift */,
 				F6ADED52C1405844211F8A61 /* FleetFixture.swift */,
 				8C582CE67806106883217387 /* FleetLabels.swift */,
 				9AF374C3AC3DA11834D7D417 /* FleetStore.swift */,
@@ -163,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */,
+				BE7AB5CE17AF052A1AA32E90 /* FleetFilterTests.swift */,
 				D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */,
 				5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */,
 				7F2E05F2951AC3BE338A9057 /* PaneLayoutTests.swift */,
@@ -343,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F2E36933467B01C6C10E8C7 /* AdaptiveLayoutTests.swift in Sources */,
+				50A4D928B5476747DCD0A95A /* FleetFilterTests.swift in Sources */,
 				AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */,
 				4AB15F7B390CBF3741B419E1 /* FleetStoreTests.swift in Sources */,
 				CE068C775B66FF3716B29155 /* PaneLayoutTests.swift in Sources */,
@@ -371,6 +378,7 @@
 				615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */,
 				413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */,
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
+				7909D22627E8362034D45F86 /* FleetFilter.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
 				FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */,
 				14517DA123216619FC15DFE7 /* FleetRootView.swift in Sources */,
