@@ -12,9 +12,18 @@ struct HyllaApp: App {
         }
     }()
 
+    init() {
+        #if DEBUG
+        // UI tests start from no saved preferences with `-HyllaResetDefaults YES`.
+        if UserDefaults.standard.bool(forKey: "HyllaResetDefaults"), let domain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+        }
+        #endif
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView(store: store)
+            RootView(store: store)
         }
     }
 }

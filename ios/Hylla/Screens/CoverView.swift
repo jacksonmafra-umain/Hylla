@@ -23,7 +23,7 @@ struct CoverView: View {
                     .font(.headline)
                     .accessibilityAddTraits(.isHeader)
                 if me == nil {
-                    Text("Open the full app and tap You to choose who you are.")
+                    Text("Open the full app and go to You to choose who you are.")
                 } else if held.isEmpty {
                     Text("Nothing right now.")
                 } else {

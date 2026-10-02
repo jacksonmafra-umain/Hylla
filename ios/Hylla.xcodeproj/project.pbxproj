@@ -11,9 +11,10 @@
 		08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AD4599EA2058B5774F9630 /* HistoryView.swift */; };
 		0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADED52C1405844211F8A61 /* FleetFixture.swift */; };
 		10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF374C3AC3DA11834D7D417 /* FleetStore.swift */; };
+		14517DA123216619FC15DFE7 /* FleetRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */; };
 		1B15538A24B9F3B15B0ADB37 /* WindowPostureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */; };
-		210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */; };
 		21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D86CD4F49FFA19BE611731 /* AdaptiveGrid.swift */; };
+		277A4F626C878AC61B36B4B8 /* ThisDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */; };
 		2F2E36933467B01C6C10E8C7 /* AdaptiveLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E767A5B8F59D13AE2592D /* AdaptiveLayoutTests.swift */; };
 		413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */; };
 		47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C549761A2DF93824ACB90AF /* WindowPosture.swift */; };
@@ -26,7 +27,10 @@
 		766F215A90909855D1933492 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DB665ACA20D441C5C3988 /* Fleet.swift */; };
 		77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5B9F7A9B6BBD3E65D1946 /* PostureReadout.swift */; };
 		77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */; };
+		8F12FF46648440C5BA75F494 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402A98D80B09E2A8A62869E /* RootView.swift */; };
+		9D0EF5CC0B4ADDD261922A22 /* YouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA5E9317003C8261B4140B /* YouView.swift */; };
 		9F68B4331B1370822031CABD /* FleetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3268A8D0E68715ACA57AA9 /* FleetView.swift */; };
+		A155E745F7D38BEF78ACECB3 /* ShellUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06195FD5764459EB6989523 /* ShellUITests.swift */; };
 		A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */; };
 		AC7A1C008C4C47B00F6A2D77 /* FleetFixtureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */; };
 		AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */; };
@@ -59,12 +63,16 @@
 /* Begin PBXFileReference section */
 		1E52CA097F72ED1526880F92 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		207CD4D6158054B1BF9A8D33 /* WindowPostureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureTests.swift; sourceTree = "<group>"; };
+		28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetRootView.swift; sourceTree = "<group>"; };
 		29AE1B66966F3A3CBC72098E /* ShelfTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTag.swift; sourceTree = "<group>"; };
 		3048761974723000145069DC /* ScanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanUITests.swift; sourceTree = "<group>"; };
 		42D8CF2C4341039DDB7E69AB /* WindowPostureReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPostureReader.swift; sourceTree = "<group>"; };
 		5C549761A2DF93824ACB90AF /* WindowPosture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPosture.swift; sourceTree = "<group>"; };
 		5C672C07EF833DC770544DF5 /* FleetStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetStoreTests.swift; sourceTree = "<group>"; };
+		5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisDeviceView.swift; sourceTree = "<group>"; };
 		625154AED9AE337CFF40CFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6402A98D80B09E2A8A62869E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		70DA5E9317003C8261B4140B /* YouView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouView.swift; sourceTree = "<group>"; };
 		725DF1C7FE5873B5483A7EBA /* Hylla.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hylla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B79E88C7A2BD647825A63C /* CoverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverUITests.swift; sourceTree = "<group>"; };
 		7B1A361D69CA3D550E12437C /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
@@ -78,12 +86,12 @@
 		A137F0EA77579C8B8C0BE460 /* ScanLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLayout.swift; sourceTree = "<group>"; };
 		A29E76F498B9456CC82DA6B4 /* HyllaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyllaApp.swift; sourceTree = "<group>"; };
-		BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BF7DB665ACA20D441C5C3988 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
 		C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetNavigationUITests.swift; sourceTree = "<group>"; };
 		C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		C766B65C2303EB4270D96C14 /* devices.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = devices.json; sourceTree = "<group>"; };
 		CBC39601BE77E6CCBA48D616 /* HyllaUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HyllaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06195FD5764459EB6989523 /* ShellUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellUITests.swift; sourceTree = "<group>"; };
 		D2340C60F6F02D79C23EB35D /* FleetFixtureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetFixtureTests.swift; sourceTree = "<group>"; };
 		DC3268A8D0E68715ACA57AA9 /* FleetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleetView.swift; sourceTree = "<group>"; };
 		E3AD4599EA2058B5774F9630 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
@@ -120,9 +128,12 @@
 			children = (
 				1E52CA097F72ED1526880F92 /* CoverView.swift */,
 				C648CF951134BD0F80F4E091 /* DeviceDetailView.swift */,
+				28E08BF5E8D4DA6D489DAD7D /* FleetRootView.swift */,
 				DC3268A8D0E68715ACA57AA9 /* FleetView.swift */,
 				E3AD4599EA2058B5774F9630 /* HistoryView.swift */,
 				7B1A361D69CA3D550E12437C /* ScanView.swift */,
+				5FBCE85A3AD3D01C9FC677C1 /* ThisDeviceView.swift */,
+				70DA5E9317003C8261B4140B /* YouView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -164,8 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				625154AED9AE337CFF40CFBD /* Assets.xcassets */,
-				BF72EEDFD1AF86FDD9632D9E /* ContentView.swift */,
 				BCC2162C6EFA5ADAD0FAD5D5 /* HyllaApp.swift */,
+				6402A98D80B09E2A8A62869E /* RootView.swift */,
 				2F6FCF56E12E702037768CCD /* Fleet */,
 				DE9FAB16EF512A61A5F6E215 /* Layout */,
 				B3449A7CCCEE7D350E621F50 /* Posture */,
@@ -209,6 +220,7 @@
 				76B79E88C7A2BD647825A63C /* CoverUITests.swift */,
 				C0F07D471FBE4ED98FF0753D /* FleetNavigationUITests.swift */,
 				3048761974723000145069DC /* ScanUITests.swift */,
+				D06195FD5764459EB6989523 /* ShellUITests.swift */,
 			);
 			path = HyllaUITests;
 			sourceTree = "<group>";
@@ -345,6 +357,7 @@
 				086A149706DDEF485F170B29 /* CoverUITests.swift in Sources */,
 				A6B70D3B35E8A4ABECA7DC08 /* FleetNavigationUITests.swift in Sources */,
 				F3C639FD23284BABDF370B8C /* ScanUITests.swift in Sources */,
+				A155E745F7D38BEF78ACECB3 /* ShellUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,23 +368,26 @@
 				21949B991F91E7A969FA9BA7 /* AdaptiveGrid.swift in Sources */,
 				C4DFF5271D373B84AC0081DB /* AdaptiveLayout.swift in Sources */,
 				49746BC2BD46F0B3F7DED003 /* CalendarDate.swift in Sources */,
-				210FD44B5ECA7A8FD826986C /* ContentView.swift in Sources */,
 				615F31D08154CDE1229DC4AC /* CoverView.swift in Sources */,
 				413B1F78286CA4FA4D2F2B52 /* DeviceDetailView.swift in Sources */,
 				766F215A90909855D1933492 /* Fleet.swift in Sources */,
 				0B79BC44370E4DC12E1DF6F2 /* FleetFixture.swift in Sources */,
 				FFC76DBB5BF235F96814E745 /* FleetLabels.swift in Sources */,
+				14517DA123216619FC15DFE7 /* FleetRootView.swift in Sources */,
 				10C0A0DDBB9BF15F465901FA /* FleetStore.swift in Sources */,
 				9F68B4331B1370822031CABD /* FleetView.swift in Sources */,
 				08AFF0B8FC11F71F20857F0C /* HistoryView.swift in Sources */,
 				77E17DC6A3BCE6CE7DFFE677 /* HyllaApp.swift in Sources */,
 				6D448F665D02DB08C97AC8F4 /* PaneLayout.swift in Sources */,
 				77B983E304DD38B3018C0F07 /* PostureReadout.swift in Sources */,
+				8F12FF46648440C5BA75F494 /* RootView.swift in Sources */,
 				AD470F4E4A9E0963A7B98D52 /* ScanLayout.swift in Sources */,
 				52C89EA17DFD75CD15DEF36B /* ScanView.swift in Sources */,
 				74C9B8587A6E4283B0BF29B1 /* ShelfTag.swift in Sources */,
+				277A4F626C878AC61B36B4B8 /* ThisDeviceView.swift in Sources */,
 				47B032560FF8FC8E7971CF6A /* WindowPosture.swift in Sources */,
 				FFD11C178D517BEED105096D /* WindowPostureReader.swift in Sources */,
+				9D0EF5CC0B4ADDD261922A22 /* YouView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
