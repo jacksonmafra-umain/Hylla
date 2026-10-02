@@ -45,6 +45,29 @@ final class FleetNavigationUITests: XCTestCase {
         attach(app, "two-panes")
     }
 
+    /// A large window shows the selected device's history as a third column.
+    @MainActor
+    func testThreePanesShowHistoryBesideDetail() throws {
+        let app = XCUIApplication()
+        app.launch()
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
+        Thread.sleep(forTimeInterval: 1.5)
+        try XCTSkipUnless(
+            app.staticTexts["History appears here for the selected device."].exists,
+            "Fewer than three panes on this device."
+        )
+
+        app.buttons.containing(.staticText, identifier: "Fold7 Blue").firstMatch.tap()
+
+        XCTAssertTrue(app.staticTexts["Model number, SM-F966B"].waitForExistence(timeout: 5))
+        let holder = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Alva Berg, ")).firstMatch
+        XCTAssertTrue(holder.waitForExistence(timeout: 5), "the history column lists the current holder")
+        XCTAssertGreaterThan(holder.frame.minX, app.staticTexts["Model number, SM-F966B"].frame.maxX,
+                             "history sits to the right of the detail")
+    }
+
     /// Landscape adds width, so the fleet gains a column, or, where there is room for two legible
     /// panes, the detail pane appears beside a one-column list. It never stretches one column.
     @MainActor
