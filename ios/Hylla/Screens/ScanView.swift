@@ -53,7 +53,10 @@ struct ScanView: View {
                 .accessibilityLabel("Camera viewfinder")
             VStack {
                 HStack {
+                    // A full-screen cover has no back gesture; Close is the way out, and Escape on
+                    // a hardware keyboard presses it.
                     Button("Close", systemImage: "xmark") { dismiss() }
+                        .keyboardShortcut(.cancelAction)
                         .labelStyle(.iconOnly)
                         .font(.title2)
                         .foregroundStyle(.white)
