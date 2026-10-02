@@ -8,6 +8,11 @@
     <string name="status_with_holder">%1$s · %2$s</string>
 
     <string name="select_device">Select a device to see its details.</string>
+    <string name="history_title">History</string>
+    <string name="history_select_device">History appears here for the selected device.</string>
+    <string name="history_empty">Nobody has borrowed this device yet.</string>
+    <string name="history_period">%1$s – %2$s</string>
+    <string name="history_period_open">Since %1$s</string>
     <string name="device_not_found_title">Not found</string>
     <string name="device_not_found">No device with shelf tag %1$s.</string>
     <string name="os_version">%1$s %2$s</string>

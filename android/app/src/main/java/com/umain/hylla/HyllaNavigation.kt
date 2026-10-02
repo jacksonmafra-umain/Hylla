@@ -22,10 +22,11 @@ import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.layout.PaneLayout
 import com.umain.hylla.layout.PaneRole
-import com.umain.hylla.layout.TwoPaneSceneStrategy
+import com.umain.hylla.layout.MultiPaneSceneStrategy
 import com.umain.hylla.posture.WindowPosture
 import com.umain.hylla.ui.DeviceDetailScreen
 import com.umain.hylla.ui.FleetScreen
+import com.umain.hylla.ui.HistoryPane
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -35,7 +36,7 @@ data object FleetRoute : NavKey
 data class DeviceRoute(val id: DeviceId) : NavKey
 
 /**
- * Fleet and detail, one at a time or side by side.
+ * Fleet, detail and history: one at a time, two side by side, or all three.
  *
  * The back stack is the same in both: `[Fleet]` or `[Fleet, Device]`. The scene strategy decides
  * from the [PaneLayout] whether the top entry is shown alone or next to the list. Folding or
@@ -45,7 +46,13 @@ data class DeviceRoute(val id: DeviceId) : NavKey
 fun HyllaNavigation(fleet: Fleet, posture: WindowPosture) {
     val backStack = rememberNavBackStack(FleetRoute)
     val layout = remember(posture) { PaneLayout.compute(posture) }
-    val strategy = remember(layout) { TwoPaneSceneStrategy<NavKey>(layout) { SelectDevicePlaceholder() } }
+    val strategy = remember(layout, fleet) {
+        MultiPaneSceneStrategy<NavKey>(
+            layout = layout,
+            placeholder = { SelectDevicePlaceholder() },
+            supporting = { subject -> HistoryPane(fleet, subject as? DeviceId) },
+        )
+    }
     val selected = (backStack.lastOrNull() as? DeviceRoute)?.id
 
     NavDisplay(
@@ -61,7 +68,7 @@ fun HyllaNavigation(fleet: Fleet, posture: WindowPosture) {
                     onDeviceClick = { backStack.select(it) },
                 )
             }
-            entry<DeviceRoute>(metadata = PaneRole.Detail.metadata()) { route ->
+            entry<DeviceRoute>(metadata = { route: DeviceRoute -> PaneRole.Detail.metadata(subject = route.id) }) { route ->
                 DeviceDetailScreen(
                     fleet = fleet,
                     id = route.id,

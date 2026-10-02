@@ -17,31 +17,39 @@ import androidx.navigation3.scene.Scene
 import androidx.navigation3.scene.SceneStrategy
 import androidx.navigation3.scene.SceneStrategyScope
 
-/** True inside a pane that sits beside another pane, where an up button would be wrong. */
-val LocalInMultiPane = compositionLocalOf { false }
+/** How many panes are showing. 1 means one at a time; above 1 an up button would be wrong. */
+val LocalPaneCount = compositionLocalOf { 1 }
 
 /** Which pane an entry belongs to, set through `NavEntry.metadata`. */
 enum class PaneRole {
     List, Detail;
 
-    fun metadata(): Map<String, Any> = mapOf(KEY to this)
+    /** [subject] is what a supporting pane shows alongside this entry, such as a device id. */
+    fun metadata(subject: Any? = null): Map<String, Any> =
+        buildMap {
+            put(KEY, this@PaneRole)
+            if (subject != null) put(SUBJECT, subject)
+        }
 
     companion object {
         const val KEY = "hylla.pane"
+        const val SUBJECT = "hylla.subject"
         fun of(entry: NavEntry<*>): PaneRole? = entry.metadata[KEY] as? PaneRole
     }
 }
 
 /**
- * Shows the list and the selected detail side by side when [layout] has two panes.
+ * Lays the list entry and the top detail entry side by side when [layout] has two or three panes.
  *
  * The back stack does not change shape: it is still `[Fleet, Device]`. Only how it is shown does.
- * With no detail on the stack, the second pane shows [placeholder]. Returning null hands the
- * stack back to Navigation 3's single-pane default.
+ * With no detail on the stack, the detail pane shows [placeholder]. A third pane shows [supporting]
+ * for the detail's subject; it is not a back stack entry, because nothing navigates to it.
+ * Returning null hands the stack back to Navigation 3's one-at-a-time default.
  */
-class TwoPaneSceneStrategy<T : Any>(
+class MultiPaneSceneStrategy<T : Any>(
     private val layout: PaneLayout,
     private val placeholder: @Composable () -> Unit,
+    private val supporting: @Composable (subject: Any?) -> Unit,
 ) : SceneStrategy<T> {
 
     override fun SceneStrategyScope<T>.calculateScene(entries: List<NavEntry<T>>): Scene<T>? {
@@ -56,38 +64,47 @@ class TwoPaneSceneStrategy<T : Any>(
             }
             null -> return null
         }
-        return TwoPaneScene(
+        return MultiPaneScene(
             key = list.contentKey,
             list = list,
             detail = detail,
             previousEntries = entries.dropLast(1),
             layout = layout,
             placeholder = placeholder,
+            supporting = supporting,
         )
     }
 }
 
 /** A data class so Navigation 3 can tell "same panes, new detail" from a new scene. */
-private data class TwoPaneScene<T : Any>(
+private data class MultiPaneScene<T : Any>(
     override val key: Any,
     private val list: NavEntry<T>,
     private val detail: NavEntry<T>?,
     override val previousEntries: List<NavEntry<T>>,
     private val layout: PaneLayout,
     private val placeholder: @Composable () -> Unit,
+    private val supporting: @Composable (subject: Any?) -> Unit,
 ) : Scene<T> {
     override val entries: List<NavEntry<T>> = listOfNotNull(list, detail)
 
     override val content: @Composable () -> Unit = {
-        val (first, second) = layout.panes
-        CompositionLocalProvider(LocalInMultiPane provides true) {
+        val panes = layout.panes
+        val contents: List<@Composable () -> Unit> = listOf(
+            { list.Content() },
+            { if (detail != null) detail.Content() else placeholder() },
+            { supporting(detail?.metadata?.get(PaneRole.SUBJECT)) },
+        )
+        CompositionLocalProvider(LocalPaneCount provides panes.size) {
             Row(Modifier.fillMaxSize()) {
-                Box(Modifier.width(first.width.dp).fillMaxHeight()) { list.Content() }
-                // An occluding hinge leaves a gap; a seamless one or a flat split gets a divider.
-                val gap = second.left - first.right
-                if (gap > 0f) Spacer(Modifier.width(gap.dp)) else VerticalDivider()
-                Box(Modifier.weight(1f).fillMaxHeight()) {
-                    if (detail != null) detail.Content() else placeholder()
+                panes.forEachIndexed { index, pane ->
+                    if (index > 0) {
+                        // An occluding hinge leaves a gap; a seamless one or a flat split gets a divider.
+                        val gap = pane.left - panes[index - 1].right
+                        if (gap > 0f) Spacer(Modifier.width(gap.dp)) else VerticalDivider()
+                    }
+                    val width = if (index == panes.lastIndex) Modifier.weight(1f) else Modifier.width(pane.width.dp)
+                    Box(width.fillMaxHeight()) { contents[index]() }
                 }
             }
         }

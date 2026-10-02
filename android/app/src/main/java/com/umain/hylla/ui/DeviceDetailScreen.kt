@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -25,7 +26,7 @@ import com.umain.hylla.fleet.DeviceId
 import com.umain.hylla.fleet.Fleet
 import com.umain.hylla.layout.AdaptiveGrid
 import com.umain.hylla.layout.AdaptiveLayout
-import com.umain.hylla.layout.LocalInMultiPane
+import com.umain.hylla.layout.LocalPaneCount
 import com.umain.hylla.posture.WidthClass
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -47,7 +48,7 @@ fun DeviceDetailScreen(
                 title = { Text(device?.deviceName ?: stringResource(R.string.device_not_found_title)) },
                 navigationIcon = {
                     // Beside the list there is nothing to go up to; system back still clears the detail.
-                    if (!LocalInMultiPane.current) {
+                    if (LocalPaneCount.current == 1) {
                         IconButton(onClick = onBack) {
                             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                         }
@@ -62,6 +63,8 @@ fun DeviceDetailScreen(
             }
         } else {
             val fields = deviceFields(device, fleet)
+            // With three panes the history has its own; otherwise it ends the detail.
+            val showHistory = LocalPaneCount.current < 3
             AdaptiveGrid(
                 widthClass = widthClass,
                 minColumnWidth = AdaptiveLayout.DETAIL_FIELD_MIN_WIDTH_DP,
@@ -77,6 +80,11 @@ fun DeviceDetailScreen(
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                         Text(field.value, style = MaterialTheme.typography.bodyLarge)
+                    }
+                }
+                if (showHistory) {
+                    item(key = "history", span = { GridItemSpan(maxLineSpan) }) {
+                        HistorySection(fleet, device.id)
                     }
                 }
             }
