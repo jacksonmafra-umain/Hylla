@@ -28,6 +28,23 @@ final class FleetNavigationUITests: XCTestCase {
 
     static let placeholder = "Select a device to see its details."
 
+    /// The interactive pop gesture: drag from the leading edge back to the fleet.
+    @MainActor
+    func testEdgeSwipeGoesBack() throws {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Fold7 Blue"].waitForExistence(timeout: 5))
+        try XCTSkipIf(app.staticTexts[Self.placeholder].exists, "Two panes: there is no back.")
+        app.buttons.containing(.staticText, identifier: "Fold7 Blue").firstMatch.tap()
+        XCTAssertTrue(app.navigationBars["Fold7 Blue"].waitForExistence(timeout: 5))
+
+        let window = app.windows.firstMatch
+        let start = window.coordinate(withNormalizedOffset: CGVector(dx: 0.01, dy: 0.5))
+        start.press(forDuration: 0.1, thenDragTo: window.coordinate(withNormalizedOffset: CGVector(dx: 0.8, dy: 0.5)))
+
+        XCTAssertTrue(app.navigationBars["Fleet"].waitForExistence(timeout: 5))
+    }
+
     /// A regular-width iPad shows the list and the detail side by side.
     @MainActor
     func testTwoPanesShowListBesideDetail() throws {
