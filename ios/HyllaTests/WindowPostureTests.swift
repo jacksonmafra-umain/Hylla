@@ -148,4 +148,35 @@ struct WindowPostureTests {
     @Test func narrowButTallWindowIsNotACoverSurface() {
         #expect(posture(320, 700).posture == .flat)
     }
+
+    // iOS 27.1 reports a hinge as a reserved region of kind `.division`, in the measuring view's
+    // coordinates, which start inside the safe area.
+
+    @Test func aDivisionLineBecomesASeparatingVerticalFoldInWindowCoordinates() {
+        let fold = Fold(division: CGRect(x: 433, y: 0, width: 0, height: 635), origin: CGPoint(x: 0, y: 0))
+        #expect(fold == Fold(frame: CGRect(x: 433, y: 0, width: 0, height: 635), orientation: .vertical, isSeparating: true, occludes: false))
+    }
+
+    @Test func aDivisionIsMovedByTheSafeAreaOrigin() {
+        let fold = Fold(division: CGRect(x: 400, y: 0, width: 20, height: 600), origin: CGPoint(x: 62, y: 0))
+        #expect(fold.frame.minX == 462)
+        #expect(fold.occludes)
+    }
+
+    @Test func aWideDivisionIsHorizontal() {
+        #expect(Fold(division: CGRect(x: 0, y: 330, width: 900, height: 0), origin: .zero).orientation == .horizontal)
+    }
+
+    @Test func anUnfoldedIPhoneDuoWithAHingeIsABookNotAnIPad() {
+        // Regular by regular, like an iPad; only the fold tells them apart.
+        let hinge = Fold(division: CGRect(x: 475.5, y: 0, width: 0, height: 635), origin: .zero)
+        let duo = WindowPosture(size: CGSize(width: 951, height: 669), horizontalSizeClass: .regular, verticalSizeClass: .regular, folds: [hinge])
+        #expect(duo.posture == .book)
+        #expect(duo.segments.map(\.width) == [475.5, 475.5])
+    }
+
+    @Test func theIPhoneDuoCoverScreenIsAPhoneNotACoverSurface() {
+        // 466 × 678: narrow, but not short enough for the glanceable cover layout.
+        #expect(WindowPosture(size: CGSize(width: 466, height: 678)).posture == .flat)
+    }
 }

@@ -69,6 +69,14 @@ struct PaneLayoutTests {
         #expect(panes(852, 883, hinge(at: 400, height: 883)).panes.map(\.width) == [400, 452])
     }
 
+    @Test func anUnfoldedIPhoneDuoSplitsAtTheHingeNotAt40Percent() {
+        let layout = panes(951, 669, hinge(at: 475.5, height: 669))
+        #expect(layout.panes.map(\.width) == [475.5, 475.5])
+        // Without the fold the same window is a flat 40% split: the list would end 95 pt short of
+        // the hinge and the detail would straddle it.
+        #expect(abs((panes(951, 669).panes.first?.width ?? 0) - 380.4) < 0.01)
+    }
+
     @Test func occludingHingeLeavesAGap() {
         let layout = panes(826, 720, hinge(at: 400, height: 720, width: 26))
         #expect(layout.panes[0].maxX == 400)
