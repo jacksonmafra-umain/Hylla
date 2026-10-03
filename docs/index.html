@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hylla</title>
+<meta name="description" content="Adaptive layout for foldables, in two native apps: Kotlin and Jetpack Compose, Swift and SwiftUI. Twenty chapters from Umain's QA device shelf.">
+<link rel="icon" href="assets/icon/hylla-icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #F7F3EA; --surface: #FFFFFF; --ink: #12343B; --muted: #4A5F63;
+    --accent: #1D4B54; --line: #DED6C6; --chip: #EAE3D3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E2226; --surface: #12343B; --ink: #F3EBDC; --muted: #B9C7C4;
+      --accent: #8FD0DB; --line: #24474F; --chip: #1B3F47;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 56px 0 32px; display: grid; gap: 24px; grid-template-columns: 112px 1fr; align-items: center; }
+  header img { width: 112px; height: 112px; border-radius: 26px; }
+  h1 { font-size: clamp(40px, 7vw, 64px); line-height: 1; margin: 0 0 8px; letter-spacing: -0.02em; }
+  .lede { font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); margin: 0; max-width: 46ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .button { display: inline-block; padding: 10px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; border: 1px solid var(--accent); }
+  .button.primary { background: var(--accent); color: var(--bg); }
+  h2 { font-size: 28px; margin: 56px 0 16px; letter-spacing: -0.01em; }
+  figure { margin: 0; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line); background: #fff; }
+  figcaption { color: var(--muted); font-size: 15px; margin-top: 8px; }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  ol.chapters { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+  ol.chapters a { display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--ink); }
+  ol.chapters a:hover, ol.chapters a:focus-visible { border-color: var(--accent); }
+  ol.chapters .n { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; }
+  ol.chapters .t { font-weight: 600; }
+  ol.chapters .d { grid-column: 2; color: var(--muted); font-size: 14px; }
+  pre { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; overflow-x: auto; font-size: 14px; }
+  .two { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+  .chip { display: inline-block; background: var(--chip); border-radius: 999px; padding: 2px 10px; font-size: 14px; margin: 0 6px 6px 0; }
+  footer { margin: 64px 0 40px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); padding-top: 20px; }
+  @media (max-width: 560px) {
+    header { grid-template-columns: 1fr; padding-top: 32px; }
+    header img { width: 80px; height: 80px; border-radius: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/icon/hylla-icon.svg" alt="">
+    <div>
+      <h1>Hylla</h1>
+      <p class="lede">Adaptive layout for foldables, taught through a real app: Umain's QA device shelf, built twice, natively, on Android and iOS.</p>
+      <div class="actions">
+        <a class="button primary" href="chapters/01-fixture-model.html">Start the codelab</a>
+        <a class="button" href="https://github.com/jacksonmafra-umain/Hylla">Source on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <p>
+    <span class="chip">Kotlin · Jetpack Compose · Navigation 3</span>
+    <span class="chip">Swift 6 · SwiftUI</span>
+    <span class="chip">Android 14+ · iOS 18+</span>
+    <span class="chip">20 chapters</span>
+  </p>
+
+  <figure>
+    <img src="chapters/img/05-fold-two-panes.png" alt="The fleet list on a foldable emulator: a placeholder beside the list, a device chosen and shown beside it, then folded to one pane with the detail kept.">
+    <figcaption>One app, every window: the list and detail split at the hinge on an unfolded foldable, and collapse to one pane, keeping the selection, when it folds.</figcaption>
+  </figure>
+
+  <h2>What it teaches</h2>
+  <div class="grid">
+    <div class="card"><h3>The window, not the device</h3><p>Layout reads the window's measured size and its folds. Never the screen, the orientation or the model name.</p></div>
+    <div class="card"><h3>Folds are a list</h3><p>A tri-fold reports two hinges. Panes are cut at every one, and a pane narrower than 360 collapses rather than squeezes.</p></div>
+    <div class="card"><h3>Postures</h3><p>Book, tabletop with the scanner above the crease, and a glanceable cover surface for small outer screens.</p></div>
+    <div class="card"><h3>Text at 200%</h3><p>Every screen is checked at the largest text sizes, with TalkBack and VoiceOver, and audited automatically.</p></div>
+    <div class="card"><h3>Mistakes, on purpose</h3><p>Chapter 19 writes the common bugs deliberately, and tests that they really fail.</p></div>
+    <div class="card"><h3>Proof, not promises</h3><p>Unit tests for every rule, UI tests on emulators and simulators, and screenshot matrices across fold states and text sizes.</p></div>
+  </div>
+
+  <h2>Same rules, both platforms</h2>
+  <div class="two">
+    <figure>
+      <img src="chapters/img/07-tabletop-claim.png" alt="Tabletop posture on a foldable: the camera viewfinder above the crease and the claim form below it.">
+      <figcaption>Tabletop: the scanner above the crease, the form below.</figcaption>
+    </figure>
+    <figure>
+      <img src="chapters/img/20-ipad-list-fixed.png" alt="iPad Pro portrait before and after a fix: the list column at 320 points, then at the 413 points the layout asks for.">
+      <figcaption>The screenshot matrix catching a real bug: an iPad list column drawn at 320 pt instead of 413.</figcaption>
+    </figure>
+  </div>
+
+  <h2>Chapters</h2>
+  <ol class="chapters">
+    <li><a href="chapters/01-fixture-model.html"><span class="n">01</span><span class="t">Fixture model</span><span class="d">One devices.json, two native models</span></a></li>
+    <li><a href="chapters/02-window-posture.html"><span class="n">02</span><span class="t">Window posture</span><span class="d">Size classes, folds, hinge segments</span></a></li>
+    <li><a href="chapters/03-compact-baseline.html"><span class="n">03</span><span class="t">Compact baseline</span><span class="d">List and detail that survive folds</span></a></li>
+    <li><a href="chapters/04-adaptive-values.html"><span class="n">04</span><span class="t">Adaptive values</span><span class="d">Margins, gutters and columns</span></a></li>
+    <li><a href="chapters/05-two-panes.html"><span class="n">05</span><span class="t">Two panes</span><span class="d">Split at the hinge</span></a></li>
+    <li><a href="chapters/06-three-panes.html"><span class="n">06</span><span class="t">Three panes</span><span class="d">History, and the tri-fold</span></a></li>
+    <li><a href="chapters/07-tabletop.html"><span class="n">07</span><span class="t">Tabletop</span><span class="d">Scanner above, form below</span></a></li>
+    <li><a href="chapters/08-cover-display.html"><span class="n">08</span><span class="t">Cover display</span><span class="d">A glanceable outer screen</span></a></li>
+    <li><a href="chapters/09-navigation-chrome.html"><span class="n">09</span><span class="t">Navigation chrome</span><span class="d">Bar, rail or drawer by width</span></a></li>
+    <li><a href="chapters/10-sheets-modals-pickers.html"><span class="n">10</span><span class="t">Sheets and pickers</span><span class="d">Modals that adapt</span></a></li>
+    <li><a href="chapters/11-transient-feedback.html"><span class="n">11</span><span class="t">Transient feedback</span><span class="d">Snackbars, banners, undo</span></a></li>
+    <li><a href="chapters/12-back-navigation.html"><span class="n">12</span><span class="t">Back navigation</span><span class="d">Predictive back beside a list</span></a></li>
+    <li><a href="chapters/13-deep-links.html"><span class="n">13</span><span class="t">Deep links</span><span class="d">From a shelf tag to the right pane</span></a></li>
+    <li><a href="chapters/14-permissions.html"><span class="n">14</span><span class="t">Permissions</span><span class="d">Camera and notifications in context</span></a></li>
+    <li><a href="chapters/15-notifications.html"><span class="n">15</span><span class="t">Notifications</span><span class="d">Overdue, and back on the shelf</span></a></li>
+    <li><a href="chapters/16-offline-first.html"><span class="n">16</span><span class="t">Offline-first</span><span class="d">A durable local store</span></a></li>
+    <li><a href="chapters/17-register-this-device.html"><span class="n">17</span><span class="t">Register this device</span><span class="d">The phone in your hand</span></a></li>
+    <li><a href="chapters/18-accessibility.html"><span class="n">18</span><span class="t">Accessibility</span><span class="d">Panes, focus and audits</span></a></li>
+    <li><a href="chapters/19-anti-patterns.html"><span class="n">19</span><span class="t">Anti-patterns</span><span class="d">Common bugs, shown failing</span></a></li>
+    <li><a href="chapters/20-testing.html"><span class="n">20</span><span class="t">Testing</span><span class="d">Emulators, previews, matrices</span></a></li>
+  </ol>
+
+  <h2>Build it</h2>
+  <p>No accounts, no credentials, no network beyond dependencies. Both apps run from the fixture.</p>
+<pre><code># Android
+cd android &amp;&amp; ./gradlew :app:installDebug
+
+# iOS
+cd ios &amp;&amp; xcodegen generate &amp;&amp; open Hylla.xcodeproj</code></pre>
+
+  <p>Also: <a href="decisions.html">decisions</a>, <a href="versions.html">versions</a>, <a href="hardware-findings.html">hardware findings</a>.</p>
+
+  <footer>
+    Hylla is Swedish for <em>shelf</em>. All people and loans in the fixture are invented, and the app never stores serial numbers, IMEIs, EIDs or UDIDs.
+  </footer>
+</div>
+</body>
+</html>
