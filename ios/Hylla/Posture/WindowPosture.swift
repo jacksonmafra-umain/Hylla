@@ -104,9 +104,10 @@ enum HeightClass: Comparable, Sendable {
 
 /// A fold in window coordinates.
 ///
-/// iOS has no public API that reports folds, so on today's hardware the list is always empty and
-/// every window is flat or cover. The model still takes a list so it matches Android, and so a
-/// posture can be previewed and tested before any hardware reports one.
+/// From iOS 27.1, a hinge that divides the window is reported as a reserved region of kind
+/// `.division` (see ``WindowPostureReader``). Before that, and on hardware without a hinge, the
+/// list is empty and every window is flat or cover. The model takes a list so it matches Android,
+/// and so a posture can be tested before any hardware reports one.
 struct Fold: Equatable, Sendable {
     enum Orientation: Sendable { case vertical, horizontal }
 
@@ -114,6 +115,24 @@ struct Fold: Equatable, Sendable {
     var orientation: Orientation
     var isSeparating: Bool
     var occludes: Bool
+}
+
+extension Fold {
+    /// A fold from a region the system reserves to divide the layout, given in the measuring
+    /// view's own coordinates, which start inside the safe area. `origin` is where the safe area
+    /// starts in the window, so the fold lands in window coordinates like the window's size.
+    ///
+    /// A division always separates: that is what the system reserves it for. It occludes only if
+    /// it has an area; a line between two halves hides nothing.
+    init(division frame: CGRect, origin: CGPoint) {
+        let window = frame.offsetBy(dx: origin.x, dy: origin.y)
+        self.init(
+            frame: window,
+            orientation: window.height >= window.width ? .vertical : .horizontal,
+            isSeparating: true,
+            occludes: window.width > 0 && window.height > 0
+        )
+    }
 }
 
 extension CGRect {
