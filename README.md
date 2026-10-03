@@ -1,10 +1,10 @@
 # Hylla
 
-*Hylla* is Swedish for *shelf*. It is Umain's internal app for borrowing devices from the QA
-fleet: find a phone, claim it, return it, and see who has the one you need.
+Hylla is a **demo app that illustrates adaptive layout for foldables**. It is a codelab, built as
+two purely native apps that share nothing but a fixture file.
 
-It is also a **codelab on adaptive layout for foldables**, built as two purely native apps that
-share nothing but a fixture file:
+Its subject is borrowing devices from a QA fleet: find a phone, claim it, return it, and see who
+has the one you need. That gives every layout a real job to do. *Hylla* is Swedish for *shelf*.
 
 - **Android:** Kotlin, Jetpack Compose, Navigation 3, `androidx.window`.
 - **iOS:** Swift 6, SwiftUI.

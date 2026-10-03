@@ -1,5 +1,5 @@
 title: Hylla
-description: Adaptive layout for foldables, in two native apps. A codelab from Umain's QA device shelf.
+description: A demo app that illustrates adaptive layout for foldables, based on borrowing devices from a QA fleet.
 theme: jekyll-theme-primer
 plugins:
   - jekyll-relative-links
