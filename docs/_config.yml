@@ -1,10 +1,16 @@
 title: Hylla
 description: A demo app that illustrates adaptive layout for foldables, based on borrowing devices from a QA fleet.
-theme: jekyll-theme-primer
 plugins:
   - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-titles-from-headings
 relative_links:
   enabled: true
   collections: false
 exclude:
   - assets/shelf-tags
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
