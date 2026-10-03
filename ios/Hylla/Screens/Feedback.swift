@@ -63,3 +63,16 @@ struct FeedbackBanner: View {
         }
     }
 }
+
+extension View {
+    /// Shows the banner at the bottom of this view's safe area. Applied to each tab's content, not
+    /// the tab view, so the system's own insets place it: above the tab bar on iPhone, at the
+    /// bottom of the window on iPad, where the tabs sit at the top. No fixed offset, which is right
+    /// for one device and wrong for the next.
+    func feedbackBanner(_ feedback: Feedback) -> some View {
+        overlay(alignment: .bottom) {
+            FeedbackBanner(feedback: feedback)
+                .animation(.snappy, value: feedback.current)
+        }
+    }
+}

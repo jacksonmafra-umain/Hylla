@@ -43,22 +43,18 @@ struct RootView: View {
                     TabView(selection: $destination) {
                         Tab("Fleet", systemImage: "list.bullet", value: .fleet) {
                             FleetRootView(store: store, selection: $selection, me: me, onScan: { scanning = true })
+                                .feedbackBanner(feedback)
                         }
                         Tab("This device", systemImage: "info.circle", value: .thisDevice) {
                             ThisDeviceView(posture: window, store: store)
+                                .feedbackBanner(feedback)
                         }
                         Tab("You", systemImage: "person", value: .you) {
                             YouView(fleet: store.fleet, me: $meRaw)
+                                .feedbackBanner(feedback)
                         }
                     }
                     .tabViewStyle(.sidebarAdaptable)
-                    // One banner for the whole shell, above the tab bar, so it stays put when a
-                    // pane changes underneath it.
-                    .overlay(alignment: .bottom) {
-                        FeedbackBanner(feedback: feedback)
-                            .padding(.bottom, 56)
-                            .animation(.snappy, value: feedback.current)
-                    }
                     .environment(feedback)
                 }
             }
