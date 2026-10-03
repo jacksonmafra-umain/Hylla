@@ -56,7 +56,7 @@ Each one works on the device it was written on and breaks on another.
 | Built by | `WindowPosture.compute(widthDp, heightDp, folds)` | `WindowPosture(size:horizontalSizeClass:verticalSizeClass:folds:)` |
 | Read in UI | `rememberWindowPosture()` | `WindowPostureReader { posture in … }` |
 | Size source | `WindowMetricsCalculator.computeCurrentWindowMetrics(activity)` | `onGeometryChange` on the root container, plus its safe-area insets |
-| Fold source | `WindowInfoTracker.windowLayoutInfo(activity)`, every `FoldingFeature` | None. iOS has no public fold API |
+| Fold source | `WindowInfoTracker.windowLayoutInfo(activity)`, every `FoldingFeature` | From iOS 27.1, `GeometryProxy.reservedRegions(kind: .division)`, in the same measurement as the size |
 | Tests | 16 JUnit tests | 16 Swift Testing tests |
 
 ### Size classes
@@ -71,6 +71,10 @@ The same breakpoints on both platforms: width 600 / 840 / 1200, height 480 / 900
   another. So the model carries the system classes for the decisions that are about behaviour
   (chapter 9's navigation chrome), and computes `widthClass` from the measured container for
   every decision that needs a measurement.
+
+**Size classes are not enough.** An unfolded iPhone Duo is 951 × 669 pt and `.regular` by
+`.regular`, the same two words as a full-screen iPad. Only the fold tells them apart, and only the
+measured size says how big the window is. Size classes are one input, never the layout.
 
 **A phone in landscape is `Expanded` width.** 891 × 411 dp crosses 840. Width alone would put a
 two-pane layout on a phone turned sideways, which the layout table forbids. The height class is
@@ -174,3 +178,45 @@ Not yet verified on hardware or an emulator, covered by unit tests only:
 - **Occluding hinge.** No dual-screen emulator image is installed.
 
 These rows are added when the devices on the shelf are run through the matrix.
+
+## Update: folds on iOS (iOS 27.1)
+
+When this chapter was first written, iOS had no public API for folds, and the iOS model took a
+list only to match Android. The iOS 27.1 SDK added one: `GeometryProxy.reservedRegions(kind:)`.
+A region of kind `.division` is where the system wants the layout split in two: the hinge of an
+iPhone Duo.
+
+`WindowPostureReader` now reads it in the same `onGeometryChange` that measures the size:
+
+```swift
+var divisions: [CGRect] {
+    #if canImport(SwiftUICore, _version: 8.0.85)
+    if #available(iOS 27.1, *) {
+        return reservedRegions(kind: .division, layoutDirectionBehavior: .fixed).map(\.frame)
+    }
+    #endif
+    return []
+}
+```
+
+- **The frames are in the measuring view's coordinates**, which start inside the safe area.
+  `Fold(division:origin:)` moves each one by the safe area's origin into window coordinates, like
+  the size. It is a plain function, so it is unit tested.
+- **A division always separates**: that is what the system reserves it for. It occludes only if it
+  has an area.
+- **Why `canImport` and not `#available` alone.** The pinned toolchain is Xcode 27.0, whose SDK
+  does not have the API, and an OS or compiler check cannot tell the two SDKs apart. Their
+  SwiftUICore modules can: 8.0.84 in Xcode 27.0, 8.1.7 in the Xcode 27.2 beta. Built with
+  Xcode 27.0, the app reports no folds, exactly as before.
+
+Everything after the measurement was already written for a list of folds, so nothing else
+changed. An unfolded Duo becomes `book`, and chapter 5's split lands on the hinge instead of at
+40%:
+
+| iPhone Duo inner screen, 951 × 669 | List \| detail |
+| --- | --- |
+| Without the fold (Xcode 27.0) | 380 \| 571, the detail straddles the hinge |
+| With the fold (iOS 27.1 SDK) | 475.5 \| 475.5, split at the hinge |
+
+These come from unit tests. Neither installed simulator runtime (27.0, 27.2 beta) can create an
+iPhone Duo ("Incompatible device"), so this has not run on a Duo yet.

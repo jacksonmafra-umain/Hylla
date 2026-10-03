@@ -34,7 +34,11 @@ accessibility settings recommend, so a snackbar with an action can be reached be
 iOS has no snackbar and no toast, and Apple's guidance avoids pop-up toasts. The platform-correct
 answer is a short banner tied to what you just did:
 
-- **The banner** sits above the tab bar, with *Undo* when the change can be undone.
+- **The banner** sits at the bottom of the tab's safe area, with *Undo* when the change can be
+  undone. On iPhone that is above the tab bar; on iPad, where the tabs are at the top, it is the
+  bottom of the window. The system's insets place it, not a number. The first version was an
+  overlay on the whole tab view, pushed up a fixed 56 pt. That was right for an iPhone in portrait
+  and meaningless on an iPad.
 - **A success haptic** comes from `.sensoryFeedback(.success, trigger:)`.
 - **A VoiceOver announcement** comes from `AccessibilityNotification.Announcement`. A banner that
   VoiceOver users cannot perceive is not feedback.

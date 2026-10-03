@@ -35,6 +35,10 @@ decided from the window alone, so the same surface appears in three places:
 That is deliberate. The window is the only input, and a 330-wide window cannot hold the fleet
 either.
 
+**Not every outer screen is a cover surface.** The iPhone Duo's cover screen is 466 × 678 pt:
+narrow, but not short. It gets the ordinary phone layout, the fleet and its detail, because it has
+room for them. The glanceable surface is for windows that do not.
+
 **The cover replaces the UI, not the state.**
 
 - **Android:** `HyllaNavigation` shows `CoverSurface` instead of the `NavDisplay` while the posture

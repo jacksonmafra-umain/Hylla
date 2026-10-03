@@ -57,6 +57,16 @@ the decision to add one can be made without changing how the store records chang
 Consequence: the feature inventory's "queue, sync, resolve conflicts" is out of scope for v1, and
 chapter 16 says so.
 
+## 2026-10-03 — iOS folds from the 27.1 SDK, behind an SDK check
+
+iOS 27.1 reports a dividing hinge through `GeometryProxy.reservedRegions(kind: .division)`. The
+pinned toolchain stays Xcode 27.0, which does not have it: no beta is adopted. The call is
+compiled only when the SDK's SwiftUICore is 8.0.85 or later
+(`#if canImport(SwiftUICore, _version: 8.0.85)`), so a clean checkout builds on Xcode 27.0 and
+reports no folds, as before. The Xcode 27.2 beta is used only to check that the path compiles and
+passes the same tests. When a release Xcode with the 27.1 SDK is pinned, the check stays: it costs
+nothing and documents why the path exists.
+
 ## Open
 
 - **Landing page.** Undecided. Blocks the first screenshots.
